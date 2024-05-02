@@ -1,0 +1,45 @@
+.experience_card_wrap {
+  width: 10em;
+  height: 10em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.218em;
+  padding: 0.218em;
+}
+
+.heading {
+  text-wrap: balance;
+  font-weight: 600;
+}
+
+.subheading {
+  font-weight: 400;
+  color: hsl(var(--light-hue) var(--secondary-sl) / 0.5);
+  font-size: 0.885em;
+  line-height: 1.272;
+  letter-spacing: -0.007em;
+}
+
+.caption {
+  font-weight: 400;
+  font-size: 0.786em;
+  line-height: 1.272;
+  letter-spacing: -0.007em;
+}
+
+.overline {
+  font-weight: 700;
+  font-size: 0.618em;
+  color: hsl(var(--light-hue) var(--secondary-sl) / 0.5);
+  line-height: 1.272;
+  letter-spacing: 0.08em;
+}
+
+:global(.light) {
+  & .overline {
+    color: hsl(var(--dark-hue) var(--secondary-sl) / 0.5);
+  }
+  & .subheading {
+    color: hsl(var(--dark-hue) var(--secondary-sl) / 0.5);
+  }
+}

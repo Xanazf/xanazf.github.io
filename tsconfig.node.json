@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "types": [
+      "vite-plugin-solid-svg/types-component-solid",
+      "vite/client",
+      "solid-jsx/types"
+    ],
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "strict": true
+  },
+  "include": ["vite.config.ts"]
+}

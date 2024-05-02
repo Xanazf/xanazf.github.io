@@ -1,0 +1,21 @@
+.theme_button {
+  width: 30px;
+  height: 30px;
+  fill: hsl(var(--light-hue) var(--primary-sl));
+  cursor: pointer;
+}
+
+.theme_button > svg {
+  transition: filter 0.3s linear;
+  filter: drop-shadow(0 0 1px white)
+    drop-shadow(0 0 3px hsl(var(--light-hue) var(--primary-sl)));
+}
+
+:global(.light) {
+  .theme_button {
+    fill: hsl(var(--dark-hue) var(--primary-sl));
+    & svg {
+      filter: none;
+    }
+  }
+}

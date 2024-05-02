@@ -1,0 +1,109 @@
+.nav {
+  height: 100%;
+  display: flex;
+  width: 500px;
+  border-radius: 100vh 0 0 100vh;
+  background: hsl(var(--dark-hue) var(--secondary-sl) / 0.3);
+  backdrop-filter: blur(2px) saturate(120%);
+  overflow-x: hidden;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.nav:has(.collapsed) {
+  & .menu_collapser {
+    rotate: 180deg;
+  }
+}
+
+.navlist {
+  display: flex;
+  height: 100%;
+  list-style: none;
+  gap: 1em;
+  margin-block: 0;
+  padding-inline: 0.3em;
+  padding-right: 0.5em;
+}
+
+.navlist > li {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  & > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px;
+    border-radius: 100vh;
+    height: 75%;
+    min-width: 4em;
+    text-decoration: none;
+    color: var(--dark-neutral);
+    transition:
+      background-color 0.12s linear,
+      color 0.12s linear,
+      box-shadow 0.12s linear,
+      text-shadow 0.12s linear;
+  }
+  & > a:hover {
+    background-color: hsl(var(--dark-hue) var(--primary-sl));
+    text-shadow: 0 0 1px white;
+  }
+}
+
+.menu_collapser {
+  cursor: pointer;
+  border-radius: 100vh;
+  width: 24px;
+  height: 24px;
+  transition:
+    background-color 0.12s linear,
+    fill 0.12s linear,
+    box-shadow 0.12s linear,
+    rotate 0.3s linear;
+}
+
+.menu_collapser:hover {
+  background-color: hsl(var(--dark-hue) var(--primary-sl));
+  & > svg {
+    fill: white;
+  }
+}
+
+.menu_collapser > svg {
+  fill: hsl(var(--dark-hue) var(--secondary-sl));
+}
+
+:global(.light) {
+  & .menu_collapser > svg {
+    fill: hsl(var(--light-hue) var(--secondary-sl));
+  }
+  & .nav {
+    background: hsl(var(--light-hue) var(--primary-sl) / 0.3);
+  }
+  & .navlist a {
+    color: var(--light-neutral);
+  }
+  & .navlist > li {
+    & a:hover {
+      color: black;
+      background-color: hsl(var(--light-hue) var(--primary-sl));
+      box-shadow:
+        3px 1px 3px hsl(var(--dark-neutral) / 0.1),
+        3px 9px 18px hsl(var(--dark-neutral) / 0.1),
+        1px 3px 9px hsl(var(--dark-neutral) / 0.1);
+    }
+  }
+  & .menu_collapser:hover {
+    background-color: hsl(var(--light-hue) var(--primary-sl));
+    box-shadow:
+      3px 1px 3px hsl(var(--dark-neutral) / 0.1),
+      3px 9px 18px hsl(var(--dark-neutral) / 0.1),
+      1px 3px 9px hsl(var(--dark-neutral) / 0.1);
+    & > svg {
+      fill: black;
+    }
+  }
+}

@@ -1,0 +1,98 @@
+# Glossary
+
+1. **Selectors**:
+
+   - `element`: Selects all elements of the specified type:
+
+```css
+/*sets background of all div elements to black*/
+div {
+  background-color: black;
+}
+
+/*sets margin of all h1 elements to 0*/
+h1 {
+  margin: 0;
+}
+
+/*sets font weight of all h1 elements to 700(bold)*/
+p {
+  font-weight: 700;
+}
+```
+
+- `.class` (e.g., `.container`, `.highlight`): Selects all elements with the specified class:
+
+```css
+/*sets padding of the .container class to 30% of font-height*/
+/*by default 16px, i.e. 16/3 = 5.3px*/
+.container {
+  padding: 0.3em;
+}
+```
+
+- `#id` (e.g., `#header`, `#main-content`): Selects the element with the specified unique ID.
+
+```css
+#header {
+  /*sets margin of the element with id header to 16px*/
+  margin: 1em;
+}
+```
+
+2. **Properties**:
+
+   - `color`: Sets the color of the text.
+   - `background-color`: Sets the background color of an element.
+   - `font-family`: Specifies the font family for text.
+   - `font-size`: Sets the size of the text.
+   - `font-weight`: Sets the boldness of the text (e.g., `bold`, `normal`).
+   - `text-align`: Aligns the text horizontally (e.g., `left`, `center`, `right`).
+   - `margin`: Sets the margin around an element.
+   - `padding`: Sets the padding inside an element.
+   - `border`: Sets the border around an element.
+   - `width`: Sets the width of an element.
+   - `height`: Sets the height of an element.
+   - `display`: Specifies how an element should be displayed (e.g., `block`, `inline`, `none`).
+   - `position`: Specifies the positioning method for an element (e.g., `static`, `relative`, `absolute`, `fixed`).
+   - `top`, `right`, `bottom`, `left`: Sets the position of a positioned element.
+     - only absolutely positioned elements (absolute, static, fixed, sticky);
+   - `z-index`: Sets the stacking order of positioned elements.
+   - `float`: Specifies whether an element should float to the left or right.
+   - `clear`: Specifies which sides of an element should not have floating elements.
+   - `overflow`: Specifies how to handle content that overflows its container.
+   - `box-sizing`: Defines how the width and height of an element are calculated.
+   - `aspect-ratio`: Sets the preferred aspect ratio for an element.
+
+3. **Units**
+
+   - `px` (pixels): An absolute unit of measurement for screen displays.
+   - `%` (percentage): Relative to the size of the parent element.
+   - `em`: Relative to the font size of the parent element.
+   - `rem` (root em): Relative to the font size of the root element (usually the `<h` element).
+   - `vw` (viewport width): Relative to 1% of the viewport's width.
+   - `vh` (viewport height): Relative to 1% of the viewport's height.
+   - `cm`, `mm`, `in`, `pt`, `pc` (centimeters, millimeters, inches, points, picas): Absolute units based on physical measurements.
+
+4. **Combinators**:
+
+   - `element element` (e.g., `div p`): Selects all `p` elements inside `div` elements.
+   - `eleme element` (e.g., ` li`): Selects all direct child elements of the specified type.
+   - `element + element` (e.g., `h1 + p`): Selects the next sibling element of the specified type.
+   - `element ~ element` (e.g., `h2 ~ p`): Selects all sibling elements of the specified type.
+
+5. **Pseudo-classes**:
+
+   - `:hover`: Applies styles when the user hovers over an element.
+   - `:active`: Applies styles when an element is active (e.g., a link being clicked).
+   - `:visited`: Applies styles to visited links.
+   - `:focus`: Applies styles when an element has focus (e.g., a form input field).
+   - `:first-child`: Selects the first child element of its parent.
+   - `:last-child`: Selects the last child element of its parent.
+   - `:nth-child(n)`: Selects the nth child element of its parent.
+
+6. **Pseudo-elements**:
+   - `::before`: Inserts content before an element.
+   - `::after`: Inserts content after an element.
+   - `::first-line`: Applies styles to the first line of text in an element.
+   - `::first-letter`: Applies styles to the first letter of text in an element.

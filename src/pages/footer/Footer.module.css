@@ -1,0 +1,23 @@
+.footer {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 3em;
+  bottom: 0;
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
+  background: hsl(var(--primary-hue) var(--secondary-sl) / 0.3);
+  backdrop-filter: blur(3px) saturate(150%);
+  padding-inline: 1em;
+}
+
+.footer > svg {
+  width: 24px;
+  fill: darkcyan;
+}
+
+:global(.light) {
+  & .footer {
+    background: hsl(var(--primary-hue) var(--primary-sl) / 0.6);
+  }
+}

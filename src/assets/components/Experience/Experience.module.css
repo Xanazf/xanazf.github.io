@@ -1,0 +1,27 @@
+.experience_wrap {
+  overflow: scroll;
+  margin-block: 3em;
+  /* border-radius: 0.618em; */
+  background-color: hsl(var(--dark-neutral) / 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.experience_list {
+  display: flex;
+  list-style: none;
+  padding-block: 1em;
+  padding-inline: 0.3em;
+  gap: 0.5em;
+}
+
+:global(.light) {
+  & .experience_wrap {
+    background-color: hsl(var(--light-neutral) / 0.6);
+  }
+}
+
+@media only screen and (min-width: 40em) {
+  .experience_list {
+    justify-content: center;
+  }
+}

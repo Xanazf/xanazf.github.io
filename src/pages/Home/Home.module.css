@@ -1,0 +1,21 @@
+.home_wrap {
+  position: inherit;
+  border-radius: 0.748em;
+  background: hsl(var(--info-hue) var(--secondary-sl) / 0.3);
+  backdrop-filter: blur(2px) saturate(180%);
+}
+
+.home_snippets {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.home_snippet {
+  padding: 1em;
+  margin: 0;
+}
+
+:global(.light) {
+  & .home_wrap {
+    background: hsl(var(--light-hue) var(--secondary-sl) / 0.3);
+  }
+}
