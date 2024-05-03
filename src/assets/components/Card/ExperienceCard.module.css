@@ -5,7 +5,7 @@
   /* grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
   grid-auto-flow: column; */
-  gap: 0.218em;
+  gap: 0.5em;
   padding: 0.369em;
   border-radius: 0.3em;
   background: hsl(var(--dark-hue) 50 15);
@@ -55,6 +55,23 @@
   letter-spacing: -0.07em;
 }
 
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.618em;
+}
+
+.skill {
+  text-align: center;
+  min-width: 3em;
+  padding: 0.318em;
+  padding-inline: 0.5em;
+  font-size: 0.875em;
+  border-radius: 100vh;
+  background: hsl(var(--primary-hue) 60 50);
+  flex: 0 1 max-content;
+}
+
 :global(.light) {
   & .experience_card_wrap {
     background: hsl(var(--light-hue) 75 50 / 0.6);
@@ -70,6 +87,5 @@
 @media only screen and (min-width: 45em) {
   .experience_card_wrap {
     grid-template-columns: 20em;
-    grid-template-rows: 1fr 1fr;
   }
 }

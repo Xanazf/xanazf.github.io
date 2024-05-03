@@ -16,10 +16,10 @@
 
   color-scheme: light dark;
   background-color: #0f1729;
-  color: #ffffcd;
+  color: hsl(175, 90%, 92%);
 
   --dark-hue: 222;
-  --light-hue: 60;
+  --light-hue: 175;
 
   --primary-hue: 183;
   --accent-hue: 270;
@@ -139,13 +139,13 @@ footer {
 
 .light {
   color: #0f1729;
-  background-color: #ffffcd;
+  background-color: hsl(175, 90%, 92%);
 }
 
 @media (prefers-color-scheme: light) {
   :root.light {
     color: #0f1729;
-    background-color: #ffffcd;
+    background-color: #d8f0fd;
   }
 }
 

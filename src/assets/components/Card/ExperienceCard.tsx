@@ -1,3 +1,4 @@
+import { For } from 'solid-js';
 import type { ExperienceType } from '../ComponentTypes';
 import styles from './ExperienceCard.module.css';
 
@@ -9,6 +10,7 @@ function ExperienceCard(props: ExperienceType) {
   const location = props.location;
   const workType = props.workType;
   const desc = props.desc || null;
+  const skills = props.skills || null;
 
   return (
     <div class={styles.experience_card_wrap}>
@@ -20,6 +22,13 @@ function ExperienceCard(props: ExperienceType) {
         <section class={styles.caption}>{workType}</section>
       </div>
       {desc ? <pre class={styles.maintext}>{desc}</pre> : null}
+      {skills ? (
+        <section class={styles.skills}>
+          <For each={skills}>
+            {item => <div class={styles.skill}>{item}</div>}
+          </For>
+        </section>
+      ) : null}
     </div>
   );
 }

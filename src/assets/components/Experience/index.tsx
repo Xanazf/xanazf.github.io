@@ -13,6 +13,26 @@ const experienceObj: { [key: string]: ExperienceType } = {
     desc: `
 Working on remote freelance projects.
     `,
+    skills: [
+      'Typescript',
+      'Node.js',
+      'Git',
+      'Vercel',
+      'Nginx',
+      'Bash',
+      'Linux',
+      'Redis',
+      'MongoDB',
+      'React.js',
+      'Postman',
+      'CI/CD',
+      'CSS',
+      'Tailwind',
+      'Solid.js',
+      'Material UI',
+      'Next UI',
+      'REST API',
+    ],
   },
   pos1: {
     companyName: 'NDA',
@@ -30,6 +50,26 @@ Development achievements:
 - 2 Telegram bots that integrate with the API of the CRM to deliver information to the company Telegram accounts in real time;
   
 - Various API and Database solutions to facilitate the high throughput of traffic required in the business domain;`,
+    skills: [
+      'Typescript',
+      'Node.js',
+      'Git',
+      'Vercel',
+      'Next.js',
+      'Nginx',
+      'Bash',
+      'Linux',
+      'Redis',
+      'MongoDB',
+      'React.js',
+      'Docker',
+      'Kubernetes',
+      'Postman',
+      'CI/CD',
+      'CSS',
+      'Material UI',
+      'REST API',
+    ],
   },
   pos2: {
     companyName: 'PragmaticPlay',
@@ -45,6 +85,7 @@ Facilitated integration of Pragmatic Play's online gambling games with their cus
 
 The position did not offer much in ways of innovation, it was a straightforward job.
     `,
+    skills: ['Bash', 'Linux', 'CI/CD', 'Jira', 'SQL', 'REST API'],
   },
   pos3: {
     companyName: 'NewAge.io',
@@ -64,6 +105,28 @@ Used Postman, JavaScript, kubectl, and Bash scripts.
 
 This position was my first introduction into the DevOps side of things, it has taught me a lot, I much appreciate this experience.
     `,
+    skills: [
+      'Javascript',
+      'Git',
+      'Nginx',
+      'Bash',
+      'Linux',
+      'Kubernetes',
+      'Jenkins',
+      'Postman',
+      'Airflow',
+      'AWS',
+      'Python',
+      'BitBucket',
+      'CI/CD',
+      'ElasticSearch',
+      'Grafana',
+      'Kibana',
+      'Jira',
+      'SQL',
+      'Swagger',
+      'REST API',
+    ],
   },
   pos4: {
     companyName: 'LimTC',
