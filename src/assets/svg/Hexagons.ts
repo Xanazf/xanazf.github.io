@@ -4,8 +4,8 @@ function getHexagonPath(x: number, y: number, sideLength: number) {
   const points = [];
 
   for (let i = 0; i < 6; i++) {
-    const px = x + sideLength * Math.cos(angle * i);
-    const py = y + sideLength * Math.sin(angle * i);
+    const px = x + sideLength * Math.cos(angle * i - Math.PI / 2);
+    const py = y + sideLength * Math.sin(angle * i - Math.PI / 2);
     points.push(`${px},${py}`);
   }
 
@@ -22,8 +22,8 @@ function generateHexagonIslands(
   const islands: any[] = [];
   const maxX = width + sideLength;
   const maxY = height + sideLength;
-  const minHorizontalSpacing = sideLength * 1.8;
-  const minVerticalSpacing = sideLength * Math.sqrt(3);
+  const minHorizontalSpacing = sideLength * Math.sqrt(3);
+  const minVerticalSpacing = sideLength * 1.9;
 
   for (
     let x = -sideLength;
@@ -58,10 +58,8 @@ function renderHexagonIslands(islands: any[], svgElement: Element) {
   svg.setAttribute('stroke', 'black');
   svg.setAttribute(
     'viewBox',
-    `0 0 ${svgElement.clientWidth} ${svgElement.clientHeight * 10}`
+    `0 0 ${svgElement.clientWidth} ${svgElement.clientHeight}`
   );
-
-  console.log(islands);
 
   islands.forEach(island => {
     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');

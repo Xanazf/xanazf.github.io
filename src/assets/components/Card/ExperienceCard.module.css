@@ -2,9 +2,9 @@
   width: 100%;
   height: min-content;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
-  grid-auto-flow: column;
+  grid-auto-flow: column; */
   gap: 0.218em;
   padding: 0.369em;
   border-radius: 0.3em;
@@ -46,15 +46,13 @@
 .maintext {
   padding: 0;
   margin: 0;
-  max-height: 10em;
+  max-height: min-content;
   font-family: inherit;
   text-wrap: balance;
   align-content: start;
   font-size: 1em;
   line-height: 1.272;
   letter-spacing: -0.07em;
-  overflow-y: scroll;
-  overflow-x: hidden;
 }
 
 :global(.light) {

@@ -2,7 +2,7 @@
 import { render } from 'solid-js/web';
 import { Router, Route, RouteSectionProps } from '@solidjs/router';
 import './index.css';
-import { lazy, onMount } from 'solid-js';
+import { createReaction, createSignal, lazy, onMount } from 'solid-js';
 import Nav from './assets/components/Nav';
 import Footer from './pages/footer';
 import { ThemeProvider } from './context/ThemeContext';
@@ -23,16 +23,25 @@ const Games = lazy(() => import('./pages/Games'));
 const root = document.getElementById('root');
 
 const App = (props: RouteSectionProps) => {
-  onMount(() => {
+  const [bodyHeight, setBodyHeight] = createSignal<number | null>(null);
+
+  const renderHexagons = createReaction(() => {
     const svgElement = document.getElementById('svg_bg');
     const islands = generateHexagonIslands(
       svgElement!.clientWidth,
-      svgElement!.clientHeight * 10,
+      svgElement!.clientHeight,
       24,
       0.3
     );
     renderHexagonIslands(islands, svgElement!);
   });
+
+  onMount(() => {
+    setTimeout(() => setBodyHeight(document.body.clientHeight), 100);
+  });
+
+  renderHexagons(() => bodyHeight());
+
   return (
     <>
       <ThemeProvider theme={Cookies.get('theme') || 'dark'}>

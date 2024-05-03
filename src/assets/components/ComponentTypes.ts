@@ -6,6 +6,7 @@ interface ExperienceType {
   location: string;
   workType: string;
   desc?: string;
+  skills?: string[];
 }
 
 export type { ExperienceType };
