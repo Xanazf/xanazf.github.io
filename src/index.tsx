@@ -16,7 +16,6 @@ const Home = lazy(() => import('./pages/Home'));
 const NotFound = lazy(() => import('./pages/404'));
 const WikiHome = lazy(() => import('./pages/WikiHome'));
 const Projects = lazy(() => import('./pages/Projects'));
-const Contact = lazy(() => import('./pages/Contact'));
 const Showcase = lazy(() => import('./pages/Showcase'));
 const Games = lazy(() => import('./pages/Games'));
 
