@@ -147,7 +147,7 @@ Provided B2C customer support for an Internet Filtering solution.
     location: 'Kyiv, Ukraine',
     workType: 'Remote',
     desc: `
-Provided B2C customer support for an Internet Filtering solution.
+Provided B2B technical support for an E-Commerce solution.
     `,
   },
 };
