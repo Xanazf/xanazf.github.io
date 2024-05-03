@@ -58,7 +58,7 @@ body {
   padding: 0;
   position: relative;
   min-height: 100svh;
-  width: 100svw;
+  width: 100%;
   max-width: 100svw;
 }
 
@@ -94,17 +94,14 @@ body {
 }
 
 .AppInner {
-  display: inline-block;
+  /* display: inline-block; */
   position: relative;
   height: max-content;
   /* overflow: hidden; */
   max-width: 100svw;
   width: 100%;
-  padding-top: 1.5em;
-  padding-inline: 3em;
-}
-.AppInner > * {
-  overflow: scroll;
+  padding-block: 1.5em;
+  padding-inline: 1em;
 }
 
 h1,
@@ -126,7 +123,6 @@ main {
 
 header {
   position: sticky;
-  width: 100%;
   height: 3em;
   top: 0;
   display: flex;
@@ -155,18 +151,45 @@ footer {
 
 @keyframes NavCollapse {
   from {
-    width: 500px;
+    height: 500px;
   }
   to {
-    width: 50px;
+    height: 50px;
   }
 }
 
 @keyframes NavExpand {
   from {
-    width: 50px;
+    height: 50px;
   }
   to {
-    width: 500px;
+    height: 500px;
+  }
+}
+
+@media only screen and (min-width: 45em) {
+  .AppInner {
+    max-width: 100lvw;
+    padding: 0;
+    margin-block: 1.5em;
+    padding-inline: 3em;
+    overflow-x: hidden;
+  }
+  @keyframes NavCollapse {
+    from {
+      width: 500px;
+    }
+    to {
+      width: 50px;
+    }
+  }
+
+  @keyframes NavExpand {
+    from {
+      width: 50px;
+    }
+    to {
+      width: 500px;
+    }
   }
 }

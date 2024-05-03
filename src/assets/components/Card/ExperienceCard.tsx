@@ -12,12 +12,14 @@ function ExperienceCard(props: ExperienceType) {
 
   return (
     <div class={styles.experience_card_wrap}>
-      <section class={styles.overline}>{companyName}</section>
-      <section class={styles.heading}>{positionName}</section>
-      <section class={styles.subheading}>{from + ' - ' + to}</section>
-      <section class={styles.caption}>{location}</section>
-      <section class={styles.caption}>{workType}</section>
-      {desc ? <section class={styles.maintext}>{desc}</section> : null}
+      <div class={styles.experience_summary}>
+        <section class={styles.overline}>{companyName}</section>
+        <section class={styles.heading}>{positionName}</section>
+        <section class={styles.subheading}>{from + ' - ' + to}</section>
+        <section class={styles.caption}>{location}</section>
+        <section class={styles.caption}>{workType}</section>
+      </div>
+      {desc ? <pre class={styles.maintext}>{desc}</pre> : null}
     </div>
   );
 }

@@ -6,14 +6,14 @@
   bottom: 0;
   border-top-left-radius: 1em;
   border-top-right-radius: 1em;
-  background: hsl(var(--primary-hue) var(--secondary-sl) / 0.3);
+  background: hsl(var(--primary-hue) var(--primary-sl) / 0.3);
   backdrop-filter: blur(3px) saturate(150%);
   padding-inline: 1em;
 }
 
 .footer > svg {
   width: 24px;
-  fill: darkcyan;
+  fill: darkblue;
 }
 
 :global(.light) {

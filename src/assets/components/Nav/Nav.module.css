@@ -1,11 +1,10 @@
 .nav {
   height: 100%;
   display: flex;
-  width: 500px;
-  border-radius: 100vh 0 0 100vh;
+  border-radius: 1em 0 0 1em;
   background: hsl(var(--dark-hue) var(--secondary-sl) / 0.3);
   backdrop-filter: blur(2px) saturate(120%);
-  overflow-x: hidden;
+  overflow: hidden;
   animation-duration: 0.3s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
@@ -13,22 +12,25 @@
 
 .nav:has(.collapsed) {
   & .menu_collapser {
-    rotate: 180deg;
+    rotate: 270deg;
   }
 }
 
 .navlist {
   display: flex;
-  height: 100%;
+  flex-direction: column;
+  /* height: 100%; */
   list-style: none;
   gap: 1em;
   margin-block: 0;
-  padding-inline: 0.3em;
-  padding-right: 0.5em;
+  padding-block: 0.3em;
+  padding-inline: 0.1em;
 }
 
 .navlist > li {
+  flex: 1 0;
   display: flex;
+  justify-content: center;
   align-items: center;
   height: 100%;
   & > a {
@@ -54,6 +56,7 @@
 }
 
 .menu_collapser {
+  rotate: 90deg;
   cursor: pointer;
   border-radius: 100vh;
   width: 24px;
@@ -104,6 +107,25 @@
       1px 3px 9px hsl(var(--dark-neutral) / 0.1);
     & > svg {
       fill: black;
+    }
+  }
+}
+
+@media only screen and (min-width: 45em) {
+  .nav {
+    width: 500px;
+    border-radius: 100vh 0 0 100vh;
+  }
+  .navlist {
+    height: 100%;
+    flex-direction: row;
+  }
+  .menu_collapser {
+    rotate: 0deg;
+  }
+  .nav:has(.collapsed) {
+    & .menu_collapser {
+      rotate: 180deg;
     }
   }
 }
