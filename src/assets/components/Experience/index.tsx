@@ -136,7 +136,7 @@ This position was my first introduction into the DevOps side of things, it has t
     location: 'Kyiv, Ukraine',
     workType: 'On-Site',
     desc: `
-Provided B2C customer support for an Internet Filtering solution.
+Provided B2C (Business-to-Client) customer support for an Internet Filtering solution.
     `,
   },
   pos5: {
@@ -147,7 +147,7 @@ Provided B2C customer support for an Internet Filtering solution.
     location: 'Kyiv, Ukraine',
     workType: 'Remote',
     desc: `
-Provided B2B technical support for an E-Commerce solution.
+Provided B2B (Business-to-Business) technical support for an E-Commerce solution.
     `,
   },
 };

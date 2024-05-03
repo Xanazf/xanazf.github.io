@@ -6,6 +6,7 @@ import styles from './Home.module.css';
 function Home() {
   return (
     <main class={styles.home_wrap}>
+      <h1>Oleksandr Marnov</h1>
       <div class={styles.home_experience_wrap}>
         <Experience />
       </div>
