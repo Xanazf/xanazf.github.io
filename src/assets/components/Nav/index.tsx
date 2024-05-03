@@ -12,7 +12,7 @@ export default function Nav() {
     if (body.clientWidth > 450) {
       setCollapsed(false);
     }
-    body.addEventListener('click', e => {
+    body.addEventListener('click', () => {
       if (!collapsed() && !onMenu()) {
         const navElement = document.getElementById('nav');
         if (navElement) {
