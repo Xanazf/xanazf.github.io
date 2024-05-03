@@ -62,9 +62,6 @@ export default function Nav() {
             <a href="/showcase">Showcase</a>
           </li>
           <li>
-            <a href="/contact">Contact</a>
-          </li>
-          <li>
             <ThemeChange />
           </li>
         </ul>

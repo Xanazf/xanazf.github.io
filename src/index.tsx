@@ -73,10 +73,6 @@ render(
         component={WikiHome}
       />
       <Route
-        path="/contact"
-        component={Contact}
-      />
-      <Route
         path="/showcase"
         component={Showcase}
       />

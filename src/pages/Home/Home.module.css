@@ -4,6 +4,48 @@
   background: hsl(var(--info-hue) var(--secondary-sl) / 0.3);
   backdrop-filter: blur(6px) saturate(180%);
 }
+.home_wrap h1 {
+  padding-top: 0.318em;
+}
+
+.home_contacts {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+
+.home_contact a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  padding: 0.3em;
+  background-color: hsl(var(--dark-hue) 30 10);
+  & svg {
+    margin: 0;
+    padding: 0;
+  }
+}
+.home_contact:nth-child(1) {
+  & svg {
+    stroke: hsl(218 100 50);
+  }
+}
+.home_contact:nth-child(2) {
+  & svg {
+    stroke: currentColor;
+  }
+}
+.home_contact:nth-child(3) {
+  & svg {
+    stroke: hsl(var(--danger-hue) var(--secondary-sl));
+  }
+}
+.home_contact:nth-child(4) {
+  & svg {
+    stroke: hsl(var(--light-hue) var(--primary-sl));
+  }
+}
 
 .home_snippets {
   display: grid;
@@ -14,6 +56,9 @@
 }
 
 :global(.light) {
+  & .home_contact a {
+    background-color: hsl(var(--light-neutral));
+  }
   & .home_wrap {
     background: hsl(var(--light-hue) var(--secondary-sl) / 0.3);
   }
