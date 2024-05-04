@@ -14,7 +14,7 @@ export default defineConfig({
     mdx({
       jsxImportSource: 'solid-jsx',
       remarkPlugins: [remarkGfm],
-      // @ts-ignore-next-line
+      // @ts-ignore
       rehypePlugins: [rehypePrism, rehypeMdxCodeProps],
     }),
   ],

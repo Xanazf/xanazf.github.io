@@ -3,7 +3,7 @@
     "types": [
       "vite-plugin-solid-svg/types-component-solid",
       "vite/client",
-      "solid-jsx/types"
+      "solid-jsx"
     ],
     "composite": true,
     "skipLibCheck": true,
