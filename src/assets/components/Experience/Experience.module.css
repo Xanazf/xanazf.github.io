@@ -19,3 +19,12 @@
     grid-auto-flow: column;
   }
 } */
+@media only screen and (min-width: 45em) {
+  .experience_wrap {
+    max-width: 50%;
+    flex: 1 0;
+  }
+  .experience_list {
+    width: 100%;
+  }
+}

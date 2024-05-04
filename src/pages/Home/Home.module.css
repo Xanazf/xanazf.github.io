@@ -63,3 +63,11 @@
     background: hsl(var(--light-hue) var(--secondary-sl) / 0.3);
   }
 }
+
+@media only screen and (min-width: 45em) {
+  .home_experience_wrap {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+  }
+}
