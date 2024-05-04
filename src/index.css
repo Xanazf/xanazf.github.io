@@ -120,7 +120,15 @@ a:hover,
 a:active {
   color: inherit;
 }
+li > code {
+  background: hsl(var(--dark-neutral));
+  padding: 3px;
+  border-radius: 3px;
+}
 
+blockquote {
+  scale: 0.8;
+}
 div,
 section,
 main {
@@ -176,6 +184,9 @@ footer {
 }
 
 @media only screen and (min-width: 45em) {
+  blockquote {
+    width: max-content;
+  }
   .AppInner {
     max-width: 100lvw;
     padding: 0;

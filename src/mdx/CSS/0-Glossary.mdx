@@ -4,41 +4,39 @@
 
    - `element`: Selects all elements of the specified type:
 
-```css
-/*sets background of all div elements to black*/
-div {
-  background-color: black;
-}
+     > ```css
+     > /*sets background of all div elements to black*/
+     > div {
+     >   background-color: black;
+     > }
+     > /*sets margin of all h1 elements to 0*/
+     > h1 {
+     >   margin: 0;
+     > }
+     > /*sets font weight of all h1 elements to 700(bold)*/
+     > p {
+     >   font-weight: 700;
+     > }
+     > ```
 
-/*sets margin of all h1 elements to 0*/
-h1 {
-  margin: 0;
-}
+   - `.class` (e.g., `.container`, `.highlight`): Selects all elements with the specified class:
 
-/*sets font weight of all h1 elements to 700(bold)*/
-p {
-  font-weight: 700;
-}
-```
+     > ```css
+     > /*sets padding of the .container class to 30% of font-height*/
+     > /*by default 16px, i.e. 16/3 = 5.3px*/
+     > .container {
+     >   padding: 0.3em;
+     > }
+     > ```
 
-- `.class` (e.g., `.container`, `.highlight`): Selects all elements with the specified class:
+   - `#id` (e.g., `#header`, `#main-content`): Selects the element with the specified unique ID.
 
-```css
-/*sets padding of the .container class to 30% of font-height*/
-/*by default 16px, i.e. 16/3 = 5.3px*/
-.container {
-  padding: 0.3em;
-}
-```
-
-- `#id` (e.g., `#header`, `#main-content`): Selects the element with the specified unique ID.
-
-```css
-#header {
-  /*sets margin of the element with id header to 16px*/
-  margin: 1em;
-}
-```
+     > ```css
+     > #header {
+     >   /*sets margin of the element with id header to 16px*/
+     >   margin: 1em;
+     > }
+     > ```
 
 2. **Properties**:
 
@@ -77,7 +75,7 @@ p {
 4. **Combinators**:
 
    - `element element` (e.g., `div p`): Selects all `p` elements inside `div` elements.
-   - `eleme element` (e.g., ` li`): Selects all direct child elements of the specified type.
+   - `element > element` (e.g., `ul > li`): Selects all direct child elements of the specified type.
    - `element + element` (e.g., `h1 + p`): Selects the next sibling element of the specified type.
    - `element ~ element` (e.g., `h2 ~ p`): Selects all sibling elements of the specified type.
 

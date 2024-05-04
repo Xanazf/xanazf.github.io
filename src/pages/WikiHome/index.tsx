@@ -1,11 +1,12 @@
+import WikiPage from '../../assets/components/WikiPage';
 import Glossary from '../../mdx/CSS/0-Glossary.mdx';
 
 function WikiHome() {
   return (
     <main>
-      <section>
+      <WikiPage>
         <Glossary />
-      </section>
+      </WikiPage>
     </main>
   );
 }

@@ -56,11 +56,12 @@ export default function Nav() {
             <a href="/">Home</a>
           </li>
           <li>
-            <a href="/wiki">Wiki</a>
+            <a href="/wiki">[Wiki]WIP</a>
           </li>
           <li>
-            <a href="/showcase">Showcase</a>
+            <a href="/showcase">[Showcase]WIP</a>
           </li>
+          <li>[search]WIP</li>
           <li>
             <ThemeChange />
           </li>

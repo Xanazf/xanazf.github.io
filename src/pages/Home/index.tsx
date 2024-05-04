@@ -1,5 +1,4 @@
 import Experience from '../../assets/components/Experience';
-import Toolkit from '../../mdx/Blog/Toolkit.mdx';
 import { useSVG as DynamicSVG } from '../../assets/svg/SVGLoader';
 import styles from './Home.module.css';
 
@@ -58,10 +57,10 @@ function Home() {
       </div>
       <div class={styles.home_snippets}>
         <section class={`${styles.home_snippet} ${styles.home_blog_snippet}`}>
-          <Toolkit />
+          [Blog.Latest]WIP
         </section>
         <section class={`${styles.home_snippet} ${styles.home_wiki_snippet}`}>
-          WIP
+          [Wiki.Latest]WIP
         </section>
       </div>
     </main>

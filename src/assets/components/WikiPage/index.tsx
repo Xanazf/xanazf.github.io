@@ -1,7 +1,14 @@
-function Wiki() {
+interface WikiPageProps {
+  children: any;
+}
+
+function WikiPage(props: WikiPageProps) {
   return (
     <>
-      <h1>Wiki</h1>
+      <nav>tree</nav>
+      <div>{props.children}</div>
+      <section>summary</section>
     </>
   );
 }
+export default WikiPage;
