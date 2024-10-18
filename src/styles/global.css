@@ -1,0 +1,18 @@
+@import "remark-github-blockquote-alert/alert.css";
+@import "./config/index.css";
+
+header {
+  position: sticky;
+  height: 3em;
+  top: 0;
+  display: flex;
+  justify-content: end;
+  z-index: 10;
+}
+
+footer {
+  position: relative;
+  width: 100%;
+  min-height: 3em;
+  z-index: 10;
+}

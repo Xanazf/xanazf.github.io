@@ -1,0 +1,90 @@
+:root {
+  font-family: "Rubik", Inter, system-ui, Avenir, Helvetica, Arial,
+    sans-serif;
+  font-size: 16px;
+  line-height: 1.272;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  position: relative;
+  min-height: 100svh;
+  max-width: 100%;
+  width: 100%;
+
+  color-scheme: dark;
+
+  --bg-hue: 240;
+  --bg-sl: 100 5;
+  --font-color: 175 50 96;
+
+  --ua-top-hue: 199;
+  --ua-top-sl: 93 42;
+  --ua-bottom-hue: 60;
+  --ua-bottom-sl: 100 60;
+
+  --primary-hue: 184;
+  --accent-hue: 60;
+  --info-hue: 240;
+
+  --success-hue: 120;
+  --warning-hue: 63;
+  --danger-hue: 360;
+
+  --primary-sl: 100 50;
+  --accent-sl: 100 60;
+
+  --primary: var(--primary-hue) var(--primary-sl);
+  --accent: var(--accent-hue) var(--accent-sl);
+  --bg: var(--bg-hue) var(--bg-sl);
+
+  --info-primary: var(--info-hue) var(--primary-sl);
+  --info-accent: var(--info-hue) var(--accent-sl);
+
+  background-color: hsl(var(--bg));
+  color: hsl(var(--font-color));
+}
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  min-height: 100svh;
+  width: 100%;
+  max-width: 100svw;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-align: center;
+  margin: 0;
+}
+
+a,
+a:visited,
+a:hover,
+a:active {
+  color: inherit;
+}
+
+div,
+section,
+main {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
