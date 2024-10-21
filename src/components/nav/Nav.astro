@@ -1,0 +1,25 @@
+---
+import styles from "./Nav.module.css";
+import { Icon } from "astro-icon/components";
+---
+<nav
+  class={styles.nav}
+  id="nav"
+>
+  <div
+    class={styles["menu-collapser"]}
+  >
+    <Icon name="menu-right"/>
+  </div>
+  <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a class="inactive" href="/notes">Notes</a>
+    </li>
+    <li>
+      <a class="inactive" href="/projects">Projects</a>
+    </li>
+  </ul>
+</nav>

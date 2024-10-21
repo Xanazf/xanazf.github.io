@@ -18,17 +18,19 @@
   color-scheme: dark;
 
   --bg-hue: 240;
-  --bg-sl: 100 5;
+  --bg-sl: 75 5;
   --font-color: 175 50 96;
 
   --ua-top-hue: 199;
   --ua-top-sl: 93 42;
   --ua-bottom-hue: 60;
   --ua-bottom-sl: 100 60;
+  --green: 141;
 
   --primary-hue: 184;
   --accent-hue: 60;
   --info-hue: 240;
+  --neon-hue: 310;
 
   --success-hue: 120;
   --warning-hue: 63;
@@ -40,6 +42,7 @@
   --primary: var(--primary-hue) var(--primary-sl);
   --accent: var(--accent-hue) var(--accent-sl);
   --bg: var(--bg-hue) var(--bg-sl);
+  --neon: var(--neon-hue) var(--primary-sl);
 
   --info-primary: var(--info-hue) var(--primary-sl);
   --info-accent: var(--info-hue) var(--accent-sl);

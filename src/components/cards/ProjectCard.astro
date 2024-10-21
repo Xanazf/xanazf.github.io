@@ -1,0 +1,12 @@
+---
+import styles from "./ProjectCard.module.css";
+
+export interface Props {
+  projectName: string;
+  projectLink: string;
+}
+const { projectName, projectLink } = Astro.props;
+---
+<div class={`${styles["project-card"]} pc ${projectName.toLowerCase()}`}>
+  <a href={projectLink} target="_blank">{projectName}</a>
+</div>

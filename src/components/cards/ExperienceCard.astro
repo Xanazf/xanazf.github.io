@@ -1,0 +1,32 @@
+---
+import type { ExperienceType } from "../ComponentTypes";
+import styles from "./ExperienceCard.module.css";
+
+export interface Props extends ExperienceType {}
+
+const {
+  companyName,
+  positionName,
+  from,
+  to = "present",
+  location,
+  workType,
+  desc,
+  skills,
+} = Astro.props;
+---
+<div class={styles.experience_card_wrap}>
+  <div class={styles.experience_summary}>
+    <section class={styles.overline}>{companyName}</section>
+    <section class={styles.heading}>{positionName}</section>
+    <section class={styles.subheading}>{from + ' - ' + to}</section>
+    <section class={styles.caption}>{location}</section>
+    <section class={styles.caption}>{workType}</section>
+  </div>
+  {desc ? <pre class={styles.maintext}>{desc}</pre> : null}
+  {skills ? (
+    <section class={styles.skills}>
+      {skills.map(item => <div class={styles.skill}>{item}</div>)}
+    </section>
+  ) : null}
+</div>

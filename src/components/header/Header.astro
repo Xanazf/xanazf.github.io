@@ -1,0 +1,13 @@
+---
+import styles from "./header-footer.module.css";
+import { Icon } from "astro-icon/components";
+import Nav from "../nav/Nav.astro";
+---
+<header id="header" class={styles.header}>
+  <div class={styles["left-section"]}>
+    <Icon name="xnzf-logo"/>
+  </div>
+  <div class={styles["right-section"]}>
+    <Nav/>
+  </div>
+</header>
