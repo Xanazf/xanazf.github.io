@@ -6,7 +6,14 @@ export interface Props {
   projectLink: string;
 }
 const { projectName, projectLink } = Astro.props;
+const NDAdata = {
+  numberOfWebsites: 6,
+};
 ---
 <div class={`${styles["project-card"]} pc ${projectName.toLowerCase()}`}>
-  <a href={projectLink} target="_blank">{projectName}</a>
+  {projectName !== "NDA" ? (
+    <a href={projectLink} target="_blank">{projectName}</a>
+  ):(
+    <p>{NDAdata.numberOfWebsites} websites under NDA</p>
+  )}
 </div>

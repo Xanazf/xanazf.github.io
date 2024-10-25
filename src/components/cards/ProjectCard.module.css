@@ -5,19 +5,16 @@
   overflow: hidden;
   border-radius: 1rem;
 
-  & a {
+  & p {
+    all: unset;
+  }
+
+  & a,
+  p {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-
-  &:hover {
-    border-color: hsl(var(--accent-600));
-
-    &::before {
-      filter: blur(0.9rem) saturate(200%);
-    }
   }
 }

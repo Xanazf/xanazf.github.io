@@ -35,14 +35,11 @@ a {
     position: absolute;
     inset: -1px;
     border-radius: 100vh;
-    background: linear-gradient(
-      90deg,
-      hsla(var(--neon) / 0.9) 0%,
-      white 50%,
-      hsla(var(--neon) / 0.9) 100%
-    );
-    box-shadow: hsla(var(--neon)) 0 54px 55px, hsla(var(--neon)) 0
-      0 30px, hsla(var(--neon)) 0 0 6px, hsla(var(--neon)) 0 0 5px;
+    background: linear-gradient(90deg,
+        hsla(var(--neon) / 0.9) 0%,
+        white 50%,
+        hsla(var(--neon) / 0.9) 100%);
+    box-shadow: hsla(var(--neon)) 0 54px 55px, hsla(var(--neon)) 0 0 30px, hsla(var(--neon)) 0 0 6px, hsla(var(--neon)) 0 0 5px;
   }
 
   &::after {
@@ -51,12 +48,10 @@ a {
     top: 0;
     height: 10rem;
     width: 100%;
-    background: linear-gradient(
-      180deg,
-      hsla(var(--neon) / 0.21) 0%,
-      hsla(var(--bg) / 0.7) 50%,
-      hsla(var(--bg) / 1) 100%
-    );
+    background: linear-gradient(180deg,
+        hsla(var(--neon) / 0.21) 0%,
+        hsla(var(--bg) / 0.7) 50%,
+        hsla(var(--bg) / 1) 100%);
     filter: blur(1.5rem) saturate(120%);
   }
 }
@@ -116,8 +111,16 @@ a {
   }
 }
 
+h2 {
+  padding-left: 3rem;
+  padding-bottom: 1rem;
+  text-align: start;
+}
+
 .main-projects {
   padding-left: 3rem;
+  display: flex;
+  gap: 0.618rem;
 
   & h2 {
     text-align: start;
@@ -137,12 +140,40 @@ a {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    115deg,
-    hsla(var(--green) 20 15 / 0.7) 25%,
-    hsla(var(--green) 25 25 / 0.8) 50%,
-    hsla(var(--green) 60 60 / 0.6) 80%
-  );
+  background: linear-gradient(115deg,
+      hsla(var(--green) 20 15 / 0.7) 25%,
+      hsla(var(--green) 25 25 / 0.8) 50%,
+      hsla(var(--green) 60 60 / 0.6) 80%);
   filter: blur(1.5rem) saturate(150%);
   z-index: -1;
+}
+
+.pc.nda {
+  border: 3px solid hsl(var(--ua-top-hue) var(--ua-top-sl));
+}
+
+.pc:not(.nda) {
+  &:hover::before {
+    filter: blur(0.9rem) saturate(200%);
+  }
+}
+
+.pc.nda::before,
+.pc.nda::after {
+  content: "NDA";
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  background-color: hsla(var(--yellow) var(--primary-sl));
+  color: black;
+  font-weight: bold;
+  z-index: -1;
+}
+
+.pc.nda::before {
+  top: 0.817rem;
+}
+
+.pc.nda::after {
+  bottom: 0.817rem;
 }
