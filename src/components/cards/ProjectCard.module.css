@@ -1,7 +1,8 @@
 .project-card {
   position: relative;
-  width: 12rem;
-  height: 6rem;
+  width: 100%;
+  margin: auto;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   border-radius: 1rem;
 
@@ -16,5 +17,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+}
+
+@media (min-width: 65rem) {
+  .project-card {
+    width: 12rem;
   }
 }

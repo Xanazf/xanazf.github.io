@@ -126,9 +126,10 @@ h2 {
 }
 
 .main-projects {
-  padding-left: 3rem;
   display: flex;
   gap: 0.618rem;
+  flex-direction: column;
+  padding-inline: 1rem;
 
   & h2 {
     text-align: start;
@@ -198,5 +199,9 @@ h2 {
   }
   .main-hello {
     flex-direction: initial;
+  }
+
+  .main-projects {
+    padding-left: 3rem;
   }
 }
