@@ -6,6 +6,7 @@ header {
   position: sticky;
   top: 0;
   z-index: 10;
+  margin: auto;
 }
 
 footer {
@@ -16,7 +17,6 @@ footer {
 }
 
 .baselayout {
-  width: 60svw;
   margin: auto;
 }
 
@@ -26,7 +26,8 @@ a {
 }
 
 .hr-neon {
-  width: 100%;
+  width: 75%;
+  margin: auto;
   height: 1px;
   position: relative;
 
@@ -35,11 +36,14 @@ a {
     position: absolute;
     inset: -1px;
     border-radius: 100vh;
-    background: linear-gradient(90deg,
-        hsla(var(--neon) / 0.9) 0%,
-        white 50%,
-        hsla(var(--neon) / 0.9) 100%);
-    box-shadow: hsla(var(--neon)) 0 54px 55px, hsla(var(--neon)) 0 0 30px, hsla(var(--neon)) 0 0 6px, hsla(var(--neon)) 0 0 5px;
+    background: linear-gradient(
+      90deg,
+      hsla(var(--neon) / 0.9) 0%,
+      white 50%,
+      hsla(var(--neon) / 0.9) 100%
+    );
+    box-shadow: hsla(var(--neon)) 0 54px 55px, hsla(var(--neon)) 0
+      0 30px, hsla(var(--neon)) 0 0 6px, hsla(var(--neon)) 0 0 5px;
   }
 
   &::after {
@@ -48,10 +52,12 @@ a {
     top: 0;
     height: 10rem;
     width: 100%;
-    background: linear-gradient(180deg,
-        hsla(var(--neon) / 0.21) 0%,
-        hsla(var(--bg) / 0.7) 50%,
-        hsla(var(--bg) / 1) 100%);
+    background: linear-gradient(
+      180deg,
+      hsla(var(--neon) / 0.21) 0%,
+      hsla(var(--bg) / 0.7) 50%,
+      hsla(var(--bg) / 1) 100%
+    );
     filter: blur(1.5rem) saturate(120%);
   }
 }
@@ -59,6 +65,7 @@ a {
 .main-hello {
   display: flex;
   margin-top: 3rem;
+  flex-direction: column-reverse;
 }
 
 .main-text {
@@ -76,6 +83,7 @@ a {
 }
 
 .main-image-contacts {
+  margin: auto;
   width: max-content;
   display: flex;
   flex-direction: column;
@@ -140,10 +148,12 @@ h2 {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(115deg,
-      hsla(var(--green) 20 15 / 0.7) 25%,
-      hsla(var(--green) 25 25 / 0.8) 50%,
-      hsla(var(--green) 60 60 / 0.6) 80%);
+  background: linear-gradient(
+    115deg,
+    hsla(var(--green) 20 15 / 0.7) 25%,
+    hsla(var(--green) 25 25 / 0.8) 50%,
+    hsla(var(--green) 60 60 / 0.6) 80%
+  );
   filter: blur(1.5rem) saturate(150%);
   z-index: -1;
 }
@@ -176,4 +186,17 @@ h2 {
 
 .pc.nda::after {
   bottom: 0.817rem;
+}
+
+@media (min-width: 65rem) {
+  .baselayout {
+    width: 60svw;
+  }
+  .hr-neon {
+    width: 100%;
+    margin: unset;
+  }
+  .main-hello {
+    flex-direction: initial;
+  }
 }

@@ -13,11 +13,18 @@
   align-items: center;
 }
 
-.nav>ul {
+.nav > ul {
   padding: 0;
   list-style: none;
   display: flex;
-  width: 21rem;
-  justify-content: space-between;
+  width: 50svw;
+  justify-content: space-evenly;
   align-items: center;
+}
+
+@media (min-width: 65rem) {
+  .nav > ul {
+    width: 21rem;
+    justify-content: space-between;
+  }
 }
