@@ -1,6 +1,9 @@
 @import "remark-github-blockquote-alert/alert.css";
 @import "./config/index.css";
 @import "./config/reusable.css";
+@import "./config/animations.css";
+
+@import "./backgrounds.css";
 
 header {
   position: sticky;
@@ -18,6 +21,8 @@ footer {
 
 .baselayout {
   margin: auto;
+  color: hsl(var(--font-color));
+  z-index: 0;
 }
 
 a {
@@ -25,40 +30,33 @@ a {
   cursor: pointer;
 }
 
+.viewport {
+  position: relative;
+  height: 100svh;
+  z-index: 1;
+}
+
+.content {
+  z-index: 2;
+}
+
 .hr-neon {
   width: 75%;
   margin: auto;
   height: 1px;
   position: relative;
+  z-index: 1;
 
   &::before {
     content: "";
     position: absolute;
-    inset: -1px;
-    border-radius: 100vh;
+    inset: 0px;
     background: linear-gradient(
       90deg,
-      hsla(var(--neon) / 0.9) 0%,
+      hsla(var(--main-hsl-val-2) / 0.9) 20%,
       white 50%,
-      hsla(var(--neon) / 0.9) 100%
+      hsla(var(--main-hsl-val-2) / 0.9) 80%
     );
-    box-shadow: hsla(var(--neon)) 0 54px 55px, hsla(var(--neon)) 0
-      0 30px, hsla(var(--neon)) 0 0 6px, hsla(var(--neon)) 0 0 5px;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    height: 10rem;
-    width: 100%;
-    background: linear-gradient(
-      180deg,
-      hsla(var(--neon) / 0.21) 0%,
-      hsla(var(--bg) / 0.7) 50%,
-      hsla(var(--bg) / 1) 100%
-    );
-    filter: blur(1.5rem) saturate(120%);
   }
 }
 
@@ -202,6 +200,7 @@ h2 {
   }
 
   .main-projects {
+    flex-direction: row;
     padding-left: 3rem;
   }
 }

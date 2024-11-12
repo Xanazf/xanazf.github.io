@@ -16,8 +16,12 @@ const { title, description } = Astro.props;
     <Head description={description} title={title} />
   </head>
   <body class="baselayout">
-    <Header/>
-    <div class="hr-neon"/>
-    <slot />
+    <div class="viewport">
+      <Header/>
+      <div class="hr-neon"/>
+      <main class="content">
+        <slot />
+      </main>
+    </div>
   </body>
 </html>

@@ -1,0 +1,26 @@
+@keyframes scroll-up {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 calc(100% - 100vh);
+  }
+}
+
+@keyframes scroll-up-down {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

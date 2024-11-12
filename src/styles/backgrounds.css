@@ -1,0 +1,61 @@
+body.baselayout {
+  &::after {
+    position: fixed;
+    content: "";
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--main-hsl-0),
+      var(--main-hsl-1),
+      var(--main-hsl-2),
+      var(--main-hsl-3),
+      var(--main-hsl-4),
+      var(--main-hsl-5),
+      var(--main-hsl-4),
+      var(--main-hsl-3),
+      var(--main-hsl-2),
+      var(--main-hsl-1),
+      var(--main-hsl-0)
+    );
+    background-size: 100% 400vh;
+    animation: scroll-up 30s linear infinite;
+    z-index: -2;
+    opacity: 0.45;
+  }
+  &::before {
+    position: fixed;
+    content: "";
+    inset: 0;
+    background-image: radial-gradient(transparent, #000000f0);
+    z-index: -1;
+  }
+}
+
+.viewport {
+  &::before {
+    position: fixed;
+    inset: 0;
+    content: "";
+    background: transparent;
+    backdrop-filter: blur(calc(1px * pow(10, 2)));
+    z-index: -1;
+  }
+  &::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -2rem;
+    right: -2rem;
+    content: "";
+    background-color: hsla(0 3 6 / 0.45);
+    background-image: radial-gradient(transparent, #000000f0);
+    z-index: 0;
+  }
+}
+
+@media (max-width: 65rem) {
+  .viewport::after {
+    position: fixed;
+    inset: 0;
+  }
+}

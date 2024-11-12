@@ -23,5 +23,6 @@
 @media (min-width: 65rem) {
   .project-card {
     width: 12rem;
+    margin: unset;
   }
 }
