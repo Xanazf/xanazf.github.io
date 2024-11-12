@@ -1,7 +1,7 @@
 ---
 import styles from "./Experience.module.css";
 import type { ExperienceType } from "../ComponentTypes";
-import ExperienceCard from "../cards/ExperienceCard";
+//import ExperienceCard from "../cards/ExperienceCard";
 
 const experienceObj: { [key: string]: ExperienceType } = {
   pos0: {
@@ -158,7 +158,7 @@ const keys = Object.keys(experienceObj);
   <ul class={styles.experience_list}>
     {keys.map(item => (
       <li class={styles.experience_item}>
-        <ExperienceCard {...experienceObj[item]} />
+      <!--<ExperienceCard {...experienceObj[item]} />-->
       </li>
     ))}
   </ul>

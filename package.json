@@ -15,7 +15,6 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
     "@astrojs/mdx": "^3.1.8",
     "@astrojs/solid-js": "^4.4.2",
     "astro": "^4.16.6",
@@ -24,13 +23,14 @@
     "node": "npm:23.0.0",
     "remark-github-blockquote-alert": "^1.2.1",
     "solid-devtools": "^0.30.1",
-    "solid-js": "^1.8.18",
-    "typescript": "^5.6.3"
+    "solid-js": "^1.8.18"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.4",
     "@astrojs/ts-plugin": "^1.10.3",
     "@biomejs/biome": "^1.8.3",
     "@types/node": "^20.14.11",
-    "lightningcss": "^1.28.1"
+    "lightningcss": "^1.28.1",
+    "typescript": "^5.6.3"
   }
 }
