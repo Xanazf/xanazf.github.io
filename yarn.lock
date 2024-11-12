@@ -1817,6 +1817,11 @@ lightningcss-linux-x64-gnu@1.28.1:
   resolved "https://registry.npmjs.org/lightningcss-linux-x64-gnu/-/lightningcss-linux-x64-gnu-1.28.1.tgz"
   integrity sha512-7vWDISaMUn+oo2TwRdf2hl/BLdPxvywv9JKEqNZB/0K7bXwV4XE9wN/C2sAp1gGuh6QBA8lpjF4JIPt3HNlCHA==
 
+lightningcss-linux-x64-musl@1.28.1:
+  version "1.28.1"
+  resolved "https://registry.npmjs.org/lightningcss-linux-x64-musl/-/lightningcss-linux-x64-musl-1.28.1.tgz"
+  integrity sha512-IHCu9tVGP+x5BCpA2rF3D04DBokcBza/a8AuHQU+1AiMKubuMegPwcL7RatBgK4ztFHeYnnD5NdhwhRfYMAtNA==
+
 lightningcss@^1.21.0, lightningcss@^1.28.1:
   version "1.28.1"
   resolved "https://registry.npmjs.org/lightningcss/-/lightningcss-1.28.1.tgz"
@@ -2595,7 +2600,12 @@ preferred-pm@^4.0.0:
     find-yarn-workspace-root2 "1.2.16"
     which-pm "^3.0.0"
 
-"prettier@^2.2 || ^3.0", prettier@^3.0.0, prettier@2.8.7:
+"prettier@^2.2 || ^3.0", prettier@^3.0.0:
+  version "3.3.3"
+  resolved "https://registry.npmjs.org/prettier/-/prettier-3.3.3.tgz"
+  integrity sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==
+
+prettier@2.8.7:
   version "2.8.7"
   resolved "https://registry.npmjs.org/prettier/-/prettier-2.8.7.tgz"
   integrity sha512-yPngTo3aXUUmyuTjeTUT75txrf+aMh9FiD7q9ZE/i6r0bPb22g4FsE6Y338PQX1bmfy08i9QQCB7/rcUAVntfw==
