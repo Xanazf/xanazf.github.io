@@ -9,9 +9,9 @@ import { markdownConfig } from "./src/config/io/markdown.ts";
 // https://astro.build/config
 export default defineConfig({
   vite: {
-    css: {
-      transformer: "lightningcss",
-    },
+    //css: {
+    //  transformer: "lightningcss",
+    //},
     build: {
       cssMinify: "lightningcss",
     },
@@ -23,6 +23,10 @@ export default defineConfig({
     }),
     mdx(),
     //pagefind(),
-    icon(),
+    icon({
+      include: {
+        logos: ["*"]
+      }
+    }),
   ],
 });

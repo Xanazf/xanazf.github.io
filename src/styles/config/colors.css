@@ -1,22 +1,4 @@
 :root {
-  font-family: "Rubik", Inter, system-ui, Avenir, Helvetica, Arial,
-    sans-serif;
-  font-size: 16px;
-  line-height: 1.272;
-  font-weight: 400;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  position: relative;
-  min-height: 100svh;
-  max-width: 100%;
-  width: 100%;
-
-  color-scheme: dark;
-
   --main-hsl-0: hsl(245 91 25);
   --main-hsl-1: hsl(243 81 36);
   --main-hsl-2: hsl(306 68 34);
@@ -37,9 +19,6 @@
   --main-hsl-val-3: 332 87 42;
   --main-hsl-val-4: 344 100 50;
   --main-hsl-val-5: 345 100 43;
-
-  --translucency-image: url("https://images.unsplash.com/photo-1707494966495-a2cc8c1dac1f?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-
   --bg-hue: 240;
   --bg-sl: 75 5;
   --font-color: 175 50 96;
@@ -47,7 +26,7 @@
   --ua-top-hue: 199;
   --ua-top-sl: 93 42;
   --ua-bottom-sl: 100 60;
-  --yellow: 60;
+  --yellow: 72;
   --green: 141;
 
   --primary-hue: 184;
@@ -69,45 +48,6 @@
 
   --info-primary: var(--info-hue) var(--primary-sl);
   --info-accent: var(--info-hue) var(--accent-sl);
-}
 
-body {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  min-height: 100svh;
-  width: 100%;
-  max-width: 100svw;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  text-align: center;
-  margin: 0;
-}
-
-a,
-a:visited,
-a:hover,
-a:active {
-  color: inherit;
-}
-
-div,
-section,
-main {
-  position: relative;
-  width: 100%;
-  height: auto;
+  --translucency-image: url("https://images.unsplash.com/photo-1707494966495-a2cc8c1dac1f?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
 }

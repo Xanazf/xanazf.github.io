@@ -1,0 +1,52 @@
+/* Project Card styling */
+.project-card {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  width: 100%;
+  height: 4.5rem;
+  border-radius: 14px;
+  background: hsl(var(--bg) / 0.6);
+  /* border: 1px solid hsl(var(--bg) / 0.85); */
+  color: hsl(var(--font-color));
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .25), inset 0 1px 0 hsla(0 0% 100% / 0.05);
+  backdrop-filter: blur(6px) saturate(120%);
+}
+
+.project-card a,
+.project-card p {
+  display: flex;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  justify-content: center;
+  align-items: center;
+}
+
+.project-card:hover {
+  transform: translateY(-2px);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  /* border-color: hsl(var(--info-primary) / 0.6); */
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .3), 0 0 0 1px hsl(var(--info-primary) / 0.15) inset;
+}
+
+/* specific project tints using hue tokens */
+.pc.quickshell {
+  border-color: hsl(var(--green) 45 45 / 0.6);
+}
+
+.pc.heavylift {
+  border-color: var(--main-hsl-3);
+}
+
+.pc.bongopunk {
+  border-color: var(--main-hsl-2);
+}
+
+.pc.nda {
+  border-color: hsl(var(--ua-top-hue) var(--ua-top-sl));
+}

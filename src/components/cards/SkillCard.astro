@@ -1,0 +1,58 @@
+---
+import styles from "@styles/components/cards/SkillCard.module.css";
+import { Icon } from "astro-icon/components";
+
+// Coherent skill map across groups with icons (simple aliases from Iconify sets)
+// You can adjust icon names to your installed icon sets.
+const skills: Record<string, Array<{ label: string; icon: string }>> = {
+  development: [
+    { label: "TypeScript", icon: "logos:typescript-icon" },
+    { label: "Node.js", icon: "logos:nodejs-icon" },
+    { label: "CSS", icon: "logos:css-3" },
+    { label: "Bash", icon: "mdi:bash" },
+    { label: "Git", icon: "mdi:git" },
+    { label: "Go", icon: "logos:go" },
+    { label: "React", icon: "logos:react" },
+    { label: "SolidJS", icon: "logos:solidjs-icon" },
+  ],
+  design: [
+    { label: "Figma", icon: "logos:figma" },
+    { label: "Material Design 3", icon: "logos:material-ui" },
+    { label: "Hero UI", icon: "simple-icons:heroui" },
+    { label: "TailwindCSS", icon: "logos:tailwindcss-icon" },
+  ],
+  architecture: [
+    { label: "Vercel", icon: "logos:vercel-icon" },
+    { label: "Linux", icon: "logos:linux-tux" },
+    { label: "REST API", icon: "mdi:api" },
+    { label: "CI/CD", icon: "mdi:repeat" },
+    { label: "Caddy", icon: "simple-icons:caddy" },
+    { label: "Nginx", icon: "logos:nginx" },
+    { label: "Traefik", icon: "simple-icons:traefikproxy" },
+    { label: "Redis", icon: "logos:redis" },
+    { label: "MongoDB", icon: "logos:mongodb-icon" },
+    { label: "Postman", icon: "logos:postman-icon" },
+  ],
+};
+---
+<div class={styles.skill_card_wrapper}>
+  <div class={styles.grid}>
+    {Object.entries(skills).map(([group, list]) => (
+      <section class={styles.section} aria-labelledby={`skill-${group}`}>
+        <h3 id={`skill-${group}`} class={styles.sectionTitle}>
+          {group.charAt(0).toUpperCase() + group.slice(1)}
+        </h3>
+        <div class={styles.chips}>
+          {list.map((s) => (
+            <span class={styles.chip} title={s.label}>
+              <span class={styles.icon} aria-hidden="true">
+                <Icon name={s.icon} />
+              </span>
+              <span>{s.label}</span>
+            </span>
+          ))}
+        </div>
+      </section>
+    ))}
+  </div>
+</div>

@@ -1,0 +1,94 @@
+/* Skill Card styling aligned to palette in src/styles/config/colors.css */
+/* Uses HSL custom properties defined in colors.css: --bg, --primary, --accent, etc. */
+.skill_card_wrapper {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  /* base tokens from palette */
+  --card-bg: hsl(var(--primary) / 0.1);
+  --card-border: hsl(var(--bg) / 0.9);
+  --card-fg: hsl(var(--font-color));
+  --card-glare: hsla(0 0% 100% / 0.05);
+  /* switch to red/blue emphasis from ramp: use main-hsl-4 (red) and info-primary (blue) */
+  --chip-accent: var(--main-hsl-4);
+  --chip-accent-2: hsl(var(--info-primary));
+
+  color: var(--card-fg);
+  /* border: 1px solid var(--card-border); */
+  border-radius: 16px;
+  padding: 20px;
+  /* box-shadow: 0 6px 24px rgba(0, 0, 0, .25), inset 0 1px 0 var(--card-glare); */
+  /* backdrop-filter: saturate(120%) blur(6px); */
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: .2px;
+  background: linear-gradient(90deg, var(--chip-accent), var(--chip-accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 12px;
+}
+
+.section {
+  grid-column: span 12;
+  background: linear-gradient(159deg, hsl(var(--bg) / 0.55) 80%, var(--card-bg));
+  /* border: 1px solid hsl(var(--bg) / 0.8); */
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.sectionTitle {
+  font-size: .95rem;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+  color: hsl(var(--font-color) / 0.8);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: linear-gradient(150deg, color-mix(in oklab, var(--main-hsl-4) 30%, transparent), hsl(var(--info-primary) / 0.18));
+  color: #fff;
+  border: 1px solid hsl(var(--info-primary) / 0.45);
+  box-shadow: 0 1px 0 var(--card-glare) inset;
+  font-size: .9rem;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 720px) {
+  .section {
+    grid-column: span 4;
+  }
+}

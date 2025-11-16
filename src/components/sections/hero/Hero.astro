@@ -1,0 +1,22 @@
+---
+import { Image } from "astro:assets"
+
+import Contacts from "@components/Contacts.astro"
+import PFP from "@public/pfp.png"
+
+---
+<div class="main-hero">
+  <div class="main-text">
+    <section class="main-heading">
+      <h1>Hi, I'm Xan</h1>
+    </section>
+    <section class="main-content">
+      <p>My name is Oleksandr, but I go by Xanazf online. I'm a full stack web developer and designer living in Kyiv, Ukraine.</p>
+      <p>I design infrastructure and UX, and work across web/cloud. I enjoy turning complex problems into durable, well-designed solutions, and contribute to open source in my free time.</p>
+    </section>
+  </div>
+  <div class="main-image-contacts">
+    <Image src={PFP} alt="main profile picture" width={300} height={300}/>
+    <Contacts/>
+  </div>
+</div>
