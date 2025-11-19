@@ -1,0 +1,131 @@
+/* HeavyLift Margin Utilities (refactored)
+   Goals:
+   - Replace massive duplication with scalable utilities
+   - Keep API predictable and low-specificity
+   - Prefer logical properties for better RTL support
+   - Provide backward-compatible aliases for common classes
+*/
+
+@layer utilities {
+  /* Size scale mapping to existing vars */
+  :root {
+    --m-2xs: var(--2xs);
+    --m-xs: var(--xs);
+    --m-sm: var(--sm);
+    --m-md: var(--md);
+    --m-lg: var(--lg);
+    --m-xl: var(--xl);
+    --m-2xl: var(--2xl);
+  }
+
+  /* Shorthand axis utilities */
+  :where(.m\:0) { margin: 0; }
+  :where(.m\:2xs) { margin: var(--m-2xs); }
+  :where(.m\:xs) { margin: var(--m-xs); }
+  :where(.m\:sm) { margin: var(--m-sm); }
+  :where(.m\:md) { margin: var(--m-md); }
+  :where(.m\:lg) { margin: var(--m-lg); }
+  :where(.m\:xl) { margin: var(--m-xl); }
+  :where(.m\:2xl) { margin: var(--m-2xl); }
+
+  :where(.mx\:2xs) { margin-inline: var(--m-2xs); }
+  :where(.mx\:xs) { margin-inline: var(--m-xs); }
+  :where(.mx\:sm) { margin-inline: var(--m-sm); }
+  :where(.mx\:md) { margin-inline: var(--m-md); }
+  :where(.mx\:lg) { margin-inline: var(--m-lg); }
+  :where(.mx\:xl) { margin-inline: var(--m-xl); }
+  :where(.mx\:2xl) { margin-inline: var(--m-2xl); }
+
+  :where(.my\:2xs) { margin-block: var(--m-2xs); }
+  :where(.my\:xs) { margin-block: var(--m-xs); }
+  :where(.my\:sm) { margin-block: var(--m-sm); }
+  :where(.my\:md) { margin-block: var(--m-md); }
+  :where(.my\:lg) { margin-block: var(--m-lg); }
+  :where(.my\:xl) { margin-block: var(--m-xl); }
+  :where(.my\:2xl) { margin-block: var(--m-2xl); }
+
+  /* Logical side utilities */
+  :where(.ms\:2xs) { margin-inline-start: var(--m-2xs); }
+  :where(.ms\:xs) { margin-inline-start: var(--m-xs); }
+  :where(.ms\:sm) { margin-inline-start: var(--m-sm); }
+  :where(.ms\:md) { margin-inline-start: var(--m-md); }
+  :where(.ms\:lg) { margin-inline-start: var(--m-lg); }
+  :where(.ms\:xl) { margin-inline-start: var(--m-xl); }
+  :where(.ms\:2xl) { margin-inline-start: var(--m-2xl); }
+
+  :where(.me\:2xs) { margin-inline-end: var(--m-2xs); }
+  :where(.me\:xs) { margin-inline-end: var(--m-xs); }
+  :where(.me\:sm) { margin-inline-end: var(--m-sm); }
+  :where(.me\:md) { margin-inline-end: var(--m-md); }
+  :where(.me\:lg) { margin-inline-end: var(--m-lg); }
+  :where(.me\:xl) { margin-inline-end: var(--m-xl); }
+  :where(.me\:2xl) { margin-inline-end: var(--m-2xl); }
+
+  :where(.mt\:2xs) { margin-block-start: var(--m-2xs); }
+  :where(.mt\:xs) { margin-block-start: var(--m-xs); }
+  :where(.mt\:sm) { margin-block-start: var(--m-sm); }
+  :where(.mt\:md) { margin-block-start: var(--m-md); }
+  :where(.mt\:lg) { margin-block-start: var(--m-lg); }
+  :where(.mt\:xl) { margin-block-start: var(--m-xl); }
+  :where(.mt\:2xl) { margin-block-start: var(--m-2xl); }
+
+  :where(.mb\:2xs) { margin-block-end: var(--m-2xs); }
+  :where(.mb\:xs) { margin-block-end: var(--m-xs); }
+  :where(.mb\:sm) { margin-block-end: var(--m-sm); }
+  :where(.mb\:md) { margin-block-end: var(--m-md); }
+  :where(.mb\:lg) { margin-block-end: var(--m-lg); }
+  :where(.mb\:xl) { margin-block-end: var(--m-xl); }
+  :where(.mb\:2xl) { margin-block-end: var(--m-2xl); }
+
+  /* Backward-compatibility aliases for existing classes */
+  /* Axis aliases */
+  :where(.mx-2xs) { margin-inline: var(--m-2xs); }
+  :where(.mx-xs) { margin-inline: var(--m-xs); }
+  :where(.mx-sm) { margin-inline: var(--m-sm); }
+  :where(.mx-md) { margin-inline: var(--m-md); }
+  :where(.mx-lg) { margin-inline: var(--m-lg); }
+  :where(.mx-xl) { margin-inline: var(--m-xl); }
+  :where(.mx-2xl) { margin-inline: var(--m-2xl); }
+
+  :where(.my-2xs) { margin-block: var(--m-2xs); }
+  :where(.my-xs) { margin-block: var(--m-xs); }
+  :where(.my-sm) { margin-block: var(--m-sm); }
+  :where(.my-md) { margin-block: var(--m-md); }
+  :where(.my-lg) { margin-block: var(--m-lg); }
+  :where(.my-xl) { margin-block: var(--m-xl); }
+  :where(.my-2xl) { margin-block: var(--m-2xl); }
+
+  /* Side aliases matching previous naming */
+  :where(.m-left-2xs) { margin-left: var(--m-2xs); }
+  :where(.m-left-xs) { margin-left: var(--m-xs); }
+  :where(.m-left-sm) { margin-left: var(--m-sm); }
+  :where(.m-left-md) { margin-left: var(--m-md); }
+  :where(.m-left-lg) { margin-left: var(--m-lg); }
+  :where(.m-left-xl) { margin-left: var(--m-xl); }
+  :where(.m-left-2xl) { margin-left: var(--m-2xl); }
+
+  :where(.m-right-2xs) { margin-right: var(--m-2xs); }
+  :where(.m-right-xs) { margin-right: var(--m-xs); }
+  :where(.m-right-sm) { margin-right: var(--m-sm); }
+  :where(.m-right-md) { margin-right: var(--m-md); }
+  :where(.m-right-lg) { margin-right: var(--m-lg); }
+  :where(.m-right-xl) { margin-right: var(--m-xl); }
+  :where(.m-right-2xl) { margin-right: var(--m-2xl); }
+
+  :where(.m-top-2xs) { margin-top: var(--m-2xs); }
+  :where(.m-top-xs) { margin-top: var(--m-xs); }
+  :where(.m-top-sm) { margin-top: var(--m-sm); }
+  :where(.m-top-md) { margin-top: var(--m-md); }
+  :where(.m-top-lg) { margin-top: var(--m-lg); }
+  :where(.m-top-xl) { margin-top: var(--m-xl); }
+  :where(.m-top-2xl) { margin-top: var(--m-2xl); }
+
+  :where(.m-bottom-2xs) { margin-bottom: var(--m-2xs); }
+  :where(.m-bottom-sm) { margin-bottom: var(--m-sm); }
+  :where(.m-bottom-md) { margin-bottom: var(--m-md); }
+  :where(.m-bottom-lg) { margin-bottom: var(--m-lg); }
+  :where(.m-bottom-xl) { margin-bottom: var(--m-xl); }
+  :where(.m-bottom-2xl) { margin-bottom: var(--m-2xl); }
+
+  /* Remove overly specific typographic selector combinations in favor of utility classes alone. */
+}

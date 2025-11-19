@@ -27,4 +27,3 @@ dist-ssr
 .gitattributes
 .yarn
 .astro
-src/styles/lib-hl

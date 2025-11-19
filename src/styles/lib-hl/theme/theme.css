@@ -1,0 +1,121 @@
+@import "./vars.css";
+
+@layer theme {
+  :root {
+    /* Import HeavyLift's golden ratio variables into Tailwind's theme */
+    --spacing-2xs: var(--2xs);
+    --spacing-xs: var(--xs);
+    --spacing-sm: var(--sm);
+    --spacing-md: var(--md);
+    --spacing-lg: var(--lg);
+    --spacing-xl: var(--xl);
+    --spacing-2xl: var(--2xl);
+    --spacing-3xl: var(--3xl);
+    --spacing-4xl: var(--4xl);
+
+    /* Map HeavyLift spacing to Tailwind's spacing scale */
+    --spacing-2xs: var(--2xs);
+    --spacing-xs: var(--xs);
+    --spacing-sm: var(--sm);
+    --spacing-md: var(--md);
+    --spacing-lg: var(--lg);
+    --spacing-xl: var(--xl);
+    --spacing-2xl: var(--2xl);
+
+    /* Golden ratio font sizes for Tailwind */
+    --font-size-display1: var(--display1-font-size);
+    --font-size-display2: var(--display2-font-size);
+    --font-size-title1: var(--title1-font-size);
+    --font-size-title2: var(--title2-font-size);
+    --font-size-title3: var(--title3-font-size);
+    --font-size-heading: var(--heading-font-size);
+    --font-size-subheading: var(--subheading-font-size);
+    --font-size-body: var(--body-font-size);
+    --font-size-callout: var(--callout-font-size);
+    --font-size-label: var(--label-font-size);
+    --font-size-caption: var(--caption-font-size);
+
+    /* Golden ratio line heights */
+    --line-height-display1: var(--display1-line-height);
+    --line-height-display2: var(--display2-line-height);
+    --line-height-title1: var(--title1-line-height);
+    --line-height-title2: var(--title2-line-height);
+    --line-height-title3: var(--title3-line-height);
+    --line-height-heading: var(--heading-line-height);
+    --line-height-subheading: var(--subheading-line-height);
+    --line-height-body: var(--body-line-height);
+    --line-height-callout: var(--callout-line-height);
+    --line-height-label: var(--label-line-height);
+    --line-height-caption: var(--caption-line-height);
+
+    /* Border radius based on golden ratio */
+    --radius-xs: var(--xs);
+    --radius-sm: var(--sm);
+    --radius-md: var(--md);
+    --radius-lg: var(--lg);
+    --radius-xl: var(--xl);
+
+    /* Shadows using golden ratio spacing */
+    --shadow-sm: var(--shadow-sm);
+    --shadow-md: var(--shadow-md);
+    --shadow-lg: var(--shadow-lg);
+    --shadow-xl: var(--shadow-xl);
+    --shadow-2xl: var(--shadow-2xl);
+
+    @keyframes fade-in {
+      0% {
+        opacity: 0;
+        transform: scale(1.02);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+    --animate-spin: spin 1s linear infinite;
+    --animate-ping: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --animate-bounce: bounce 1s infinite;
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes ping {
+
+      75%,
+      100% {
+        transform: scale(2);
+        opacity: 0;
+      }
+    }
+
+    @keyframes pulse {
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateY(-25%);
+        animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+      }
+
+      50% {
+        transform: none;
+        animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+      }
+    }
+  }
+}

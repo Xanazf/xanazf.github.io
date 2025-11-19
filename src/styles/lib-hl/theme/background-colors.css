@@ -1,0 +1,320 @@
+@layer theme {
+  .bg__transparent {
+    background-color: transparent;
+  }
+
+  .bg-primary {
+    background-color: var(--hl-primary);
+    color: var(--hl-onprimary);
+  }
+
+  .bg-onprimary {
+    background-color: var(--hl-onprimary);
+    color: var(--hl-primary);
+  }
+
+  .bg-primarycontainer {
+    background-color: var(--hl-primarycontainer);
+    color: var(--hl-onprimarycontainer);
+  }
+
+  .bg-onprimarycontainer {
+    background-color: var(--hl-onprimarycontainer);
+    color: var(--hl-primarycontainer);
+  }
+
+  .bg-secondary {
+    background-color: var(--hl-secondary);
+    color: var(--hl-onsecondary);
+  }
+
+  .bg-onsecondary {
+    background-color: var(--hl-onsecondary);
+    color: var(--hl-secondary);
+  }
+
+  .bg-secondarycontainer {
+    background-color: var(--hl-secondarycontainer);
+    color: var(--hl-onsecondarycontainer);
+  }
+
+  .bg-onsecondarycontainer {
+    background-color: var(--hl-onsecondarycontainer);
+    color: var(--hl-secondarycontainer);
+  }
+
+  .bg-tertiary {
+    background-color: var(--hl-tertiary);
+    color: var(--hl-ontertiary);
+  }
+
+  .bg-ontertiary {
+    background-color: var(--hl-ontertiary);
+    color: var(--hl-tertiary);
+  }
+
+  .bg-tertiarycontainer {
+    background-color: var(--hl-tertiarycontainer);
+    color: var(--hl-ontertiarycontainer);
+  }
+
+  .bg-ontertiarycontainer {
+    background-color: var(--hl-ontertiarycontainer);
+    color: var(--hl-tertiarycontainer);
+  }
+
+  .bg-error {
+    background-color: var(--hl-error);
+    color: var(--hl-onerror);
+  }
+
+  .bg-onerror {
+    background-color: var(--hl-onerror);
+    color: var(--hl-error);
+  }
+
+  .bg-errorcontainer {
+    background-color: var(--hl-errorcontainer);
+    color: var(--hl-onerrorcontainer);
+  }
+
+  .bg-onerrorcontainer {
+    background-color: var(--hl-onerrorcontainer);
+    color: var(--hl-errorcontainer);
+  }
+
+  .bg-background {
+    background-color: var(--hl-background);
+    color: var(--hl-onbackground);
+  }
+
+  .bg-onbackground {
+    background-color: var(--hl-onbackground);
+    color: var(--hl-background);
+  }
+
+  .bg-surface {
+    background-color: var(--hl-surface);
+    color: var(--hl-onsurface);
+  }
+
+  .bg-onsurface {
+    background-color: var(--hl-onsurface);
+    color: var(--hl-surface);
+  }
+
+  .bg-surfacevariant {
+    background-color: var(--hl-surfacevariant);
+    color: var(--hl-onsurfacevariant);
+  }
+
+  .bg-onsurfacevariant {
+    background-color: var(--hl-onsurfacevariant);
+    color: var(--hl-surface);
+  }
+
+  .bg-outline {
+    background-color: var(--hl-outline);
+    color: var(--hl-onsurface);
+  }
+
+  .bg-outlinevariant {
+    background-color: var(--hl-outlinevariant);
+    color: var(--hl-onsurface);
+  }
+
+  .bg-shadow {
+    background-color: var(--hl-shadow);
+    color: var(--hl-inversesurface);
+  }
+
+  .bg-scrim {
+    background-color: var(--hl-scrim);
+    color: var(--hl-inversesurface);
+  }
+
+  .bg-inversesurface {
+    background-color: var(--hl-inversesurface);
+    color: var(--hl-inverseonsurface);
+  }
+
+  .bg-inverseonsurface {
+    background-color: var(--hl-inverseonsurface);
+    color: var(--hl-inversesurface);
+  }
+
+  .bg-inverseprimary {
+    background-color: var(--hl-inverseprimary);
+    color: var(--hl-onprimarycontainer);
+  }
+
+  .bg-success {
+    background-color: var(--hl-success);
+    color: var(--hl-onsuccess);
+  }
+
+  .bg-successcontainer {
+    background-color: var(--hl-successcontainer);
+    color: var(--hl-onsuccesscontainer);
+  }
+
+  .bg-onsuccess {
+    background-color: var(--hl-onsuccess);
+    color: var(--hl-success);
+  }
+
+  .bg-onsuccesscontainer {
+    background-color: var(--hl-onsuccesscontainer);
+    color: var(--hl-successcontainer);
+  }
+
+  .bg-warning {
+    background-color: var(--hl-warning);
+    color: var(--hl-onwarning);
+  }
+
+  .bg-warningcontainer {
+    background-color: var(--hl-warningcontainer);
+    color: var(--hl-onwarningcontainer);
+  }
+
+  .bg-onwarning {
+    background-color: var(--hl-onwarning);
+    color: var(--hl-warning);
+  }
+
+  .bg-onwarningcontainer {
+    background-color: var(--hl-onwarningcontainer);
+    color: var(--hl-warningcontainer);
+  }
+
+  .bg-info {
+    background-color: var(--hl-info);
+    color: var(--hl-oninfo);
+  }
+
+  .bg-infocontainer {
+    background-color: var(--hl-infocontainer);
+    color: var(--hl-oninfocontainer);
+  }
+
+  .bg-oninfo {
+    background-color: var(--hl-oninfo);
+    color: var(--hl-info);
+  }
+
+  .bg-oninfocontainer {
+    background-color: var(--hl-oninfocontainer);
+    color: var(--hl-infocontainer);
+  }
+
+  .util-grid-filler.for-display {
+    flex: 1;
+    margin-bottom: 1em;
+    padding: 1em;
+  }
+
+  .bg-primaryfixed {
+    background-color: var(--hl-primaryfixed);
+    color: var(--hl-onprimaryfixed);
+  }
+
+  .bg-primaryfixeddim {
+    background-color: var(--hl-primaryfixeddim);
+    color: var(--hl-onprimaryfixedvariant);
+  }
+
+  .bg-onprimaryfixed {
+    background-color: var(--hl-onprimaryfixed);
+    color: var(--hl-primaryfixed);
+  }
+
+  .bg-onprimaryfixedvariant {
+    background-color: var(--hl-onprimaryfixedvariant);
+    color: var(--hl-primaryfixed);
+  }
+
+  .bg-secondaryfixed {
+    background-color: var(--hl-secondaryfixed);
+    color: var(--hl-onsecondary);
+  }
+
+  .bg-secondaryfixeddim {
+    background-color: var(--hl-secondaryfixeddim);
+    color: var(--hl-onsecondaryfixed);
+  }
+
+  .bg-onsecondaryfixed {
+    background-color: var(--hl-onsecondaryfixed);
+    color: var(--hl-secondaryfixed);
+  }
+
+  .bg-onsecondaryfixedvariant {
+    background-color: var(--hl-onsecondaryfixedvariant);
+    color: var(--hl-secondaryfixed);
+  }
+
+  .bg-tertiaryfixed {
+    background-color: var(--hl-tertiaryfixed);
+    color: var(--hl-ontertiaryfixed);
+  }
+
+  .bg-tertiaryfixeddim {
+    background-color: var(--hl-tertiaryfixeddim);
+    color: var(--hl-ontertiaryfixedvariant);
+  }
+
+  .bg-ontertiaryfixed {
+    background-color: var(--hl-ontertiaryfixed);
+    color: var(--hl-tertiaryfixed);
+  }
+
+  .bg-ontertiaryfixedvariant {
+    background-color: var(--hl-ontertiaryfixedvariant);
+    color: var(--hl-tertiaryfixed);
+  }
+
+  .bg-surfacedim {
+    background-color: var(--hl-surfacedim);
+    color: var(--hl-onsurface);
+  }
+
+  .bg-surfacebright {
+    background-color: var(--hl-surfacebright);
+    color: var(--hl-onsurface);
+  }
+
+  .bg-surfacecontainerlowest {
+    background-color: var(--hl-surfacecontainerlowest);
+    color: var(--hl-onsurface);
+  }
+
+  .bg-surfacecontainerlow {
+    background-color: var(--hl-surfacecontainerlow);
+    color: var(--hl-onsurface);
+  }
+
+  .bg-surfacecontainer {
+    background-color: var(--hl-surfacecontainer);
+    color: var(--hl-onsurface);
+  }
+
+  .bg-surfacecontainerhigh {
+    background-color: var(--hl-surfacecontainerhigh);
+    color: var(--hl-onsurface);
+  }
+
+  .bg-surfacecontainerhighest {
+    background-color: var(--hl-surfacecontainerhighest);
+    color: var(--hl-onsurface);
+  }
+
+  .bg-transparent {
+    background-color: transparent;
+    color: var(--hl-onsurface);
+  }
+
+  .bg-blur {
+    backdrop-filter: blur(20px);
+  }
+}

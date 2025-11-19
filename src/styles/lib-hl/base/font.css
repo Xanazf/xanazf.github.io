@@ -1,0 +1,22 @@
+@layer base {
+  @font-face {
+    font-family: "FixelVariable";
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100 900;
+    font-stretch: 87.5% 100%;
+    src:
+      url("./FixelVariable.ttf") format("truetype supports variations"),
+      url("./FixelVariable.ttf") format("truetype-variations");
+  }
+
+  @font-face {
+    font-family: "FixelVariable";
+    font-style: italic;
+    font-display: swap;
+    font-weight: 100 700;
+    src:
+      url("./FixelVariableItalic.ttf") format("truetype supports variations"),
+      url("./FixelVariableItalic.ttf") format("truetype-variations");
+  }
+}

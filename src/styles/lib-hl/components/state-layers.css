@@ -1,0 +1,20 @@
+@layer components {
+  .state-layer {
+    z-index: 1;
+    opacity: 0;
+    background-color: var(--hl-onsurface);
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  /* Lower specificity via :where() and remove unnecessary !important */
+  :where(div,a,button,li):where(:hover) > .state-layer { opacity: 0.15; }
+  :where(div,a,button,li):where(:active) > .state-layer { opacity: 0.5; }
+  :where(div,a,button,li):where(:focus-visible, :focus) > .state-layer { opacity: 0.35; }
+
+  /* Utility/State hooks */
+  .is-active > .state-layer,
+  .list-item.active > .state-layer { opacity: 0.16; }
+}

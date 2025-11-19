@@ -1,0 +1,18 @@
+@layer utilities {
+  :where(.overflow-hidden) { overflow: hidden; }
+  :where(.overflow-visible) { overflow: visible; }
+  :where(.overflow-scroll) { overflow: scroll; }
+  :where(.overflow-auto) {
+    overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--hl-outline) transparent;
+  }
+  :where(.overflow-y-scroll) {
+    overflow-y: scroll;
+    scrollbar-width: none;
+  }
+  :where(.text-overflow-ellipsis) {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}

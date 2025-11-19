@@ -1,0 +1,19 @@
+@layer utilities {
+  /* Canonical display utilities */
+  :where(.display-block) { display: block; }
+  :where(.display-inline-block) { display: inline-block; }
+  :where(.display-none) { display: none; }
+  :where(.display-flex) { display: flex; }
+  :where(.display-grid) { display: grid; }
+
+  /* Axis helpers */
+  :where(.flex-h) { display: flex; }
+  :where(.flex-v) { display: flex; flex-direction: column; }
+
+  /* Back-compat aliases */
+  :where(.display__block) { display: block; }
+  :where(.display__inlineBlock) { display: inline-block; }
+  :where(.display__flex-v),
+  :where(.display-flex-v) { display: flex; flex-direction: column; }
+  :where(.display__grid) { display: grid; }
+}

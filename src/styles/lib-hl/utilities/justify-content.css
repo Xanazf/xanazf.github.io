@@ -1,0 +1,10 @@
+@layer utilities {
+  :where(.justify-content-start) { justify-content: flex-start; }
+  :where(.justify-content-center) { justify-content: center; }
+  :where(.justify-content-end) { justify-content: end; }
+  :where(.justify-content-space-between) { justify-content: space-between; }
+  :where(.justify-content-space-around) { justify-content: space-around; }
+
+  /* Short alias */
+  :where(.justify-between) { justify-content: space-between; }
+}

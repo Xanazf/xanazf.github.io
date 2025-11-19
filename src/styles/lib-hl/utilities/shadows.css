@@ -1,0 +1,38 @@
+/* Shadow palette variables for reuse */
+:root {
+  --shadow-ambient: rgba(0, 0, 0, 0.1);
+  --shadow-key: rgba(0, 0, 0, 0.12);
+  --shadow-edge: rgba(0, 0, 0, 0.4);
+}
+
+.shadow-sm {
+  box-shadow: 0 0 1px 0 var(--shadow-edge);
+}
+
+.shadow-md {
+  box-shadow:
+    0 4px 6px var(--shadow-ambient),
+    0 2px 4px var(--shadow-key),
+    0 0 1px var(--shadow-edge);
+}
+
+.shadow-lg {
+  box-shadow:
+    0 11px 15px -3px var(--shadow-key),
+    0 2px 6px var(--shadow-ambient),
+    0 0 1px var(--shadow-edge);
+}
+
+.shadow-xl {
+  box-shadow:
+    0 20px 25px var(--shadow-ambient),
+    0 5px 11px var(--shadow-key),
+    0 0 1px var(--shadow-edge);
+}
+
+.shadow-2xl {
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.23),
+    0 9px 18px var(--shadow-ambient),
+    0 0 1px var(--shadow-edge);
+}

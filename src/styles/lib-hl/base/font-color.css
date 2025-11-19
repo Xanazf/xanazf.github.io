@@ -1,0 +1,72 @@
+/* Refactored: consolidated color utilities using data attributes and removed !important where unnecessary. */
+
+/* Preferred usage: [data-color="token"] sets text color to var(--hl-<token>) */
+[data-color] {
+  color: inherit;
+}
+
+[data-color="primary"] { color: var(--hl-primary); }
+[data-color="onprimary"] { color: var(--hl-onprimary); }
+[data-color="primarycontainer"] { color: var(--hl-primarycontainer); }
+[data-color="onprimarycontainer"] { color: var(--hl-onprimarycontainer); }
+[data-color="secondary"] { color: var(--hl-secondary); }
+[data-color="onsecondary"] { color: var(--hl-onsecondary); }
+[data-color="secondarycontainer"] { color: var(--hl-secondarycontainer); }
+[data-color="onsecondarycontainer"] { color: var(--hl-onsecondarycontainer); }
+[data-color="tertiary"] { color: var(--hl-tertiary); }
+[data-color="ontertiary"] { color: var(--hl-ontertiary); }
+[data-color="tertiarycontainer"] { color: var(--hl-tertiarycontainer); }
+[data-color="ontertiarycontainer"] { color: var(--hl-ontertiarycontainer); }
+[data-color="error"] { color: var(--hl-error); }
+[data-color="onerror"] { color: var(--hl-onerror); }
+[data-color="errorcontainer"] { color: var(--hl-errorcontainer); }
+[data-color="onerrorcontainer"] { color: var(--hl-onerrorcontainer); }
+[data-color="background"] { color: var(--hl-background); }
+[data-color="onbackground"] { color: var(--hl-onbackground); }
+[data-color="surface"] { color: var(--hl-surface); }
+[data-color="onsurface"] { color: var(--hl-onsurface); }
+[data-color="surfacevariant"] { color: var(--hl-surfacevariant); }
+[data-color="onsurfacevariant"] { color: var(--hl-onsurfacevariant); }
+[data-color="outline"] { color: var(--hl-outline); }
+[data-color="outlinevariant"] { color: var(--hl-outlinevariant); }
+[data-color="shadow"] { color: var(--hl-shadow); }
+[data-color="scrim"] { color: var(--hl-scrim); }
+[data-color="inversesurface"] { color: var(--hl-inversesurface); }
+[data-color="inverseonsurface"] { color: var(--hl-inverseonsurface); }
+[data-color="inverseprimary"] { color: var(--hl-inverseprimary); }
+[data-color="success"] { color: var(--hl-success); }
+[data-color="onsuccess"] { color: var(--hl-onsuccess); }
+[data-color="successcontainer"] { color: var(--hl-successcontainer); }
+[data-color="onsuccesscontainer"] { color: var(--hl-onsuccesscontainer); }
+[data-color="warning"] { color: var(--hl-warning); }
+[data-color="onwarning"] { color: var(--hl-onwarning); }
+[data-color="warningcontainer"] { color: var(--hl-warningcontainer); }
+[data-color="onwarningcontainer"] { color: var(--hl-onwarningcontainer); }
+[data-color="info"] { color: var(--hl-info); }
+[data-color="oninfo"] { color: var(--hl-oninfo); }
+[data-color="infocontainer"] { color: var(--hl-infocontainer); }
+[data-color="oninfocontainer"] { color: var(--hl-oninfocontainer); }
+[data-color="primaryfixed"] { color: var(--hl-primaryfixed); }
+[data-color="primaryfixeddim"] { color: var(--hl-primaryfixeddim); }
+[data-color="onprimaryfixed"] { color: var(--hl-onprimaryfixed); }
+[data-color="onprimaryfixedvariant"] { color: var(--hl-onprimaryfixedvariant); }
+[data-color="secondaryfixed"] { color: var(--hl-secondaryfixed); }
+[data-color="secondaryfixeddim"] { color: var(--hl-secondaryfixeddim); }
+[data-color="onsecondaryfixed"] { color: var(--hl-onsecondaryfixed); }
+[data-color="onsecondaryfixedvariant"] { color: var(--hl-onsecondaryfixedvariant); }
+[data-color="tertiaryfixed"] { color: var(--hl-tertiaryfixed); }
+[data-color="tertiaryfixeddim"] { color: var(--hl-tertiaryfixeddim); }
+[data-color="ontertiaryfixed"] { color: var(--hl-ontertiaryfixed); }
+[data-color="ontertiaryfixedvariant"] { color: var(--hl-ontertiaryfixedvariant); }
+[data-color="surfacedim"] { color: var(--hl-surfacedim); }
+[data-color="surfacebright"] { color: var(--hl-surfacebright); }
+[data-color="surfacecontainerlowest"] { color: var(--hl-surfacecontainerlowest); }
+[data-color="surfacecontainerlow"] { color: var(--hl-surfacecontainerlow); }
+[data-color="surfacecontainer"] { color: var(--hl-surfacecontainer); }
+[data-color="surfacecontainerhigh"] { color: var(--hl-surfacecontainerhigh); }
+[data-color="surfacecontainerhighest"] { color: var(--hl-surfacecontainerhighest); }
+
+/* Back-compat: keep class API but without !important; prefer data-color */
+.color-primary { color: var(--hl-primary); }
+.color-onprimary { color: var(--hl-onprimary); }
+/* ...additional class aliases could be generated if needed ... */

@@ -1,0 +1,43 @@
+.accordion {
+  overflow: hidden;
+  border-radius: var(--sm);
+  border: 1px solid transparent;
+  transition: border 300ms ease;
+}
+
+.accordion-trigger {
+  position: relative;
+  overflow: hidden;
+  padding: var(--xs);
+  transition:
+    padding 300ms ease,
+    border 300ms ease;
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 300ms ease;
+}
+
+.accordion-icon {
+  transition: transform 300ms ease;
+}
+
+.accordion.open {
+  border: 1px solid var(--hl-outline);
+}
+
+header:has(.accordion.open) .accordion-trigger {
+  padding-block: var(--xs);
+  border: 1px solid var(--hl-outlinevariant);
+}
+
+header:has(.accordion.open) .accordion-content {
+  max-height: 500px;
+}
+
+header:has(.accordion.open) .accordion-icon {
+  transform: rotateZ(90deg);
+  border-radius: 100em;
+}

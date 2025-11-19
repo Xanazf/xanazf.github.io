@@ -1,0 +1,40 @@
+.container__xs,
+.container-xs {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 61.804em;
+}
+
+.container__sm,
+.container-sm {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 78.56em;
+}
+
+.container__md,
+.container-md {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 100em;
+}
+
+.container__lg,
+.container-lg {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 112.9em;
+}
+
+.container__xl,
+.container-xl {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: none;
+}
+
+.max-w-container-80ch {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 80ch;
+}
