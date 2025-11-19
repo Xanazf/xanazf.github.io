@@ -11,7 +11,7 @@
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/simple-icons": "^1.2.58",
     "astro": "5.15.8",
-    "astro-breadcrumbs": "^2.3.1",
+    "astro-breadcrumbs": "^3.3.1",
     "astro-icon": "^1.1.1",
     "remark-github-blockquote-alert": "^1.2.1",
     "solid-devtools": "^0.30.1",
