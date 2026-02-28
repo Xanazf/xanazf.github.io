@@ -1,0 +1,307 @@
+---
+// ThreeBackground.astro
+---
+
+<div id="three-bg-container"></div>
+
+<style>
+  #three-bg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 1;
+    background: #000;
+  }
+</style>
+
+<script>
+  import * as THREE from "three";
+  import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
+  import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
+  import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
+
+  class HexagonGrid {
+    container: HTMLElement;
+    scene: THREE.Scene;
+    camera: THREE.PerspectiveCamera;
+    renderer: THREE.WebGLRenderer;
+    composer!: EffectComposer;
+    hexMesh!: THREE.InstancedMesh;
+    gridSizeX!: number;
+    gridSizeZ!: number;
+    hexWidthWithGap!: number;
+    hexHeightWithGap!: number;
+    customUniforms: any;
+
+    constructor(container: HTMLElement) {
+      this.container = container;
+      this.scene = new THREE.Scene();
+
+      this.scene.background = new THREE.Color(0x000000);
+      // Reduced fog density so distant hexagons don't lose their glow intensity too quickly
+      this.scene.fog = new THREE.FogExp2(0x000000, 0.015);
+
+      this.camera = new THREE.PerspectiveCamera(
+        30,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+      this.camera.position.set(20, 25, 20);
+      this.camera.lookAt(0, 0, 0);
+
+      this.renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: false,
+      });
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
+      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      this.renderer.toneMapping = THREE.ReinhardToneMapping;
+      this.container.appendChild(this.renderer.domElement);
+
+      this.initPostProcessing();
+      this.initLights();
+      this.initHexagons();
+
+      this.animate = this.animate.bind(this);
+      window.addEventListener("resize", this.onWindowResize.bind(this));
+
+      requestAnimationFrame(this.animate);
+    }
+
+    initPostProcessing() {
+      const renderScene = new RenderPass(this.scene, this.camera);
+
+      const bloomPass = new UnrealBloomPass(
+        new THREE.Vector2(window.innerWidth, window.innerHeight),
+        1.2, // Strength: Lowered for a more controlled glow
+        0.3, // Radius
+        0.66 // Threshold: Increased to ensure background stays black
+      );
+
+      this.composer = new EffectComposer(this.renderer);
+      this.composer.addPass(renderScene);
+      this.composer.addPass(bloomPass);
+    }
+
+    initLights() {
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.02);
+      this.scene.add(ambientLight);
+
+      const pointLight1 = new THREE.PointLight(0xf92aad, 5, 50);
+      pointLight1.position.set(0, 5, 0);
+      this.scene.add(pointLight1);
+
+      const pointLight2 = new THREE.PointLight(0x03edf9, 5, 50);
+      pointLight2.position.set(10, 5, 10);
+      this.scene.add(pointLight2);
+    }
+
+    initHexagons() {
+      const outerRadius = 2.0;
+      const innerRadius = 1.76;
+      const depth = 0.8;
+
+      const shape = new THREE.Shape();
+      for (let i = 0; i < 6; i++) {
+        const angle = (i / 6) * Math.PI * 2;
+        const x = Math.cos(angle) * outerRadius;
+        const y = Math.sin(angle) * outerRadius;
+        if (i === 0) shape.moveTo(x, y);
+        else shape.lineTo(x, y);
+      }
+      const hole = new THREE.Path();
+      for (let i = 0; i < 6; i++) {
+        const angle = (i / 6) * Math.PI * 2;
+        const x = Math.cos(angle) * innerRadius;
+        const y = Math.sin(angle) * innerRadius;
+        if (i === 0) hole.moveTo(x, y);
+        else hole.lineTo(x, y);
+      }
+      hole.lineTo(Math.cos(0) * innerRadius, Math.sin(0) * innerRadius);
+      shape.holes.push(hole);
+
+      const geometry = new THREE.ExtrudeGeometry(shape, {
+        depth,
+        bevelEnabled: false,
+      });
+      geometry.center();
+      geometry.rotateX(-Math.PI / 2);
+
+      const material = new THREE.MeshStandardMaterial({
+        color: 0x000000,
+        roughness: 0.1,
+        metalness: 0.9,
+      });
+
+      material.onBeforeCompile = shader => {
+        shader.uniforms.uTime = { value: 0 };
+        shader.uniforms.uScrollPos = { value: new THREE.Vector3(0, 0, 0) };
+        // #0f067a
+        // #1911a6
+        // #921c86 #61E2FF
+        // #c80e65 #AF6DF9
+        // #ff0044 #8B57C7
+        // #db0037
+        shader.uniforms.uColor1 = { value: new THREE.Color(0x0f067a) };
+        shader.uniforms.uColor2 = { value: new THREE.Color(0x1911a6) };
+        shader.uniforms.uColor3 = { value: new THREE.Color(0x61e2ff) };
+        shader.uniforms.uColor4 = { value: new THREE.Color(0x1911a6) };
+        shader.uniforms.uColor5 = { value: new THREE.Color(0x0f067a) };
+        shader.uniforms.uColor6 = { value: new THREE.Color(0xec5087) };
+        this.customUniforms = shader.uniforms;
+
+        shader.vertexShader =
+          `
+          varying vec3 vGridPos;
+          varying vec3 vLocalPos;
+        \n` + shader.vertexShader;
+
+        shader.vertexShader = shader.vertexShader.replace(
+          "#include <project_vertex>",
+          `
+          #include <project_vertex>
+          // vLocalPos is the position relative to the center of the individual hexagon
+          vLocalPos = position;
+          vec4 gridPosition = vec4( transformed, 1.0 );
+          vec4 worldInstancePos = modelMatrix * instanceMatrix * vec4(transformed, 1.0);
+          #ifdef USE_INSTANCING
+            gridPosition = instanceMatrix * gridPosition;
+          #endif
+          vGridPos = worldInstancePos.xyz;
+        `
+        );
+
+        shader.fragmentShader =
+          `
+          uniform float uTime;
+          uniform vec3 uScrollPos;
+          uniform vec3 uColor1; uniform vec3 uColor2; uniform vec3 uColor3;
+          uniform vec3 uColor4; uniform vec3 uColor5; uniform vec3 uColor6;
+          varying vec3 vGridPos;
+          varying vec3 vLocalPos;
+        ` + shader.fragmentShader;
+
+        shader.fragmentShader = shader.fragmentShader.replace(
+          "#include <emissivemap_fragment>",
+          `
+          #include <emissivemap_fragment>
+
+          // pi
+          float pi = 3.14159265359;
+
+          // calculate dist from center
+          float dist = length(vLocalPos.xz);
+
+          // only apply to top of the hexagon
+          float topFaceMask = step(0.19, vLocalPos.y);
+          float rightFaceMask = step(0.19, vLocalPos.x);
+          float leftFaceMask = step(0.19, -vLocalPos.x);
+          float depthFaceMask = step(0.19, vLocalPos.z);
+          float radiusMask = smoothstep(0.85, 0.9, dist);
+
+          // calculate local angle (hexagon is on XZ)
+          float localPhase = (atan(vLocalPos.z, vLocalPos.x) / (2.0 * pi)) + 0.5;
+          float worldPhase = (vGridPos.x + vGridPos.z) * 0.09;
+          float timePhase = uTime * 0.05;
+
+          float comboPhase = localPhase + worldPhase + timePhase;
+          // e.g.: fract(1.2) = 0.2; fract(14.564) = 0.564;
+          float wrappedWave = fract(comboPhase);
+
+
+          // 0..1 from rotation turns into 0..5
+          float scaledWave = wrappedWave * 6.0;
+
+          // 5 item array
+          vec3 colors[6] = vec3[](uColor1, uColor2, uColor3, uColor4, uColor5, uColor6);
+
+          // index of the array defined by rotation
+          int index1 = int(floor(scaledWave)) % 6;
+          int index2 = (index1 + 1) % 6;
+          float weight = fract(scaledWave);
+
+          vec3 gradColor = mix(colors[index1], colors[index2], weight);
+
+          // Multiplier to trigger the bloom pass without washing out the scene
+          totalEmissiveRadiance += gradColor * wrappedWave * 5.4;
+          `
+        );
+      };
+
+      this.gridSizeX = 20;
+      this.gridSizeZ = 20;
+      this.hexMesh = new THREE.InstancedMesh(
+        geometry,
+        material,
+        this.gridSizeX * this.gridSizeZ
+      );
+
+      const hexWidth = Math.sqrt(3) * outerRadius;
+      const zOffset = 1.5 * outerRadius;
+      this.hexWidthWithGap = hexWidth + 0.1;
+      this.hexHeightWithGap = zOffset + 0.1;
+
+      let i = 0;
+      const dummy = new THREE.Object3D();
+      for (let z = 0; z < this.gridSizeZ; z++) {
+        for (let x = 0; x < this.gridSizeX; x++) {
+          const xPos =
+            (x + (z % 2 === 0 ? 0 : 0.5)) * this.hexWidthWithGap -
+            (this.gridSizeX * this.hexWidthWithGap) / 2;
+          const zPos =
+            z * this.hexHeightWithGap -
+            (this.gridSizeZ * this.hexHeightWithGap) / 2;
+
+          // Fixed height at 0 to prevent snapping glitches during mesh wrapping
+          dummy.position.set(xPos, 0, zPos);
+          dummy.rotation.y = Math.PI / 6;
+          dummy.updateMatrix();
+          this.hexMesh.setMatrixAt(i++, dummy.matrix);
+        }
+      }
+      this.scene.add(this.hexMesh);
+    }
+
+    onWindowResize() {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      this.camera.aspect = w / h;
+      this.camera.updateProjectionMatrix();
+      this.renderer.setSize(w, h);
+      this.composer.setSize(w, h);
+    }
+
+    animate(timeMs: number) {
+      requestAnimationFrame(this.animate);
+      // const time = timeMs * 0.001 || 0;
+      const time = (performance.now() / 1000) % 1000.0;
+
+      // Infinite scrolling motion
+      const speed = 0.3;
+      const offsetX = -((time * speed) % this.hexWidthWithGap);
+      const offsetZ = (time * speed * 0.5) % (this.hexHeightWithGap * 2);
+
+      this.hexMesh.position.x = offsetX;
+      this.hexMesh.position.z = offsetZ;
+
+      if (this.customUniforms) {
+        this.customUniforms.uTime.value = (performance.now() / 1000) % 1000.0;
+        this.customUniforms.uScrollPos.value.set(offsetX, 0, offsetZ);
+      }
+
+      this.composer.render();
+    }
+  }
+
+  if (typeof window !== "undefined") {
+    const container = document.getElementById("three-bg-container");
+    if (container) new HexagonGrid(container);
+  }
+</script>

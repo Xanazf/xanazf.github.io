@@ -2,19 +2,30 @@
 import MainLayout from "@layouts/MainLayout.astro";
 import ProjectCard from "@components/cards/ProjectCard.astro";
 import SkillCard from "@components/cards/SkillCard.astro";
-import Hero from "@components/sections/hero/Hero.astro"
+import Hero from "@components/sections/hero/Hero.astro";
 import "@styles/pages/main.css";
-
 ---
+
 <MainLayout title="Oleksandr Marnov" description="Web Developer & Designer">
-  <Hero/>
-  <h2>Projects</h2>
-  <div class="main-projects">
-    <ProjectCard projectName="Quickshell" projectLink="https://quickshell.org"/>
-    <ProjectCard projectName="HeavyLift" projectLink="https://github.com/Xanazf/heavylift"/>
-    <ProjectCard projectName="Bongopunk" projectLink="https://github.com/Xanazf/bongopunk"/>
+  <Hero />
+  <h2 class="title2-bold text-left pl-xl pb-md pt-lg m-0">Projects</h2>
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-md px-md pb-md sm:px-lg lg:px-xl"
+  >
+    <ProjectCard
+      projectName="Quickshell"
+      projectLink="https://quickshell.org"
+    />
+    <ProjectCard
+      projectName="HeavyLift"
+      projectLink="https://github.com/Xanazf/heavylift"
+    />
+    <ProjectCard
+      projectName="Bongopunk"
+      projectLink="https://github.com/Xanazf/bongopunk"
+    />
     <!-- <ProjectCard projectName="NDA" projectLink=""/> -->
   </div>
-  <h2>Skills</h2>
-  <SkillCard/>
+  <h2 class="title2-bold text-left pl-xl pb-md pt-lg m-0">Skills</h2>
+  <div class="px-md pb-xl sm:px-lg lg:px-xl"><SkillCard /></div>
 </MainLayout>

@@ -1,25 +1,53 @@
 ---
-import styles from "@styles/components/header/Nav.module.css";
 import { Icon } from "astro-icon/components";
+
+const paths = [
+  {
+    path: "/",
+    label: "Home",
+  },
+  {
+    path: "/notes",
+    label: "Notes",
+  },
+  {
+    path: "/bits",
+    label: "Bits",
+  },
+];
 ---
-<nav
-  class={styles.nav}
-  id="nav"
->
-  <div
-    class={styles["menu-collapser"]}
-  >
-    <Icon name="menu-right"/>
-  </div>
-  <ul>
-    <li>
-      <a href="/">Home</a>
-    </li>
-    <li>
-      <a class="inactive" href="/notes">Notes</a>
-    </li>
-    <li>
-      <a class="inactive" href="/projects">Projects</a>
-    </li>
+
+<nav class="flex justify-start w-full" style="height: 6rem;" id="nav">
+  <ul class="flex items-center m-0 p-0 nav-ul" style="list-style: none;">
+    {paths.map(({path, label}, index) => {
+      const curr_path = Astro.url.pathname
+      if (curr_path === path) {
+        return (
+          <li aria-key=`${index}` class="flex justify-center items-center">
+            <div
+              class="flex justify-center items-center"
+              style="width: max-content; font-size: 2.217rem;"
+            >
+              <Icon name="menu-right" />
+            </div>
+              <a href=`${path}`>{label}</a>
+          </li>
+        )
+      }
+      return (<li aria-key=`${index}`><a href=`${path}`>{label}</a></li>)
+    })}
   </ul>
 </nav>
+
+<style>
+  .nav-ul {
+    width: 50svw;
+    justify-content: space-evenly;
+  }
+  @media (min-width: 65rem) {
+    .nav-ul {
+      width: 21rem;
+      justify-content: space-between;
+    }
+  }
+</style>

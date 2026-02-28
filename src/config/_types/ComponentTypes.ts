@@ -9,4 +9,15 @@ interface ExperienceType {
   skills?: string[];
 }
 
-export type { ExperienceType };
+interface ProjectType {
+  projectName: string;
+  projectLink: string;
+}
+
+interface LayoutProps {
+  title: string;
+  description: string;
+  image?: string;
+}
+
+export type { ExperienceType, ProjectType, LayoutProps };

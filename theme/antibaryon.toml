@@ -7,6 +7,13 @@
 # - Adjust opacity values in terminal configs
 # - See TRANSPARENCY.md for detailed setup guide
 
+# #0f067a                                                                                                │
+# #1911a6                                                                                                │
+# #921c86                                                                                                │
+# #c80e65                                                                                                │
+# #ff0044                                                                                                │
+# #db0037
+
 [colors]
 # Base colors
 bg = "#090318"           # Dark navy-blue background

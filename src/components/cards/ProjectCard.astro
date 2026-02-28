@@ -1,16 +1,13 @@
 ---
-import styles from "@styles/components/cards/ProjectCard.module.css";
+import type { ProjectType } from "@config/_types/ComponentTypes";
 
-export interface Props {
-  projectName: string;
-  projectLink: string;
-}
+export interface Props extends ProjectType {}
 const { projectName, projectLink } = Astro.props;
 const NDAdata = {
   numberOfWebsites: 6,
 };
 ---
-<div class={`${styles["project-card"]} pc ${projectName.toLowerCase()}`}>
+<div class={`project-card pc ${projectName.toLowerCase()}`}>
   {projectName !== "NDA" ? (
     <a href={projectLink} target="_blank" class="pc-link">{projectName}</a>
   ):(

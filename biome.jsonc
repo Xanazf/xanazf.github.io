@@ -1,105 +1,74 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.4/schema.json",
-  "assist": {
-    "actions": {
-      "source": {
-        "organizeImports": "on",
-        "recommended": true,
-        "useSortedAttributes": "on",
-        "useSortedKeys": "on",
-        "useSortedProperties": "on"
-      }
-    },
-    "enabled": true
+  "$schema": "https://biomejs.dev/schemas/2.4.1/schema.json",
+  "files": {
+    "includes": ["**", "!!**/dist", "!**/node_modules", "!**/.yarn"]
   },
-  "css": {
-    "assist": {
-      "enabled": false
-    },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 80,
+    "attributePosition": "auto"
+  },
+  "plugins": [],
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "style": {
+        "useConst": "error"
+      },
+      "suspicious": {
+        "noDoubleEquals": "error"
+      },
+      "correctness": {
+        "useJsxKeyInIterable": "info"
+      }
+    }
+  },
+  "html": {
     "formatter": {
       "enabled": true,
-      "indentStyle": "space",
-      "lineWidth": 66
+      "indentScriptAndStyle": true,
+      "lineWidth": 80
+    },
+    "experimentalFullSupportEnabled": true
+  },
+  "javascript": {
+    "formatter": {
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "trailingCommas": "es5",
+      "semicolons": "always",
+      "arrowParentheses": "asNeeded",
+      "bracketSpacing": true,
+      "bracketSameLine": false,
+      "quoteStyle": "double",
+      "lineWidth": 66,
+      "attributePosition": "multiline"
+    }
+  },
+  "css": {
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space"
     },
     "linter": {
       "enabled": true
     },
     "parser": {
       "cssModules": true
-      // "tailwindDirectives": false
-    }
-  },
-  "files": {
-    "ignoreUnknown": true,
-    "includes": ["**", "!**/node_modules"]
-  },
-  "formatter": {
-    "attributePosition": "multiline",
-    "bracketSameLine": true,
-    "bracketSpacing": true,
-    "enabled": true,
-    "formatWithErrors": true,
-    "indentStyle": "space",
-    "indentWidth": 2,
-    "lineEnding": "lf",
-    "lineWidth": 72,
-    "useEditorconfig": false
-  },
-  "html": {
-    "formatter": {
-      "enabled": true
-    }
-  },
-  "javascript": {
-    "assist": {
-      "enabled": true
-    },
-    "formatter": {
-      "arrowParentheses": "asNeeded",
-      "attributePosition": "multiline",
-      "bracketSameLine": false,
-      "bracketSpacing": true,
-      "enabled": true,
-      "jsxQuoteStyle": "double",
-      "lineWidth": 66,
-      "operatorLinebreak": "before",
-      "quoteProperties": "asNeeded",
-      "quoteStyle": "double",
-      "semicolons": "always",
-      "trailingCommas": "all"
-    },
-    "linter": {
-      "enabled": true
-    },
-    "parser": {
-      "gritMetavariables": true,
-      "jsxEverywhere": false,
-      "unsafeParameterDecoratorsEnabled": true
     }
   },
   "json": {
     "formatter": {
       "enabled": true,
-      "trailingCommas": "none"
-    },
-    "linter": {
-      "enabled": true
-    }
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "correctness": {
-        "useJsxKeyInIterable": "info"
-      },
-      "recommended": true,
-      "style": {
-        "noCommonJs": "warn",
-        "useConst": "error"
-      },
-      "suspicious": {
-        "noDoubleEquals": "error"
-      }
+      "lineWidth": 80,
+      "lineEnding": "lf",
+      "indentStyle": "space",
+      "indentWidth": 2
     }
   },
   "overrides": [
@@ -107,9 +76,6 @@
       "includes": ["**/*.ts", "**/*.tsx"],
       "linter": {
         "rules": {
-          "a11y": {
-            "noSvgWithoutTitle": "info"
-          },
           "complexity": {
             "noBannedTypes": "off"
           },
@@ -120,30 +86,15 @@
             "noNonNullAssertion": "off"
           },
           "suspicious": {
-            "noDocumentCookie": "info",
-            "noDuplicateClassMembers": "info",
-            "noEmptyBlockStatements": "info",
-            "noExplicitAny": "info"
-          }
-        }
-      }
-    },
-    {
-      "includes": ["*.astro"],
-      "linter": {
-        "rules": {
-          "style": {
-            "useConst": "off",
-            "useImportType": "off"
+            "noExplicitAny": "info",
+            "noDuplicateClassMembers": "off",
+            "noEmptyBlockStatements": "off"
+          },
+          "a11y": {
+            "noSvgWithoutTitle": "info"
           }
         }
       }
     }
-  ],
-  "vcs": {
-    "clientKind": "git",
-    "defaultBranch": "main",
-    "enabled": true,
-    "useIgnoreFile": true
-  }
+  ]
 }

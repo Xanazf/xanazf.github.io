@@ -1,14 +1,24 @@
 ---
 import { Icon } from "astro-icon/components";
 
-import styles from "@styles/components/header/Header.module.css";
 import Nav from "@components/nav/Nav.astro";
 ---
-<header id="header" class={styles.header}>
-  <div class={styles["left-section"]}>
-    <Icon name="xnzf-logo"/>
-  </div>
-  <div class={styles["right-section"]}>
-    <Nav/>
+
+<header id="header" class="header flex mx-auto rounded-lg header-responsive">
+  <div class="flex justify-center items-center"><Icon name="xnzf-logo" /></div>
+  <div class="right-section">
+    <Nav />
   </div>
 </header>
+
+<style>
+  .header-responsive {
+    height: max-content;
+    width: max-content;
+  }
+  @media (min-width: 65rem) {
+    .header-responsive {
+      width: 100%;
+    }
+  }
+</style>

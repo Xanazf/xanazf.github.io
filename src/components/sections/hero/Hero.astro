@@ -1,22 +1,38 @@
 ---
-import { Image } from "astro:assets"
+import { Image } from "astro:assets";
 
-import Contacts from "@components/Contacts.astro"
-import PFP from "@public/pfp.png"
-
+import Contacts from "@components/Contacts.astro";
+import PFP from "@public/pfp.png";
 ---
-<div class="main-hero">
-  <div class="main-text">
-    <section class="main-heading">
-      <h1>Hi, I'm Xan</h1>
+
+<div class="flex flex-col-reverse lg:flex-row mt-xl">
+  <div class="p-md px-xl flex-1">
+    <section class="mb-sm">
+      <h1 class="display2-bold text-left m-0">Hi, I'm Xan</h1>
     </section>
-    <section class="main-content">
-      <p>My name is Oleksandr, but I go by Xanazf online. I'm a full stack web developer and designer living in Kyiv, Ukraine.</p>
-      <p>I design infrastructure and UX, and work across web/cloud. I enjoy turning complex problems into durable, well-designed solutions, and contribute to open source in my free time.</p>
+    <section class="body color-onsurfacevariant flex flex-col gap-sm">
+      <p>
+        My name is Oleksandr, but I go by Xanazf online. I'm a full stack web
+        developer and designer living in Kyiv, Ukraine.
+      </p>
+      <p>
+        I design infrastructure and UX, and work across web/cloud. I enjoy
+        turning complex problems into durable, well-designed solutions, and
+        contribute to open source in my free time.
+      </p>
     </section>
   </div>
-  <div class="main-image-contacts">
-    <Image src={PFP} alt="main profile picture" width={300} height={300}/>
-    <Contacts/>
+  <div
+    class="mx-auto flex-col items-center justify-center gap-md"
+    style="width: max-content;"
+  >
+    <Image
+      src={PFP}
+      alt="main profile picture"
+      width={300}
+      height={300}
+      style="border-radius: 100vh; border: 6px solid var(--hl-surfacevariant);"
+    />
+    <Contacts />
   </div>
 </div>

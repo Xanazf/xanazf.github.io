@@ -1,5 +1,4 @@
 ---
-import styles from "@styles/components/cards/Experience.module.css";
 import type { ExperienceType } from "@config/_types/ComponentTypes";
 //import ExperienceCard from "../cards/ExperienceCard";
 
@@ -156,10 +155,10 @@ Provided B2B (Business-to-Business) technical support for an E-Commerce solution
 
 const keys = Object.keys(experienceObj);
 ---
-<div class={styles.experience_wrap}>
-  <ul class={styles.experience_list}>
+<div class="py-xs max-w-full md:max-w-[50%] md:flex-1 md:flex-none">
+  <ul class="grid list-none px-xs gap-sm md:w-full">
     {keys.map(item => (
-      <li class={styles.experience_item}>
+      <li>
       <!--<ExperienceCard {...experienceObj[item]} />-->
       </li>
     ))}

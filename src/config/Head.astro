@@ -1,9 +1,7 @@
 ---
-interface Props {
-  title: string;
-  description: string;
-  //  image: string;
-}
+import type { LayoutProps } from "@config/_types/ComponentTypes";
+
+export interface Props extends LayoutProps {}
 const { title, description } = Astro.props;
 ---
 

@@ -1,6 +1,5 @@
 ---
 import type { ExperienceType } from "@config/_types/ComponentTypes";
-import styles from "@styles/components/cards/ExperienceCard.module.css";
 
 export interface Props extends ExperienceType {}
 
@@ -15,18 +14,37 @@ const {
   skills,
 } = Astro.props;
 ---
-<div class={styles.experience_card_wrap}>
-  <div class={styles.experience_summary}>
-    <section class={styles.overline}>{companyName}</section>
-    <section class={styles.heading}>{positionName}</section>
-    <section class={styles.subheading}>{from + ' - ' + to}</section>
-    <section class={styles.caption}>{location}</section>
-    <section class={styles.caption}>{workType}</section>
+
+<div class="card elevated p-md flex flex-col gap-sm">
+  <div class="flex flex-col">
+    <section
+      style="font-weight: 700; font-size: 0.618em; color: var(--hl-onprimarycontainer); line-height: 1.272; letter-spacing: 0.08em; text-transform: uppercase;"
+    >
+      {companyName}
+    </section>
+    <section style="text-wrap: balance; font-weight: 600; font-size: 1.1rem;">
+      {positionName}
+    </section>
+    <section
+      style="font-weight: 400; color: var(--hl-onprimarycontainer); font-size: 0.885em; line-height: 1.272; letter-spacing: -0.007em;"
+    >
+      {from + ' - ' + to}
+    </section>
+    <section
+      style="font-weight: 400; font-size: 0.786em; line-height: 1.272; letter-spacing: -0.007em;"
+    >
+      {location}
+    </section>
+    <section
+      style="font-weight: 400; font-size: 0.786em; line-height: 1.272; letter-spacing: -0.007em;"
+    >
+      {workType}
+    </section>
   </div>
-  {desc ? <pre class={styles.maintext}>{desc}</pre> : null}
+  {desc ? <pre style="padding: 0; margin: 0; max-height: min-content; font-family: inherit; text-wrap: balance; align-content: start; font-size: 0.9em; line-height: 1.4; letter-spacing: -0.02em; white-space: pre-wrap;">{desc}</pre> : null}
   {skills ? (
-    <section class={styles.skills}>
-      {skills.map(item => <div class={styles.skill}>{item}</div>)}
+    <section class="flex flex-wrap gap-xs">
+      {skills.map(item => <div class="chip hl-primary">{item}</div>)}
     </section>
   ) : null}
 </div>
