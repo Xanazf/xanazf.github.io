@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>bit: archive-list</title>
-<!-- category: components | source: minimalist_2 -->
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: #0c0b09;
-  color: #f0ead6;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 13px;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-}
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bit: archive-list</title>
+    <!-- category: components | source: minimalist_2 -->
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #0c0b09;
+        color: #f0ead6;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 13px;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+      }
 
-/* === ARCHIVE LIST ===
+      /* === ARCHIVE LIST ===
    Each row:
    - Slides padding-left in on hover (creates indent feel)
    - Bottom border shifts to accent color
@@ -28,130 +34,149 @@ body {
    The row needs position:relative and its parent needs padding-left
    space so the dot doesn't clip. */
 
-.archive {
-  width: 100%;
-  max-width: 640px;
-  padding-left: 20px; /* room for the dot ::before */
-}
+      .archive {
+        width: 100%;
+        max-width: 640px;
+        padding-left: 20px; /* room for the dot ::before */
+      }
 
-.archive-item {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 20px 0;
-  border-bottom: 1px solid rgba(240,234,214,0.08);
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-  position: relative;
-  transition: padding-left 0.4s cubic-bezier(0.4,0,0.2,1), border-color 0.4s ease;
-}
+      .archive-item {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 20px 0;
+        border-bottom: 1px solid rgba(240, 234, 214, 0.08);
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+        position: relative;
+        transition:
+          padding-left 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+          border-color 0.4s ease;
+      }
 
-/* Dot that slides in from the left */
-.archive-item::before {
-  content: '';
-  position: absolute;
-  left: -16px; top: 50%;
-  width: 7px; height: 7px;
-  background: #f59e0b;
-  border-radius: 50%;
-  transform: translateY(-50%) scale(0);
-  transition: transform 0.3s ease;
-}
+      /* Dot that slides in from the left */
+      .archive-item::before {
+        content: "";
+        position: absolute;
+        left: -16px;
+        top: 50%;
+        width: 7px;
+        height: 7px;
+        background: #f59e0b;
+        border-radius: 50%;
+        transform: translateY(-50%) scale(0);
+        transition: transform 0.3s ease;
+      }
 
-.archive-item:hover {
-  padding-left: 14px;
-  border-bottom-color: #f59e0b;
-}
-.archive-item:hover::before { transform: translateY(-50%) scale(1); }
-.archive-item:hover .archive-title { color: #f59e0b; }
+      .archive-item:hover {
+        padding-left: 14px;
+        border-bottom-color: #f59e0b;
+      }
+      .archive-item:hover::before {
+        transform: translateY(-50%) scale(1);
+      }
+      .archive-item:hover .archive-title {
+        color: #f59e0b;
+      }
 
-.archive-date {
-  font-size: 11px;
-  color: #8a8275;
-  width: 80px;
-  flex-shrink: 0;
-}
-.archive-body { flex: 1; min-width: 0; }
-.archive-title {
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: 3px;
-  transition: color 0.3s ease;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.archive-desc {
-  font-size: 11px;
-  color: #8a8275;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.archive-tag {
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #f59e0b;
-  padding: 3px 8px;
-  border: 1px solid rgba(245,158,11,0.4);
-  border-radius: 2px;
-  background: rgba(245,158,11,0.08);
-  flex-shrink: 0;
-}
-.archive-time {
-  font-size: 11px;
-  color: #8a8275;
-  width: 40px;
-  text-align: right;
-  flex-shrink: 0;
-}
-</style>
-</head>
-<body>
+      .archive-date {
+        font-size: 11px;
+        color: #8a8275;
+        width: 80px;
+        flex-shrink: 0;
+      }
+      .archive-body {
+        flex: 1;
+        min-width: 0;
+      }
+      .archive-title {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 3px;
+        transition: color 0.3s ease;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .archive-desc {
+        font-size: 11px;
+        color: #8a8275;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .archive-tag {
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #f59e0b;
+        padding: 3px 8px;
+        border: 1px solid rgba(245, 158, 11, 0.4);
+        border-radius: 2px;
+        background: rgba(245, 158, 11, 0.08);
+        flex-shrink: 0;
+      }
+      .archive-time {
+        font-size: 11px;
+        color: #8a8275;
+        width: 40px;
+        text-align: right;
+        flex-shrink: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="archive">
+      <div class="archive-item">
+        <span class="archive-date">09.30.24</span>
+        <div class="archive-body">
+          <div class="archive-title">The Hidden Cost of Abstraction</div>
+          <div class="archive-desc">
+            Every layer you add is a layer you'll debug.
+          </div>
+        </div>
+        <span class="archive-tag">Architecture</span>
+        <span class="archive-time">11 min</span>
+      </div>
 
-<div class="archive">
-  <div class="archive-item">
-    <span class="archive-date">09.30.24</span>
-    <div class="archive-body">
-      <div class="archive-title">The Hidden Cost of Abstraction</div>
-      <div class="archive-desc">Every layer you add is a layer you'll debug.</div>
+      <div class="archive-item">
+        <span class="archive-date">09.18.24</span>
+        <div class="archive-body">
+          <div class="archive-title">Plain Text Will Outlive Us All</div>
+          <div class="archive-desc">
+            On choosing formats your grandchildren can open.
+          </div>
+        </div>
+        <span class="archive-tag">Tools</span>
+        <span class="archive-time">5 min</span>
+      </div>
+
+      <div class="archive-item">
+        <span class="archive-date">09.02.24</span>
+        <div class="archive-body">
+          <div class="archive-title">
+            Garbage Collection, But Make It Personal
+          </div>
+          <div class="archive-desc">
+            What tracing collectors teach you about letting go.
+          </div>
+        </div>
+        <span class="archive-tag">Memory</span>
+        <span class="archive-time">9 min</span>
+      </div>
+
+      <div class="archive-item">
+        <span class="archive-date">08.07.24</span>
+        <div class="archive-body">
+          <div class="archive-title">I Wrote a Database in 200 Lines of Go</div>
+          <div class="archive-desc">
+            A WAL, an LSM-tree, and a HTTP API — on a Saturday.
+          </div>
+        </div>
+        <span class="archive-tag">Systems</span>
+        <span class="archive-time">16 min</span>
+      </div>
     </div>
-    <span class="archive-tag">Architecture</span>
-    <span class="archive-time">11 min</span>
-  </div>
-
-  <div class="archive-item">
-    <span class="archive-date">09.18.24</span>
-    <div class="archive-body">
-      <div class="archive-title">Plain Text Will Outlive Us All</div>
-      <div class="archive-desc">On choosing formats your grandchildren can open.</div>
-    </div>
-    <span class="archive-tag">Tools</span>
-    <span class="archive-time">5 min</span>
-  </div>
-
-  <div class="archive-item">
-    <span class="archive-date">09.02.24</span>
-    <div class="archive-body">
-      <div class="archive-title">Garbage Collection, But Make It Personal</div>
-      <div class="archive-desc">What tracing collectors teach you about letting go.</div>
-    </div>
-    <span class="archive-tag">Memory</span>
-    <span class="archive-time">9 min</span>
-  </div>
-
-  <div class="archive-item">
-    <span class="archive-date">08.07.24</span>
-    <div class="archive-body">
-      <div class="archive-title">I Wrote a Database in 200 Lines of Go</div>
-      <div class="archive-desc">A WAL, an LSM-tree, and a HTTP API — on a Saturday.</div>
-    </div>
-    <span class="archive-tag">Systems</span>
-    <span class="archive-time">16 min</span>
-  </div>
-</div>
-
-</body>
+  </body>
 </html>

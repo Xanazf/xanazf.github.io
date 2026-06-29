@@ -1,172 +1,214 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>bit: theme-toggle</title>
-<!-- category: components | source: minimalist_2 -->
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bit: theme-toggle</title>
+    <!-- category: components | source: minimalist_2 -->
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-/* === THEME TOKEN SYSTEM ===
+      /* === THEME TOKEN SYSTEM ===
    Three themes declared on :root[data-theme].
    JS sets the attribute and persists to localStorage.
    The .theme-anim class triggers a bulk smooth transition on switch. */
 
-:root[data-theme="dark"] {
-  --bg: #0c0b09;
-  --bg-elev: #14120e;
-  --fg: #f0ead6;
-  --fg-dim: #c9c1ad;
-  --muted: #8a8275;
-  --accent: #f59e0b;
-  --accent-rgb: 245,158,11;
-  --border: rgba(240,234,214,0.08);
-  --border-strong: rgba(240,234,214,0.18);
-}
-:root[data-theme="light"] {
-  --bg: #f3ecdc;
-  --bg-elev: #faf3e1;
-  --fg: #1a1610;
-  --fg-dim: #3d362b;
-  --muted: #6b6358;
-  --accent: #c2410c;
-  --accent-rgb: 194,65,12;
-  --border: rgba(26,22,16,0.12);
-  --border-strong: rgba(26,22,16,0.24);
-}
-:root[data-theme="cyber"] {
-  --bg: #02060a;
-  --bg-elev: #050d10;
-  --fg: #4eff96;
-  --fg-dim: #8affb8;
-  --muted: #2a8a5e;
-  --accent: #ffea00;
-  --accent-rgb: 255,234,0;
-  --border: rgba(78,255,150,0.18);
-  --border-strong: rgba(78,255,150,0.4);
-}
+      :root[data-theme="dark"] {
+        --bg: #0c0b09;
+        --bg-elev: #14120e;
+        --fg: #f0ead6;
+        --fg-dim: #c9c1ad;
+        --muted: #8a8275;
+        --accent: #f59e0b;
+        --accent-rgb: 245, 158, 11;
+        --border: rgba(240, 234, 214, 0.08);
+        --border-strong: rgba(240, 234, 214, 0.18);
+      }
+      :root[data-theme="light"] {
+        --bg: #f3ecdc;
+        --bg-elev: #faf3e1;
+        --fg: #1a1610;
+        --fg-dim: #3d362b;
+        --muted: #6b6358;
+        --accent: #c2410c;
+        --accent-rgb: 194, 65, 12;
+        --border: rgba(26, 22, 16, 0.12);
+        --border-strong: rgba(26, 22, 16, 0.24);
+      }
+      :root[data-theme="cyber"] {
+        --bg: #02060a;
+        --bg-elev: #050d10;
+        --fg: #4eff96;
+        --fg-dim: #8affb8;
+        --muted: #2a8a5e;
+        --accent: #ffea00;
+        --accent-rgb: 255, 234, 0;
+        --border: rgba(78, 255, 150, 0.18);
+        --border-strong: rgba(78, 255, 150, 0.4);
+      }
 
-/* Animate everything during theme switch */
-body.theme-anim,
-body.theme-anim *,
-body.theme-anim *::before,
-body.theme-anim *::after {
-  transition:
-    background-color 0.6s cubic-bezier(0.4,0,0.2,1),
-    color            0.6s cubic-bezier(0.4,0,0.2,1),
-    border-color     0.6s cubic-bezier(0.4,0,0.2,1),
-    box-shadow       0.6s cubic-bezier(0.4,0,0.2,1) !important;
-}
+      /* Animate everything during theme switch */
+      body.theme-anim,
+      body.theme-anim *,
+      body.theme-anim *::before,
+      body.theme-anim *::after {
+        transition:
+          background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+          color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+          border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+          box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
 
-body {
-  background: var(--bg);
-  color: var(--fg);
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 13px;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 32px;
-}
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 13px;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 32px;
+      }
 
-/* === PILL TOGGLE ===
+      /* === PILL TOGGLE ===
    Wraps themed buttons in a capsule. Active button gets accent bg + glow. */
 
-.theme-toggle {
-  display: inline-flex;
-  background: var(--bg-elev);
-  border: 1px solid var(--border-strong);
-  border-radius: 999px;
-  padding: 3px;
-  gap: 2px;
-}
-.theme-btn {
-  width: 36px; height: 36px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  color: var(--muted);
-  transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
-  font-size: 14px;
-}
-.theme-btn.active {
-  background: var(--accent);
-  color: var(--bg);
-  box-shadow: 0 0 14px rgba(var(--accent-rgb), 0.5);
-}
-.theme-btn:hover:not(.active) {
-  color: var(--fg);
-  transform: scale(1.08);
-}
+      .theme-toggle {
+        display: inline-flex;
+        background: var(--bg-elev);
+        border: 1px solid var(--border-strong);
+        border-radius: 999px;
+        padding: 3px;
+        gap: 2px;
+      }
+      .theme-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+        color: var(--muted);
+        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        font-size: 14px;
+      }
+      .theme-btn.active {
+        background: var(--accent);
+        color: var(--bg);
+        box-shadow: 0 0 14px rgba(var(--accent-rgb), 0.5);
+      }
+      .theme-btn:hover:not(.active) {
+        color: var(--fg);
+        transform: scale(1.08);
+      }
 
-/* demo surface */
-.surface {
-  background: var(--bg-elev);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 24px 32px;
-  text-align: center;
-  max-width: 320px;
-}
-.surface h2 { color: var(--accent); margin-bottom: 6px; }
-.surface p  { color: var(--muted); font-size: 12px; }
-.hint { font-size: 10px; color: var(--muted); }
-</style>
-</head>
-<body>
+      /* demo surface */
+      .surface {
+        background: var(--bg-elev);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 24px 32px;
+        text-align: center;
+        max-width: 320px;
+      }
+      .surface h2 {
+        color: var(--accent);
+        margin-bottom: 6px;
+      }
+      .surface p {
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .hint {
+        font-size: 10px;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="surface">
+      <h2>theme-toggle</h2>
+      <p>press T to cycle · or click a button below</p>
+    </div>
 
-<div class="surface">
-  <h2>theme-toggle</h2>
-  <p>press T to cycle · or click a button below</p>
-</div>
+    <div class="theme-toggle" role="group" aria-label="Theme selector">
+      <button
+        class="theme-btn active"
+        data-theme="dark"
+        title="Dark"
+        aria-label="Dark theme"
+      >
+        🌙
+      </button>
+      <button
+        class="theme-btn"
+        data-theme="light"
+        title="Light"
+        aria-label="Light theme"
+      >
+        ☀️
+      </button>
+      <button
+        class="theme-btn"
+        data-theme="cyber"
+        title="Cyber"
+        aria-label="Cyber theme"
+      >
+        ⚡
+      </button>
+    </div>
 
-<div class="theme-toggle" role="group" aria-label="Theme selector">
-  <button class="theme-btn active" data-theme="dark"  title="Dark"  aria-label="Dark theme">🌙</button>
-  <button class="theme-btn"        data-theme="light" title="Light" aria-label="Light theme">☀️</button>
-  <button class="theme-btn"        data-theme="cyber" title="Cyber" aria-label="Cyber theme">⚡</button>
-</div>
+    <p class="hint">keyboard: T to cycle themes</p>
 
-<p class="hint">keyboard: T to cycle themes</p>
+    <script>
+      const root = document.documentElement;
+      const buttons = document.querySelectorAll(".theme-btn");
 
-<script>
-const root    = document.documentElement;
-const buttons = document.querySelectorAll('.theme-btn');
+      function setTheme(name, animate = true) {
+        if (animate) {
+          document.body.classList.add("theme-anim");
+          setTimeout(() => document.body.classList.remove("theme-anim"), 700);
+        }
+        root.setAttribute("data-theme", name);
+        try {
+          localStorage.setItem("theme", name);
+        } catch {}
+        buttons.forEach(btn =>
+          btn.classList.toggle("active", btn.dataset.theme === name)
+        );
+      }
 
-function setTheme(name, animate = true) {
-  if (animate) {
-    document.body.classList.add('theme-anim');
-    setTimeout(() => document.body.classList.remove('theme-anim'), 700);
-  }
-  root.setAttribute('data-theme', name);
-  try { localStorage.setItem('theme', name); } catch {}
-  buttons.forEach(btn => btn.classList.toggle('active', btn.dataset.theme === name));
-}
+      buttons.forEach(btn =>
+        btn.addEventListener("click", () => setTheme(btn.dataset.theme))
+      );
 
-buttons.forEach(btn => btn.addEventListener('click', () => setTheme(btn.dataset.theme)));
+      // Keyboard shortcut: T cycles through themes
+      document.addEventListener("keydown", e => {
+        if (e.target.tagName === "INPUT") return;
+        if (e.key === "t" || e.key === "T") {
+          const order = ["dark", "light", "cyber"];
+          const current = root.getAttribute("data-theme");
+          const next = order[(order.indexOf(current) + 1) % order.length];
+          setTheme(next);
+        }
+      });
 
-// Keyboard shortcut: T cycles through themes
-document.addEventListener('keydown', (e) => {
-  if (e.target.tagName === 'INPUT') return;
-  if (e.key === 't' || e.key === 'T') {
-    const order   = ['dark', 'light', 'cyber'];
-    const current = root.getAttribute('data-theme');
-    const next    = order[(order.indexOf(current) + 1) % order.length];
-    setTheme(next);
-  }
-});
-
-// Restore from localStorage
-try {
-  const saved = localStorage.getItem('theme');
-  if (['dark', 'light', 'cyber'].includes(saved)) setTheme(saved, false);
-} catch {}
-</script>
-</body>
+      // Restore from localStorage
+      try {
+        const saved = localStorage.getItem("theme");
+        if (["dark", "light", "cyber"].includes(saved)) setTheme(saved, false);
+      } catch {}
+    </script>
+  </body>
 </html>

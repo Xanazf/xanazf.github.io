@@ -3,6 +3,19 @@ import { Image } from "astro:assets";
 
 import Contacts from "@components/Contacts.astro";
 import PFP from "@public/pfp.png";
+
+const stats = [
+  { label: "5+ yrs", note: "experience", color: "amber" },
+  { label: "500k+", note: "RPM handled", color: "green" },
+  { label: "OSS", note: "contributor", color: "cyan" },
+];
+
+const languages = [
+  { name: "Ukrainian", level: "native", color: "green" },
+  { name: "English", level: "fluent", color: "green" },
+  { name: "Polish", level: "intermediate", color: "amber" },
+  { name: "Japanese", level: "beginner", color: "amber" },
+];
 ---
 
 <div class="flex flex-col-reverse lg:flex-row mt-xl">
@@ -10,25 +23,41 @@ import PFP from "@public/pfp.png";
     <section class="mb-sm">
       <h1 class="display2-bold text-left m-0 glow-amber-bold">Hi, I'm Xan</h1>
     </section>
+
     <div class="status-row">
       <span class="dot dot-green"></span>
       <span class="status-text">available for work</span>
     </div>
+
     <section class="flex flex-col gap-sm hero-bio">
       <p>
-        My name is Oleksandr, but I go by Xanazf online. I'm a full stack web
-        developer and designer living in Kyiv, Ukraine.
+        My name is Oleksandr, but I go by Xanazf online. I'm a senior systems
+        and infrastructure engineer based in Kyiv, Ukraine.
       </p>
       <p>
-        I design infrastructure and UX, and work across web/cloud. I enjoy
-        turning complex problems into durable, well-designed solutions, and
-        contribute to open source in my free time.
+        I specialize in building and maintaining cloud infrastructure, as well
+        as Linux and its ecosystem, bridging low-level performance and scalable
+        web architecture. I enjoy turning complex problems into durable,
+        well-designed solutions, and contribute to open source in my free time.
       </p>
     </section>
+
+    <!-- Stat pills — from stat-pill.html -->
+    <div class="pill-row" style="margin-top: 20px;">
+      {stats.map((s) => (
+        <span class={`stat-pill stat-pill--${s.color}`}>
+          <span class={`pill-dot pill-dot--${s.color}`}></span>
+          <span class="stat-value">{s.label}</span>
+          <span class="pill-sep">·</span>
+          <span class="stat-note">{s.note}</span>
+        </span>
+      ))}
+    </div>
   </div>
+
   <div
     class="mx-auto flex-col items-center justify-center gap-md"
-    style="width: max-content;"
+    style="width: 300px;"
   >
     <Image
       src={PFP}
@@ -39,6 +68,17 @@ import PFP from "@public/pfp.png";
       style="border-radius: 100vh; border: 2px solid rgba(255, 184, 108, 0.2);"
     />
     <Contacts />
+
+    <div class="lang-row">
+      {languages.map((l) => (
+        <span class={`lang-pill lang-pill--${l.color}`}>
+          <span class={`pill-dot pill-dot--${l.color}`}></span>
+          <span class="lang-name">{l.name}</span>
+          <span class="pill-sep">·</span>
+          <span class="lang-level">{l.level}</span>
+        </span>
+      ))}
+    </div>
   </div>
 </div>
 
@@ -55,10 +95,134 @@ import PFP from "@public/pfp.png";
     text-shadow: 0 0 8px rgba(74, 222, 128, 0.45);
     letter-spacing: 0.04em;
   }
+
   .hero-bio p {
     color: #8a8275;
     line-height: 1.7;
   }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    width: auto;
+  }
+
+  .pill-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: pill-pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes pill-pulse {
+    0%,
+    100% {
+      opacity: 0.55;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+  .pill-dot--amber {
+    background: #ffb86c;
+    box-shadow: 0 0 6px rgba(255, 184, 108, 0.65);
+  }
+  .pill-dot--green {
+    background: #4ade80;
+    box-shadow: 0 0 6px rgba(74, 222, 128, 0.65);
+  }
+  .pill-dot--cyan {
+    background: #67cdcc;
+    box-shadow: 0 0 6px rgba(103, 205, 204, 0.65);
+  }
+
+  .pill-sep {
+    color: rgba(255, 255, 255, 0.18);
+  }
+
+  .stat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 13px;
+    background: rgba(24, 21, 31, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    font-size: 12px;
+    cursor: default;
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease,
+      transform 0.3s ease;
+  }
+  .stat-value {
+    color: #d8d4ce;
+    font-weight: 600;
+  }
+  .stat-note {
+    color: #6b7585;
+  }
+
+  .stat-pill--amber:hover {
+    border-color: rgba(255, 184, 108, 0.4);
+    box-shadow: 0 0 0 3px rgba(255, 184, 108, 0.07);
+    transform: translateY(-1px);
+  }
+  .stat-pill--green:hover {
+    border-color: rgba(74, 222, 128, 0.4);
+    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.07);
+    transform: translateY(-1px);
+  }
+  .stat-pill--cyan:hover {
+    border-color: rgba(103, 205, 204, 0.4);
+    box-shadow: 0 0 0 3px rgba(103, 205, 204, 0.07);
+    transform: translateY(-1px);
+  }
+
+  .lang-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 12px;
+    background: rgba(24, 21, 31, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 999px;
+    font-size: 11px;
+    cursor: default;
+    transition:
+      border-color 0.25s ease,
+      transform 0.25s ease;
+  }
+  .lang-name {
+    color: #d8d4ce;
+    font-weight: 500;
+  }
+  .lang-level {
+    color: #6b7585;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+  }
+
+  .lang-pill--green:hover {
+    border-color: rgba(74, 222, 128, 0.35);
+    transform: translateY(-1px);
+  }
+  .lang-pill--amber:hover {
+    border-color: rgba(255, 184, 108, 0.35);
+    transform: translateY(-1px);
+  }
+
+  .lang-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
   .pfp {
     filter: saturate(0.85);
     transition:

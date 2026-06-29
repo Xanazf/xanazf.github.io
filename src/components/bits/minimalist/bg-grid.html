@@ -1,79 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>bit: bg-grid</title>
-<!-- category: backgrounds | source: minimalist_2 -->
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: #0c0b09;
-  color: #f0ead6;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 14px;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bit: bg-grid</title>
+    <!-- category: backgrounds | source: minimalist_2 -->
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #0c0b09;
+        color: #f0ead6;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 14px;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-/* === BACKGROUND GRID ===
+      /* === BACKGROUND GRID ===
    Two overlapping linear-gradients draw a fine grid using the border color.
    Pair with a radial gradient overlay to fade the grid at the center
    (add bg-grid-fade) so it doesn't compete with hero content. */
 
-.bg-grid {
-  background-image:
-    linear-gradient(rgba(240, 234, 214, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(240, 234, 214, 0.07) 1px, transparent 1px);
-  background-size: 56px 56px;
-  background-position: center center;
-}
+      .bg-grid {
+        background-image:
+          linear-gradient(rgba(240, 234, 214, 0.07) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(240, 234, 214, 0.07) 1px, transparent 1px);
+        background-size: 56px 56px;
+        background-position: center center;
+      }
 
-/* Optional: fade grid out toward center */
-.bg-grid-fade::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 80% 70% at center, #0c0b09 20%, transparent 70%);
-  pointer-events: none;
-}
+      /* Optional: fade grid out toward center */
+      .bg-grid-fade::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse 80% 70% at center,
+          #0c0b09 20%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
 
-/* Parallax: nudge background-position on scroll — see JS */
+      /* Parallax: nudge background-position on scroll — see JS */
 
-/* demo */
-.demo-section {
-  position: relative;
-  width: 100vw;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.demo-section h1 {
-  position: relative;
-  z-index: 1;
-  font-size: 2.5rem;
-  letter-spacing: -0.04em;
-  text-align: center;
-}
-.demo-section h1 span { color: #f59e0b; }
-</style>
-</head>
-<body>
+      /* demo */
+      .demo-section {
+        position: relative;
+        width: 100vw;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .demo-section h1 {
+        position: relative;
+        z-index: 1;
+        font-size: 2.5rem;
+        letter-spacing: -0.04em;
+        text-align: center;
+      }
+      .demo-section h1 span {
+        color: #f59e0b;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="demo-section bg-grid bg-grid-fade" id="section">
+      <h1>background<br><span>grid</span></h1>
+    </section>
 
-<section class="demo-section bg-grid bg-grid-fade" id="section">
-  <h1>background<br><span>grid</span></h1>
-</section>
-
-<script>
-// Subtle parallax: shift grid as user scrolls
-const section = document.getElementById('section');
-window.addEventListener('scroll', () => {
-  const offset = window.scrollY * 0.3;
-  section.style.backgroundPosition = `center ${offset}px`;
-}, { passive: true });
-</script>
-</body>
+    <script>
+      // Subtle parallax: shift grid as user scrolls
+      const section = document.getElementById("section");
+      window.addEventListener(
+        "scroll",
+        () => {
+          const offset = window.scrollY * 0.3;
+          section.style.backgroundPosition = `center ${offset}px`;
+        },
+        { passive: true }
+      );
+    </script>
+  </body>
 </html>

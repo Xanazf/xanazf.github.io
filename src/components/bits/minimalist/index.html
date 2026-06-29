@@ -1,202 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>styling bits</title>
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: #0a0d11;
-  color: #d8d4ce;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 13px;
-  line-height: 1.6;
-  padding: 48px 32px;
-  max-width: 820px;
-  margin: 0 auto;
-}
-h1 { color: #ffb86c; font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
-.subtitle { color: #6b7585; font-size: 11px; margin-bottom: 40px; }
-.section { margin-bottom: 32px; }
-.section-label {
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #2a303c;
-  border-bottom: 1px solid #1d2530;
-  padding-bottom: 6px;
-  margin-bottom: 14px;
-}
-.grid { display: flex; flex-direction: column; gap: 4px; }
-.bit {
-  display: flex;
-  align-items: baseline;
-  gap: 14px;
-  padding: 6px 10px;
-  border-radius: 2px;
-  text-decoration: none;
-  color: inherit;
-  transition: background 0.15s ease;
-}
-.bit:hover { background: #0e1217; }
-.bit:hover .bit-name { color: #67e8f9; }
-.bit-name {
-  color: #d8d4ce;
-  font-weight: 500;
-  white-space: nowrap;
-  transition: color 0.15s ease;
-}
-.bit-name::after { content: '.html'; color: #2a303c; }
-.bit-desc { color: #6b7585; font-size: 12px; }
-.bit-source { margin-left: auto; font-size: 10px; color: #1d2530; white-space: nowrap; }
-</style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>styling bits</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #0a0d11;
+        color: #d8d4ce;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 13px;
+        line-height: 1.6;
+        padding: 48px 32px;
+        max-width: 820px;
+        margin: 0 auto;
+      }
+      h1 {
+        color: #ffb86c;
+        font-size: 1.4rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 4px;
+      }
+      .subtitle {
+        color: #6b7585;
+        font-size: 11px;
+        margin-bottom: 40px;
+      }
+      .section {
+        margin-bottom: 32px;
+      }
+      .section-label {
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #2a303c;
+        border-bottom: 1px solid #1d2530;
+        padding-bottom: 6px;
+        margin-bottom: 14px;
+      }
+      .grid {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .bit {
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+        padding: 6px 10px;
+        border-radius: 2px;
+        text-decoration: none;
+        color: inherit;
+        transition: background 0.15s ease;
+      }
+      .bit:hover {
+        background: #0e1217;
+      }
+      .bit:hover .bit-name {
+        color: #67e8f9;
+      }
+      .bit-name {
+        color: #d8d4ce;
+        font-weight: 500;
+        white-space: nowrap;
+        transition: color 0.15s ease;
+      }
+      .bit-name::after {
+        content: ".html";
+        color: #2a303c;
+      }
+      .bit-desc {
+        color: #6b7585;
+        font-size: 12px;
+      }
+      .bit-source {
+        margin-left: auto;
+        font-size: 10px;
+        color: #1d2530;
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>styling bits</h1>
+    <p class="subtitle">
+      self-contained HTML+CSS+JS snippets extracted from minimalist_1 and
+      minimalist_2
+    </p>
 
-<h1>styling bits</h1>
-<p class="subtitle">self-contained HTML+CSS+JS snippets extracted from minimalist_1 and minimalist_2</p>
+    <div class="section">
+      <div class="section-label">overlays</div>
+      <div class="grid">
+        <a class="bit" href="crt-overlay.html">
+          <span class="bit-name">crt-overlay</span>
+          <span class="bit-desc"
+            >scanlines + vignette + amber flicker — three stacked fixed layers</span
+          >
+          <span class="bit-source">minimalist_1</span>
+        </a>
+        <a class="bit" href="film-grain.html">
+          <span class="bit-name">film-grain</span>
+          <span class="bit-desc"
+            >SVG fractalNoise tiled overlay via mix-blend-mode: overlay</span
+          >
+          <span class="bit-source">minimalist_1</span>
+        </a>
+      </div>
+    </div>
 
-<div class="section">
-  <div class="section-label">overlays</div>
-  <div class="grid">
-    <a class="bit" href="crt-overlay.html">
-      <span class="bit-name">crt-overlay</span>
-      <span class="bit-desc">scanlines + vignette + amber flicker — three stacked fixed layers</span>
-      <span class="bit-source">minimalist_1</span>
-    </a>
-    <a class="bit" href="film-grain.html">
-      <span class="bit-name">film-grain</span>
-      <span class="bit-desc">SVG fractalNoise tiled overlay via mix-blend-mode: overlay</span>
-      <span class="bit-source">minimalist_1</span>
-    </a>
-  </div>
-</div>
+    <div class="section">
+      <div class="section-label">text</div>
+      <div class="grid">
+        <a class="bit" href="glow-text.html">
+          <span class="bit-name">glow-text</span>
+          <span class="bit-desc"
+            >phosphor glow utility classes — amber, green, cyan, magenta, lime,
+            red</span
+          >
+          <span class="bit-source">minimalist_1</span>
+        </a>
+        <a class="bit" href="block-cursor.html">
+          <span class="bit-name">block-cursor</span>
+          <span class="bit-desc"
+            >blinking amber block cursor over hidden input with ghost-text
+            support</span
+          >
+          <span class="bit-source">minimalist_1</span>
+        </a>
+        <a class="bit" href="typing-animation.html">
+          <span class="bit-name">typing-animation</span>
+          <span class="bit-desc"
+            >character-by-character reveal (man-page style) with skip on
+            keypress</span
+          >
+          <span class="bit-source">minimalist_1</span>
+        </a>
+        <a class="bit" href="typewriter.html">
+          <span class="bit-name">typewriter</span>
+          <span class="bit-desc"
+            >type → pause → delete → advance — pure JS, no dependencies</span
+          >
+          <span class="bit-source">minimalist_2</span>
+        </a>
+        <a class="bit" href="selection-highlight.html">
+          <span class="bit-name">selection-highlight</span>
+          <span class="bit-desc"
+            >::selection variants — amber, green, cyan, magenta, solid accent</span
+          >
+          <span class="bit-source">both</span>
+        </a>
+      </div>
+    </div>
 
-<div class="section">
-  <div class="section-label">text</div>
-  <div class="grid">
-    <a class="bit" href="glow-text.html">
-      <span class="bit-name">glow-text</span>
-      <span class="bit-desc">phosphor glow utility classes — amber, green, cyan, magenta, lime, red</span>
-      <span class="bit-source">minimalist_1</span>
-    </a>
-    <a class="bit" href="block-cursor.html">
-      <span class="bit-name">block-cursor</span>
-      <span class="bit-desc">blinking amber block cursor over hidden input with ghost-text support</span>
-      <span class="bit-source">minimalist_1</span>
-    </a>
-    <a class="bit" href="typing-animation.html">
-      <span class="bit-name">typing-animation</span>
-      <span class="bit-desc">character-by-character reveal (man-page style) with skip on keypress</span>
-      <span class="bit-source">minimalist_1</span>
-    </a>
-    <a class="bit" href="typewriter.html">
-      <span class="bit-name">typewriter</span>
-      <span class="bit-desc">type → pause → delete → advance — pure JS, no dependencies</span>
-      <span class="bit-source">minimalist_2</span>
-    </a>
-    <a class="bit" href="selection-highlight.html">
-      <span class="bit-name">selection-highlight</span>
-      <span class="bit-desc">::selection variants — amber, green, cyan, magenta, solid accent</span>
-      <span class="bit-source">both</span>
-    </a>
-  </div>
-</div>
+    <div class="section">
+      <div class="section-label">backgrounds</div>
+      <div class="grid">
+        <a class="bit" href="bg-grid.html">
+          <span class="bit-name">bg-grid</span>
+          <span class="bit-desc"
+            >CSS double-gradient grid lines with optional center fade and
+            parallax</span
+          >
+          <span class="bit-source">minimalist_2</span>
+        </a>
+        <a class="bit" href="floating-orbs.html">
+          <span class="bit-name">floating-orbs</span>
+          <span class="bit-desc"
+            >blurred drifting blobs with staggered animation-delay</span
+          >
+          <span class="bit-source">minimalist_2</span>
+        </a>
+      </div>
+    </div>
 
-<div class="section">
-  <div class="section-label">backgrounds</div>
-  <div class="grid">
-    <a class="bit" href="bg-grid.html">
-      <span class="bit-name">bg-grid</span>
-      <span class="bit-desc">CSS double-gradient grid lines with optional center fade and parallax</span>
-      <span class="bit-source">minimalist_2</span>
-    </a>
-    <a class="bit" href="floating-orbs.html">
-      <span class="bit-name">floating-orbs</span>
-      <span class="bit-desc">blurred drifting blobs with staggered animation-delay</span>
-      <span class="bit-source">minimalist_2</span>
-    </a>
-  </div>
-</div>
+    <div class="section">
+      <div class="section-label">animation</div>
+      <div class="grid">
+        <a class="bit" href="scroll-reveal.html">
+          <span class="bit-name">scroll-reveal</span>
+          <span class="bit-desc"
+            >IntersectionObserver fade-up — one-shot, supports CSS delay stagger</span
+          >
+          <span class="bit-source">minimalist_2</span>
+        </a>
+        <a class="bit" href="marquee.html">
+          <span class="bit-name">marquee</span>
+          <span class="bit-desc"
+            >infinite horizontal scroll — normal, fast, reversed variants; pause
+            on hover</span
+          >
+          <span class="bit-source">minimalist_2</span>
+        </a>
+        <a class="bit" href="mouse-glow.html">
+          <span class="bit-name">mouse-glow</span>
+          <span class="bit-desc"
+            >mouse-following radial gradient that fades on mouseleave</span
+          >
+          <span class="bit-source">minimalist_2</span>
+        </a>
+      </div>
+    </div>
 
-<div class="section">
-  <div class="section-label">animation</div>
-  <div class="grid">
-    <a class="bit" href="scroll-reveal.html">
-      <span class="bit-name">scroll-reveal</span>
-      <span class="bit-desc">IntersectionObserver fade-up — one-shot, supports CSS delay stagger</span>
-      <span class="bit-source">minimalist_2</span>
-    </a>
-    <a class="bit" href="marquee.html">
-      <span class="bit-name">marquee</span>
-      <span class="bit-desc">infinite horizontal scroll — normal, fast, reversed variants; pause on hover</span>
-      <span class="bit-source">minimalist_2</span>
-    </a>
-    <a class="bit" href="mouse-glow.html">
-      <span class="bit-name">mouse-glow</span>
-      <span class="bit-desc">mouse-following radial gradient that fades on mouseleave</span>
-      <span class="bit-source">minimalist_2</span>
-    </a>
-  </div>
-</div>
+    <div class="section">
+      <div class="section-label">components</div>
+      <div class="grid">
+        <a class="bit" href="progress-bar.html">
+          <span class="bit-name">progress-bar</span>
+          <span class="bit-desc"
+            >scroll-linked reading progress — gradient bar with glow at top of
+            viewport</span
+          >
+          <span class="bit-source">minimalist_2</span>
+        </a>
+        <a class="bit" href="pulse-dot.html">
+          <span class="bit-name">pulse-dot</span>
+          <span class="bit-desc"
+            >pulsing status indicator dot — green, amber, cyan, red, magenta,
+            off</span
+          >
+          <span class="bit-source">minimalist_1</span>
+        </a>
+        <a class="bit" href="stat-pill.html">
+          <span class="bit-name">stat-pill</span>
+          <span class="bit-desc"
+            >capsule badge with live dot and optional flash-up counter animation</span
+          >
+          <span class="bit-source">minimalist_2</span>
+        </a>
+        <a class="bit" href="card-hover.html">
+          <span class="bit-name">card-hover</span>
+          <span class="bit-desc"
+            >article card — top-border reveal, corner glow, lift, arrow slide,
+            title color</span
+          >
+          <span class="bit-source">minimalist_2</span>
+        </a>
+        <a class="bit" href="archive-list.html">
+          <span class="bit-name">archive-list</span>
+          <span class="bit-desc"
+            >list rows with sliding-in dot, border accent shift, and padding
+            indent on hover</span
+          >
+          <span class="bit-source">minimalist_2</span>
+        </a>
+        <a class="bit" href="copy-button.html">
+          <span class="bit-name">copy-button</span>
+          <span class="bit-desc"
+            >clipboard copy with flash overlay + label swap + graceful fallback</span
+          >
+          <span class="bit-source">minimalist_2</span>
+        </a>
+        <a class="bit" href="input-focus-glow.html">
+          <span class="bit-name">input-focus-glow</span>
+          <span class="bit-desc"
+            >input with accent border + glow ring on focus — default, error,
+            success states</span
+          >
+          <span class="bit-source">minimalist_2</span>
+        </a>
+        <a class="bit" href="theme-toggle.html">
+          <span class="bit-name">theme-toggle</span>
+          <span class="bit-desc"
+            >pill toggle for dark/light/cyber — CSS vars, smooth bulk
+            transition, T shortcut</span
+          >
+          <span class="bit-source">minimalist_2</span>
+        </a>
+      </div>
+    </div>
 
-<div class="section">
-  <div class="section-label">components</div>
-  <div class="grid">
-    <a class="bit" href="progress-bar.html">
-      <span class="bit-name">progress-bar</span>
-      <span class="bit-desc">scroll-linked reading progress — gradient bar with glow at top of viewport</span>
-      <span class="bit-source">minimalist_2</span>
-    </a>
-    <a class="bit" href="pulse-dot.html">
-      <span class="bit-name">pulse-dot</span>
-      <span class="bit-desc">pulsing status indicator dot — green, amber, cyan, red, magenta, off</span>
-      <span class="bit-source">minimalist_1</span>
-    </a>
-    <a class="bit" href="stat-pill.html">
-      <span class="bit-name">stat-pill</span>
-      <span class="bit-desc">capsule badge with live dot and optional flash-up counter animation</span>
-      <span class="bit-source">minimalist_2</span>
-    </a>
-    <a class="bit" href="card-hover.html">
-      <span class="bit-name">card-hover</span>
-      <span class="bit-desc">article card — top-border reveal, corner glow, lift, arrow slide, title color</span>
-      <span class="bit-source">minimalist_2</span>
-    </a>
-    <a class="bit" href="archive-list.html">
-      <span class="bit-name">archive-list</span>
-      <span class="bit-desc">list rows with sliding-in dot, border accent shift, and padding indent on hover</span>
-      <span class="bit-source">minimalist_2</span>
-    </a>
-    <a class="bit" href="copy-button.html">
-      <span class="bit-name">copy-button</span>
-      <span class="bit-desc">clipboard copy with flash overlay + label swap + graceful fallback</span>
-      <span class="bit-source">minimalist_2</span>
-    </a>
-    <a class="bit" href="input-focus-glow.html">
-      <span class="bit-name">input-focus-glow</span>
-      <span class="bit-desc">input with accent border + glow ring on focus — default, error, success states</span>
-      <span class="bit-source">minimalist_2</span>
-    </a>
-    <a class="bit" href="theme-toggle.html">
-      <span class="bit-name">theme-toggle</span>
-      <span class="bit-desc">pill toggle for dark/light/cyber — CSS vars, smooth bulk transition, T shortcut</span>
-      <span class="bit-source">minimalist_2</span>
-    </a>
-  </div>
-</div>
-
-<div class="section">
-  <div class="section-label">utility</div>
-  <div class="grid">
-    <a class="bit" href="scrollbar.html">
-      <span class="bit-name">scrollbar</span>
-      <span class="bit-desc">thin and accent-on-hover scrollbar — webkit + Firefox scrollbar-width/color</span>
-      <span class="bit-source">minimalist_1</span>
-    </a>
-  </div>
-</div>
-
-</body>
+    <div class="section">
+      <div class="section-label">utility</div>
+      <div class="grid">
+        <a class="bit" href="scrollbar.html">
+          <span class="bit-name">scrollbar</span>
+          <span class="bit-desc"
+            >thin and accent-on-hover scrollbar — webkit + Firefox
+            scrollbar-width/color</span
+          >
+          <span class="bit-source">minimalist_1</span>
+        </a>
+      </div>
+    </div>
+  </body>
 </html>

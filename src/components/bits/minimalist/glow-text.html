@@ -1,56 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>bit: glow-text</title>
-<!-- category: text | source: minimalist_1 -->
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: #0a0d11;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 15px;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bit: glow-text</title>
+    <!-- category: text | source: minimalist_1 -->
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #0a0d11;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 15px;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-/* === PHOSPHOR GLOW TEXT ===
+      /* === PHOSPHOR GLOW TEXT ===
    Utility classes for CRT-style colored glow on text.
    Works best on dark backgrounds. Scale the alpha in
    text-shadow to tune intensity. */
 
-.glow-amber   { color: #ffb86c; text-shadow: 0 0 10px rgba(255, 184, 108, 0.55); }
-.glow-green   { color: #4ade80; text-shadow: 0 0 10px rgba(74,  222, 128, 0.55); }
-.glow-cyan    { color: #67e8f9; text-shadow: 0 0 10px rgba(103, 232, 249, 0.55); }
-.glow-magenta { color: #f472b6; text-shadow: 0 0 10px rgba(244, 114, 182, 0.55); }
-.glow-phosphor{ color: #a3e635; text-shadow: 0 0 10px rgba(163, 230,  53, 0.55); }
-.glow-red     { color: #ef4444; text-shadow: 0 0  8px rgba(239,  68,  68, 0.50); }
+      .glow-amber {
+        color: #ffb86c;
+        text-shadow: 0 0 10px rgba(255, 184, 108, 0.55);
+      }
+      .glow-green {
+        color: #4ade80;
+        text-shadow: 0 0 10px rgba(74, 222, 128, 0.55);
+      }
+      .glow-cyan {
+        color: #67e8f9;
+        text-shadow: 0 0 10px rgba(103, 232, 249, 0.55);
+      }
+      .glow-magenta {
+        color: #f472b6;
+        text-shadow: 0 0 10px rgba(244, 114, 182, 0.55);
+      }
+      .glow-phosphor {
+        color: #a3e635;
+        text-shadow: 0 0 10px rgba(163, 230, 53, 0.55);
+      }
+      .glow-red {
+        color: #ef4444;
+        text-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+      }
 
-/* Stronger variant — good for headings */
-.glow-amber-bold   { color: #ffd09b; text-shadow: 0 0 14px rgba(255, 208, 155, 0.7), 0 0 30px rgba(255, 184, 108, 0.3); }
-.glow-green-bold   { color: #86efac; text-shadow: 0 0 14px rgba(134, 239, 172, 0.7), 0 0 30px rgba(74, 222, 128, 0.3); }
-.glow-cyan-bold    { color: #a5f3fc; text-shadow: 0 0 14px rgba(165, 243, 252, 0.7), 0 0 30px rgba(103, 232, 249, 0.3); }
+      /* Stronger variant — good for headings */
+      .glow-amber-bold {
+        color: #ffd09b;
+        text-shadow:
+          0 0 14px rgba(255, 208, 155, 0.7),
+          0 0 30px rgba(255, 184, 108, 0.3);
+      }
+      .glow-green-bold {
+        color: #86efac;
+        text-shadow:
+          0 0 14px rgba(134, 239, 172, 0.7),
+          0 0 30px rgba(74, 222, 128, 0.3);
+      }
+      .glow-cyan-bold {
+        color: #a5f3fc;
+        text-shadow:
+          0 0 14px rgba(165, 243, 252, 0.7),
+          0 0 30px rgba(103, 232, 249, 0.3);
+      }
 
-/* demo */
-.demo { display: flex; flex-direction: column; gap: 10px; }
-.demo span { font-weight: 500; font-size: 1.1em; }
-.label { font-size: 10px; color: #2a303c; margin-left: 10px; vertical-align: middle; }
-</style>
-</head>
-<body>
-<div class="demo">
-  <div><span class="glow-amber">phosphor amber</span><small class="label">.glow-amber</small></div>
-  <div><span class="glow-green">phosphor green</span><small class="label">.glow-green</small></div>
-  <div><span class="glow-cyan">phosphor cyan</span><small class="label">.glow-cyan</small></div>
-  <div><span class="glow-magenta">phosphor magenta</span><small class="label">.glow-magenta</small></div>
-  <div><span class="glow-phosphor">phosphor lime</span><small class="label">.glow-phosphor</small></div>
-  <div><span class="glow-red">error red</span><small class="label">.glow-red</small></div>
-  <div style="margin-top:8px"><span class="glow-amber-bold" style="font-size:1.4em">bold heading</span><small class="label">.glow-amber-bold</small></div>
-  <div><span class="glow-green-bold" style="font-size:1.4em">bold heading</span><small class="label">.glow-green-bold</small></div>
-  <div><span class="glow-cyan-bold" style="font-size:1.4em">bold heading</span><small class="label">.glow-cyan-bold</small></div>
-</div>
-</body>
+      /* demo */
+      .demo {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .demo span {
+        font-weight: 500;
+        font-size: 1.1em;
+      }
+      .label {
+        font-size: 10px;
+        color: #2a303c;
+        margin-left: 10px;
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo">
+      <div>
+        <span class="glow-amber">phosphor amber</span
+        ><small class="label">.glow-amber</small>
+      </div>
+      <div>
+        <span class="glow-green">phosphor green</span
+        ><small class="label">.glow-green</small>
+      </div>
+      <div>
+        <span class="glow-cyan">phosphor cyan</span
+        ><small class="label">.glow-cyan</small>
+      </div>
+      <div>
+        <span class="glow-magenta">phosphor magenta</span
+        ><small class="label">.glow-magenta</small>
+      </div>
+      <div>
+        <span class="glow-phosphor">phosphor lime</span
+        ><small class="label">.glow-phosphor</small>
+      </div>
+      <div>
+        <span class="glow-red">error red</span
+        ><small class="label">.glow-red</small>
+      </div>
+      <div style="margin-top:8px">
+        <span class="glow-amber-bold" style="font-size:1.4em">bold heading</span
+        ><small class="label">.glow-amber-bold</small>
+      </div>
+      <div>
+        <span class="glow-green-bold" style="font-size:1.4em">bold heading</span
+        ><small class="label">.glow-green-bold</small>
+      </div>
+      <div>
+        <span class="glow-cyan-bold" style="font-size:1.4em">bold heading</span
+        ><small class="label">.glow-cyan-bold</small>
+      </div>
+    </div>
+  </body>
 </html>

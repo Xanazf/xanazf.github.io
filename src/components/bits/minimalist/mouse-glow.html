@@ -1,94 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>bit: mouse-glow</title>
-<!-- category: effects | source: minimalist_2 -->
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: #0c0b09;
-  color: #f0ead6;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 14px;
-}
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bit: mouse-glow</title>
+    <!-- category: effects | source: minimalist_2 -->
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #0c0b09;
+        color: #f0ead6;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 14px;
+      }
 
-/* === MOUSE-FOLLOWING RADIAL GLOW ===
+      /* === MOUSE-FOLLOWING RADIAL GLOW ===
    A large blurred circle tracks the cursor inside a positioned container.
    The container must be position: relative with overflow: hidden (optional).
    .mouse-glow is positioned absolutely, centered on cursor via transform.
    Fades in on mousemove, fades out on mouseleave. */
 
-.glow-zone {
-  position: relative;
-  overflow: hidden;           /* optional — crop glow at edges */
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+      .glow-zone {
+        position: relative;
+        overflow: hidden; /* optional — crop glow at edges */
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-.mouse-glow {
-  position: absolute;
-  width: 700px;
-  height: 700px;
-  border-radius: 50%;
-  /* Change the rgba color to match your accent */
-  background: radial-gradient(
-    circle,
-    rgba(245, 158, 11, 0.13) 0%,
-    transparent 60%
-  );
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  filter: blur(30px);
-  z-index: 1;
-}
+      .mouse-glow {
+        position: absolute;
+        width: 700px;
+        height: 700px;
+        border-radius: 50%;
+        /* Change the rgba color to match your accent */
+        background: radial-gradient(
+          circle,
+          rgba(245, 158, 11, 0.13) 0%,
+          transparent 60%
+        );
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        filter: blur(30px);
+        z-index: 1;
+      }
 
-/* content sits above the glow */
-.glow-zone .zone-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-}
+      /* content sits above the glow */
+      .glow-zone .zone-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+      }
 
-.glow-zone .zone-content h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  color: #f0ead6;
-  margin-bottom: 12px;
-}
-.glow-zone .zone-content p { color: #6b6358; }
-</style>
-</head>
-<body>
+      .glow-zone .zone-content h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        color: #f0ead6;
+        margin-bottom: 12px;
+      }
+      .glow-zone .zone-content p {
+        color: #6b6358;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="glow-zone" id="glowZone">
+      <div class="mouse-glow" id="mouseGlow"></div>
+      <div class="zone-content">
+        <h1>move your mouse</h1>
+        <p>radial gradient follows the cursor within this zone</p>
+      </div>
+    </div>
 
-<div class="glow-zone" id="glowZone">
-  <div class="mouse-glow" id="mouseGlow"></div>
-  <div class="zone-content">
-    <h1>move your mouse</h1>
-    <p>radial gradient follows the cursor within this zone</p>
-  </div>
-</div>
+    <script>
+      const zone = document.getElementById("glowZone");
+      const glow = document.getElementById("mouseGlow");
 
-<script>
-const zone = document.getElementById('glowZone');
-const glow = document.getElementById('mouseGlow');
+      zone.addEventListener("mousemove", e => {
+        const rect = zone.getBoundingClientRect();
+        glow.style.left = e.clientX - rect.left + "px";
+        glow.style.top = e.clientY - rect.top + "px";
+        glow.style.opacity = "1";
+      });
 
-zone.addEventListener('mousemove', (e) => {
-  const rect = zone.getBoundingClientRect();
-  glow.style.left    = (e.clientX - rect.left) + 'px';
-  glow.style.top     = (e.clientY - rect.top)  + 'px';
-  glow.style.opacity = '1';
-});
-
-zone.addEventListener('mouseleave', () => {
-  glow.style.opacity = '0';
-});
-</script>
-</body>
+      zone.addEventListener("mouseleave", () => {
+        glow.style.opacity = "0";
+      });
+    </script>
+  </body>
 </html>

@@ -3,17 +3,26 @@ import MainLayout from "@layouts/MainLayout.astro";
 import ProjectCard from "@components/cards/ProjectCard.astro";
 import SkillCard from "@components/cards/SkillCard.astro";
 import Hero from "@components/sections/hero/Hero.astro";
+import Experience from "@components/experience/Experience.astro";
 import "@styles/pages/main.css";
 ---
 
 <MainLayout title="Oleksandr Marnov" description="Web Developer & Designer">
   <Hero />
-  <h2 class="section-heading reveal" style="--delay: 100ms">
+
+  <h2 class="section-heading reveal" style="--delay: 60ms">
+    <span class="section-heading__comment">// </span>Experience
+  </h2>
+  <div class="px-md sm:px-lg lg:px-xl pb-md">
+    <Experience />
+  </div>
+
+  <h2 class="section-heading reveal" style="--delay: 60ms">
     <span class="section-heading__comment">// </span>Projects
   </h2>
   <div
     class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-md px-md pb-md sm:px-lg lg:px-xl reveal"
-    style="--delay: 160ms"
+    style="--delay: 100ms"
   >
     <ProjectCard
       projectName="Quickshell"
@@ -28,10 +37,11 @@ import "@styles/pages/main.css";
       projectLink="https://github.com/Xanazf/bongopunk"
     />
   </div>
-  <h2 class="section-heading reveal" style="--delay: 80ms">
+
+  <h2 class="section-heading reveal" style="--delay: 60ms">
     <span class="section-heading__comment">// </span>Skills
   </h2>
-  <div class="px-md pb-xl sm:px-lg lg:px-xl reveal" style="--delay: 120ms">
+  <div class="px-md pb-xl sm:px-lg lg:px-xl">
     <SkillCard />
   </div>
 </MainLayout>

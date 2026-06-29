@@ -1,121 +1,198 @@
 ---
-import { Icon } from "astro-icon/components";
-
-const skills: Record<string, Array<{ label: string; icon: string }>> = {
-  development: [
-    { label: "TypeScript", icon: "logos:typescript-icon" },
-    { label: "Node.js", icon: "logos:nodejs-icon" },
-    { label: "CSS", icon: "logos:css-3" },
-    { label: "Bash", icon: "mdi:bash" },
-    { label: "Git", icon: "mdi:git" },
-    { label: "Go", icon: "logos:go" },
-    { label: "React", icon: "logos:react" },
-    { label: "SolidJS", icon: "logos:solidjs-icon" },
-  ],
-  design: [
-    { label: "Figma", icon: "logos:figma" },
-    { label: "MD3", icon: "logos:material-ui" },
-    { label: "Hero UI", icon: "simple-icons:heroui" },
-    { label: "TailwindCSS", icon: "logos:tailwindcss-icon" },
-  ],
-  architecture: [
-    { label: "Vercel", icon: "logos:vercel-icon" },
-    { label: "Linux", icon: "logos:linux-tux" },
-    { label: "REST API", icon: "mdi:api" },
-    { label: "CI/CD", icon: "mdi:repeat" },
-    { label: "Caddy", icon: "simple-icons:caddy" },
-    { label: "Nginx", icon: "logos:nginx" },
-    { label: "Traefik", icon: "simple-icons:traefikproxy" },
-    { label: "Redis", icon: "logos:redis" },
-    { label: "MongoDB", icon: "logos:mongodb-icon" },
-    { label: "Postman", icon: "logos:postman-icon" },
-  ],
-};
+const tracks = [
+  {
+    label: "development",
+    color: "amber",
+    speed: "45s",
+    reverse: false,
+    items: [
+      "TypeScript",
+      "Node.js",
+      "Go",
+      "React",
+      "SolidJS",
+      "CSS",
+      "Bash",
+      "Git",
+      "C++",
+      "Next.js",
+      "SQL",
+    ],
+  },
+  {
+    label: "design",
+    color: "teal",
+    speed: "60s",
+    reverse: true,
+    items: [
+      "Figma",
+      "TailwindCSS",
+      "MD3",
+      "Hero UI",
+      "UI/UX",
+      "Interactive Media",
+    ],
+  },
+  {
+    label: "architecture",
+    color: "cyan",
+    speed: "38s",
+    reverse: false,
+    items: [
+      "Kubernetes",
+      "Docker",
+      "Linux",
+      "CI/CD",
+      "Caddy",
+      "Nginx",
+      "Traefik",
+      "Redis",
+      "MongoDB",
+      "GCP",
+      "Prometheus",
+      "Grafana",
+      "ELK Stack",
+      "REST API",
+      "Airflow",
+    ],
+  },
+];
 ---
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
-  {Object.entries(skills).map(([group, list], i) => (
-    <section
-      class="skill-panel reveal"
-      style={`--delay: ${i * 80}ms`}
-      aria-labelledby={`skill-${group}`}
-    >
-      <div class="skill-label" id={`skill-${group}`}>
-        {group}
+<div class="skills reveal" style="--delay: 80ms">
+  {tracks.map((track) => (
+    <div class="skill-row">
+      <span class={`skill-label skill-label--${track.color}`}>
+        {track.label}
+      </span>
+      <div class="marquee-wrap" title="hover to pause">
+        <div
+          class={`marquee ${track.reverse ? "reverse" : ""}`}
+          style={`animation-duration: ${track.speed};`}
+        >
+          {[...track.items, ...track.items].map((item, i) => (
+            i % track.items.length === track.items.length - 1
+              ? <span class={`skill-item skill-item--${track.color}`}>{item}</span>
+              : <>
+                  <span class={`skill-item skill-item--${track.color}`}>{item}</span>
+                  <span class="skill-sep">·</span>
+                </>
+          ))}
+        </div>
       </div>
-      <div class="skill-tags">
-        {list.map((s) => (
-          <span class="skill-tag" title={s.label}>
-            <span class="skill-icon" aria-hidden="true">
-              <Icon name={s.icon} width="1.1em" height="1.1em" />
-            </span>
-            <span class="skill-name">{s.label}</span>
-          </span>
-        ))}
-      </div>
-    </section>
+    </div>
   ))}
 </div>
 
 <style>
-  .skill-panel {
-    background: rgba(24, 21, 31, 0.55);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 4px;
-    padding: 20px;
+  .skills {
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    transition: border-color 0.35s ease;
+    gap: 0;
+    width: 100%;
   }
-  .skill-panel:hover {
-    border-color: rgba(255, 184, 108, 0.14);
+
+  /* === MARQUEE — from marquee.html === */
+  .skill-row {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+  }
+  .skill-row:last-child {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   .skill-label {
     font-size: 10px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #6b7585;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    padding-bottom: 8px;
+    padding: 14px 16px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    width: 110px;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .skill-label--amber {
+    color: #ffb86c;
+  }
+  .skill-label--teal {
+    color: #72f1b8;
+  }
+  .skill-label--cyan {
+    color: #67cdcc;
   }
 
-  .skill-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
+  .marquee-wrap {
+    overflow: hidden;
+    flex: 1;
+    padding: 14px 0;
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      black 5%,
+      black 95%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent,
+      black 5%,
+      black 95%,
+      transparent
+    );
+  }
+  .marquee-wrap:hover .marquee {
+    animation-play-state: paused;
   }
 
-  .skill-tag {
+  .marquee {
     display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 11px;
-    color: #d8d4ce;
-    padding: 4px 9px;
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    border-radius: 2px;
-    background: rgba(255, 255, 255, 0.02);
-    transition:
-      border-color 0.2s ease,
-      color 0.2s ease,
-      text-shadow 0.2s ease;
-    cursor: default;
+    gap: 18px;
+    padding-right: 18px;
+    animation: marquee-scroll 45s linear infinite;
     white-space: nowrap;
   }
-  .skill-tag:hover {
-    border-color: rgba(255, 184, 108, 0.35);
-    color: #ffb86c;
-    text-shadow: 0 0 8px rgba(255, 184, 108, 0.4);
+  .marquee.reverse {
+    animation-direction: reverse;
   }
 
-  .skill-icon {
-    display: flex;
-    align-items: center;
-    opacity: 0.85;
+  @keyframes marquee-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
   }
-  .skill-tag:hover .skill-icon {
-    opacity: 1;
+
+  .skill-item {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .skill-item--amber {
+    color: #8a7060;
+  }
+  .skill-item--teal {
+    color: #507a6a;
+  }
+  .skill-item--cyan {
+    color: #4a7070;
+  }
+
+  .skill-sep {
+    color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Brighten on wrap hover */
+  .marquee-wrap:hover .skill-item--amber {
+    color: #ffb86c;
+  }
+  .marquee-wrap:hover .skill-item--teal {
+    color: #72f1b8;
+  }
+  .marquee-wrap:hover .skill-item--cyan {
+    color: #67cdcc;
   }
 </style>

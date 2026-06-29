@@ -1,121 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>bit: marquee</title>
-<!-- category: animation | source: minimalist_2 -->
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: #0c0b09;
-  color: #f0ead6;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 24px;
-}
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bit: marquee</title>
+    <!-- category: animation | source: minimalist_2 -->
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #0c0b09;
+        color: #f0ead6;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 24px;
+      }
 
-/* === MARQUEE ===
+      /* === MARQUEE ===
    The trick: duplicate the content inside .marquee so the animation
    can translateX(-50%) and loop seamlessly. The parent clips overflow.
    Pause on hover optional — just add animation-play-state: paused to .marquee:hover. */
 
-.marquee-wrap {
-  overflow: hidden;
-  white-space: nowrap;
-  padding: 14px 0;
-  border-top: 1px solid rgba(240,234,214,0.08);
-  border-bottom: 1px solid rgba(240,234,214,0.08);
-  background: #14120e;
-}
+      .marquee-wrap {
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 14px 0;
+        border-top: 1px solid rgba(240, 234, 214, 0.08);
+        border-bottom: 1px solid rgba(240, 234, 214, 0.08);
+        background: #14120e;
+      }
 
-.marquee {
-  display: inline-flex;
-  gap: 60px;
-  padding-right: 60px;
-  animation: marquee-scroll 40s linear infinite;
-}
-/* Slow variant */
-.marquee.slow { animation-duration: 70s; }
-/* Fast variant */
-.marquee.fast { animation-duration: 18s; }
-/* Reversed */
-.marquee.reverse { animation-direction: reverse; }
-/* Pause on hover */
-.marquee-wrap:hover .marquee { animation-play-state: paused; }
+      .marquee {
+        display: inline-flex;
+        gap: 60px;
+        padding-right: 60px;
+        animation: marquee-scroll 40s linear infinite;
+      }
+      /* Slow variant */
+      .marquee.slow {
+        animation-duration: 70s;
+      }
+      /* Fast variant */
+      .marquee.fast {
+        animation-duration: 18s;
+      }
+      /* Reversed */
+      .marquee.reverse {
+        animation-direction: reverse;
+      }
+      /* Pause on hover */
+      .marquee-wrap:hover .marquee {
+        animation-play-state: paused;
+      }
 
-@keyframes marquee-scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
+      @keyframes marquee-scroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
 
-.marquee span {
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #8a8275;
-}
-.marquee span.sep { color: rgba(240,234,214,0.2); }
+      .marquee span {
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #8a8275;
+      }
+      .marquee span.sep {
+        color: rgba(240, 234, 214, 0.2);
+      }
 
-/* demo label */
-.demo-label {
-  font-size: 10px;
-  color: #2a303c;
-  padding: 0 24px;
-}
-</style>
-</head>
-<body>
+      /* demo label */
+      .demo-label {
+        font-size: 10px;
+        color: #2a303c;
+        padding: 0 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="demo-label">default speed (hover to pause)</p>
+    <div class="marquee-wrap">
+      <div class="marquee">
+        <!-- Duplicate content twice for seamless loop -->
+        <span>JavaScript</span><span class="sep">·</span>
+        <span>TypeScript</span><span class="sep">·</span>
+        <span>Rust</span><span class="sep">·</span>
+        <span>Go</span><span class="sep">·</span>
+        <span>WebAssembly</span><span class="sep">·</span>
+        <span>PostgreSQL</span><span class="sep">·</span>
+        <span>Redis</span><span class="sep">·</span>
+        <span>Docker</span><span class="sep">·</span>
+        <span>Linux</span><span class="sep">·</span>
+        <span>NeoVim</span><span class="sep">·</span>
+        <!-- duplicate -->
+        <span>JavaScript</span><span class="sep">·</span>
+        <span>TypeScript</span><span class="sep">·</span>
+        <span>Rust</span><span class="sep">·</span>
+        <span>Go</span><span class="sep">·</span>
+        <span>WebAssembly</span><span class="sep">·</span>
+        <span>PostgreSQL</span><span class="sep">·</span>
+        <span>Redis</span><span class="sep">·</span>
+        <span>Docker</span><span class="sep">·</span>
+        <span>Linux</span><span class="sep">·</span>
+        <span>NeoVim</span><span class="sep">·</span>
+      </div>
+    </div>
 
-<p class="demo-label">default speed (hover to pause)</p>
-<div class="marquee-wrap">
-  <div class="marquee">
-    <!-- Duplicate content twice for seamless loop -->
-    <span>JavaScript</span><span class="sep">·</span>
-    <span>TypeScript</span><span class="sep">·</span>
-    <span>Rust</span><span class="sep">·</span>
-    <span>Go</span><span class="sep">·</span>
-    <span>WebAssembly</span><span class="sep">·</span>
-    <span>PostgreSQL</span><span class="sep">·</span>
-    <span>Redis</span><span class="sep">·</span>
-    <span>Docker</span><span class="sep">·</span>
-    <span>Linux</span><span class="sep">·</span>
-    <span>NeoVim</span><span class="sep">·</span>
-    <!-- duplicate -->
-    <span>JavaScript</span><span class="sep">·</span>
-    <span>TypeScript</span><span class="sep">·</span>
-    <span>Rust</span><span class="sep">·</span>
-    <span>Go</span><span class="sep">·</span>
-    <span>WebAssembly</span><span class="sep">·</span>
-    <span>PostgreSQL</span><span class="sep">·</span>
-    <span>Redis</span><span class="sep">·</span>
-    <span>Docker</span><span class="sep">·</span>
-    <span>Linux</span><span class="sep">·</span>
-    <span>NeoVim</span><span class="sep">·</span>
-  </div>
-</div>
-
-<p class="demo-label">reversed + fast</p>
-<div class="marquee-wrap">
-  <div class="marquee fast reverse" style="color: #f59e0b;">
-    <span style="color:#f59e0b">systems</span><span class="sep">·</span>
-    <span style="color:#f59e0b">compilers</span><span class="sep">·</span>
-    <span style="color:#f59e0b">terminals</span><span class="sep">·</span>
-    <span style="color:#f59e0b">unix</span><span class="sep">·</span>
-    <span style="color:#f59e0b">protocols</span><span class="sep">·</span>
-    <span style="color:#f59e0b">algorithms</span><span class="sep">·</span>
-    <!-- duplicate -->
-    <span style="color:#f59e0b">systems</span><span class="sep">·</span>
-    <span style="color:#f59e0b">compilers</span><span class="sep">·</span>
-    <span style="color:#f59e0b">terminals</span><span class="sep">·</span>
-    <span style="color:#f59e0b">unix</span><span class="sep">·</span>
-    <span style="color:#f59e0b">protocols</span><span class="sep">·</span>
-    <span style="color:#f59e0b">algorithms</span><span class="sep">·</span>
-  </div>
-</div>
-
-</body>
+    <p class="demo-label">reversed + fast</p>
+    <div class="marquee-wrap">
+      <div class="marquee fast reverse" style="color: #f59e0b;">
+        <span style="color:#f59e0b">systems</span><span class="sep">·</span>
+        <span style="color:#f59e0b">compilers</span><span class="sep">·</span>
+        <span style="color:#f59e0b">terminals</span><span class="sep">·</span>
+        <span style="color:#f59e0b">unix</span><span class="sep">·</span>
+        <span style="color:#f59e0b">protocols</span><span class="sep">·</span>
+        <span style="color:#f59e0b">algorithms</span><span class="sep">·</span>
+        <!-- duplicate -->
+        <span style="color:#f59e0b">systems</span><span class="sep">·</span>
+        <span style="color:#f59e0b">compilers</span><span class="sep">·</span>
+        <span style="color:#f59e0b">terminals</span><span class="sep">·</span>
+        <span style="color:#f59e0b">unix</span><span class="sep">·</span>
+        <span style="color:#f59e0b">protocols</span><span class="sep">·</span>
+        <span style="color:#f59e0b">algorithms</span><span class="sep">·</span>
+      </div>
+    </div>
+  </body>
 </html>

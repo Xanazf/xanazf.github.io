@@ -1,99 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>bit: floating-orbs</title>
-<!-- category: backgrounds | source: minimalist_2 -->
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: #0c0b09;
-  color: #f0ead6;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 14px;
-  min-height: 100vh;
-  overflow: hidden;
-}
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bit: floating-orbs</title>
+    <!-- category: backgrounds | source: minimalist_2 -->
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #0c0b09;
+        color: #f0ead6;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 14px;
+        min-height: 100vh;
+        overflow: hidden;
+      }
 
-/* === FLOATING ORBS ===
+      /* === FLOATING ORBS ===
    Large blurred circles that drift slowly on an infinite loop.
    Each orb is absolutely positioned inside a relative container.
    Use different animation-delay values to stagger the drift.
    Opacity 0.2–0.35 keeps them subtle; filter: blur handles softness. */
 
-.orb-container {
-  position: relative;
-  width: 100vw;
-  min-height: 100vh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+      .orb-container {
+        position: relative;
+        width: 100vw;
+        min-height: 100vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.25;
-  animation: orb-drift 16s ease-in-out infinite;
-  pointer-events: none;
-}
-@keyframes orb-drift {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33%       { transform: translate(60px, -40px) scale(1.1); }
-  66%       { transform: translate(-30px, 50px) scale(0.95); }
-}
+      .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(60px);
+        opacity: 0.25;
+        animation: orb-drift 16s ease-in-out infinite;
+        pointer-events: none;
+      }
+      @keyframes orb-drift {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+        33% {
+          transform: translate(60px, -40px) scale(1.1);
+        }
+        66% {
+          transform: translate(-30px, 50px) scale(0.95);
+        }
+      }
 
-/* content sits above orbs */
-.orb-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-}
-.orb-content h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  margin-bottom: 8px;
-}
-.orb-content p { color: #6b6358; font-size: 12px; }
-</style>
-</head>
-<body>
-
-<div class="orb-container">
-  <!-- Orb 1: amber, top-left -->
-  <div class="orb" style="
+      /* content sits above orbs */
+      .orb-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+      }
+      .orb-content h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        margin-bottom: 8px;
+      }
+      .orb-content p {
+        color: #6b6358;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="orb-container">
+      <!-- Orb 1: amber, top-left -->
+      <div
+        class="orb"
+        style="
     width: 500px; height: 500px;
     top: 5%; left: -150px;
     background: #f59e0b;
-  "></div>
+  "
+      ></div>
 
-  <!-- Orb 2: cyan, bottom-right, offset animation phase -->
-  <div class="orb" style="
+      <!-- Orb 2: cyan, bottom-right, offset animation phase -->
+      <div
+        class="orb"
+        style="
     width: 600px; height: 600px;
     bottom: -200px; right: -200px;
     background: #06b6d4;
     animation-delay: -5s;
-  "></div>
+  "
+      ></div>
 
-  <!-- Orb 3: magenta, mid-left, faster -->
-  <div class="orb" style="
+      <!-- Orb 3: magenta, mid-left, faster -->
+      <div
+        class="orb"
+        style="
     width: 300px; height: 300px;
     top: 40%; left: 10%;
     background: #f472b6;
     animation-duration: 10s;
     animation-delay: -8s;
     opacity: 0.15;
-  "></div>
+  "
+      ></div>
 
-  <div class="orb-content">
-    <h1 style="color: #f0ead6;">ambient orbs</h1>
-    <p>blurred, drifting background decoration</p>
-  </div>
-</div>
-
-</body>
+      <div class="orb-content">
+        <h1 style="color: #f0ead6;">ambient orbs</h1>
+        <p>blurred, drifting background decoration</p>
+      </div>
+    </div>
+  </body>
 </html>

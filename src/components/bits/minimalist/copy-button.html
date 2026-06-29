@@ -1,169 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>bit: copy-button</title>
-<!-- category: components | source: minimalist_2 -->
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: #0c0b09;
-  color: #f0ead6;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 13px;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 32px;
-  padding: 40px;
-}
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bit: copy-button</title>
+    <!-- category: components | source: minimalist_2 -->
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #0c0b09;
+        color: #f0ead6;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 13px;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 32px;
+        padding: 40px;
+      }
 
-/* === COPY BUTTON WITH FLASH ===
+      /* === COPY BUTTON WITH FLASH ===
    On click: clipboard write → add .copied → flash overlay animates →
    label swaps to "copied" → reverts after 1.8s.
    .copy-flash is an absolutely-positioned overlay inside the button
    that runs a short opacity flash animation when .copied is added. */
 
-.copy-btn {
-  background: transparent;
-  border: 1px solid rgba(240,234,214,0.18);
-  color: #8a8275;
-  padding: 6px 13px;
-  font-size: 11px;
-  font-family: inherit;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: color 0.25s ease, border-color 0.25s ease;
-  position: relative;
-  overflow: hidden;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 500;
-}
-.copy-btn:hover {
-  color: #f59e0b;
-  border-color: #f59e0b;
-}
-.copy-btn.copied {
-  color: #0c0b09 !important;
-  background: #f59e0b;
-  border-color: #f59e0b;
-}
+      .copy-btn {
+        background: transparent;
+        border: 1px solid rgba(240, 234, 214, 0.18);
+        color: #8a8275;
+        padding: 6px 13px;
+        font-size: 11px;
+        font-family: inherit;
+        border-radius: 3px;
+        cursor: pointer;
+        transition:
+          color 0.25s ease,
+          border-color 0.25s ease;
+        position: relative;
+        overflow: hidden;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 500;
+      }
+      .copy-btn:hover {
+        color: #f59e0b;
+        border-color: #f59e0b;
+      }
+      .copy-btn.copied {
+        color: #0c0b09 !important;
+        background: #f59e0b;
+        border-color: #f59e0b;
+      }
 
-/* flash overlay — animates once when .copied is added */
-.copy-flash {
-  position: absolute;
-  inset: 0;
-  background: #f59e0b;
-  opacity: 0;
-  pointer-events: none;
-}
-.copy-btn.copied .copy-flash {
-  animation: copy-flash-anim 0.7s ease;
-}
-@keyframes copy-flash-anim {
-  0%   { opacity: 0.55; }
-  100% { opacity: 0; }
-}
+      /* flash overlay — animates once when .copied is added */
+      .copy-flash {
+        position: absolute;
+        inset: 0;
+        background: #f59e0b;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .copy-btn.copied .copy-flash {
+        animation: copy-flash-anim 0.7s ease;
+      }
+      @keyframes copy-flash-anim {
+        0% {
+          opacity: 0.55;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
 
-/* demo: code block with copy button in header */
-.code-window {
-  background: #060503;
-  border: 1px solid rgba(240,234,214,0.18);
-  border-radius: 8px;
-  overflow: hidden;
-  width: 480px;
-  max-width: 100%;
-}
-.code-header {
-  background: rgba(255,255,255,0.03);
-  border-bottom: 1px solid rgba(240,234,214,0.08);
-  padding: 10px 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.dots span {
-  display: inline-block;
-  width: 11px; height: 11px;
-  border-radius: 50%;
-  margin-right: 5px;
-}
-.file-label { font-size: 11px; color: #8a8275; }
-.code-window pre {
-  padding: 18px 20px;
-  margin: 0;
-  font-size: 12px;
-  line-height: 1.7;
-  color: #f0ead6;
-  overflow-x: auto;
-}
-</style>
-</head>
-<body>
-
-<div class="code-window">
-  <div class="code-header">
-    <div style="display:flex;align-items:center;gap:10px;">
-      <div class="dots">
-        <span style="background:#ff5f57"></span>
-        <span style="background:#febc2e"></span>
-        <span style="background:#28c840"></span>
+      /* demo: code block with copy button in header */
+      .code-window {
+        background: #060503;
+        border: 1px solid rgba(240, 234, 214, 0.18);
+        border-radius: 8px;
+        overflow: hidden;
+        width: 480px;
+        max-width: 100%;
+      }
+      .code-header {
+        background: rgba(255, 255, 255, 0.03);
+        border-bottom: 1px solid rgba(240, 234, 214, 0.08);
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .dots span {
+        display: inline-block;
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        margin-right: 5px;
+      }
+      .file-label {
+        font-size: 11px;
+        color: #8a8275;
+      }
+      .code-window pre {
+        padding: 18px 20px;
+        margin: 0;
+        font-size: 12px;
+        line-height: 1.7;
+        color: #f0ead6;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="code-window">
+      <div class="code-header">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="dots">
+            <span style="background:#ff5f57"></span>
+            <span style="background:#febc2e"></span>
+            <span style="background:#28c840"></span>
+          </div>
+          <span class="file-label">example.ts</span>
+        </div>
+        <button class="copy-btn" id="copyBtn">
+          <span class="copy-flash"></span>
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+          </svg>
+          <span class="copy-label">copy</span>
+        </button>
       </div>
-      <span class="file-label">example.ts</span>
-    </div>
-    <button class="copy-btn" id="copyBtn">
-      <span class="copy-flash"></span>
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-      <span class="copy-label">copy</span>
-    </button>
-  </div>
-  <pre id="codeContent">const greet = (name: string): string => {
+      <pre id="codeContent">const greet = (name: string): string => {
   return `hello, ${name}`;
 };
 
 console.log(greet('world'));  // hello, world</pre>
-</div>
+    </div>
 
-<script>
-const btn   = document.getElementById('copyBtn');
-const code  = document.getElementById('codeContent');
-const label = btn.querySelector('.copy-label');
-const icon  = btn.querySelector('svg');
+    <script>
+      const btn = document.getElementById("copyBtn");
+      const code = document.getElementById("codeContent");
+      const label = btn.querySelector(".copy-label");
+      const icon = btn.querySelector("svg");
 
-btn.addEventListener('click', async () => {
-  const text = code.innerText;
+      btn.addEventListener("click", async () => {
+        const text = code.innerText;
 
-  try {
-    await navigator.clipboard.writeText(text);
-  } catch {
-    // fallback
-    const ta = Object.assign(document.createElement('textarea'), {
-      value: text,
-      style: 'position:fixed;opacity:0',
-    });
-    document.body.appendChild(ta);
-    ta.select();
-    try { document.execCommand('copy'); } catch {}
-    document.body.removeChild(ta);
-  }
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch {
+          // fallback
+          const ta = Object.assign(document.createElement("textarea"), {
+            value: text,
+            style: "position:fixed;opacity:0",
+          });
+          document.body.appendChild(ta);
+          ta.select();
+          try {
+            document.execCommand("copy");
+          } catch {}
+          document.body.removeChild(ta);
+        }
 
-  btn.classList.add('copied');
-  label.textContent = 'copied!';
-  icon.style.display = 'none';
+        btn.classList.add("copied");
+        label.textContent = "copied!";
+        icon.style.display = "none";
 
-  setTimeout(() => {
-    btn.classList.remove('copied');
-    label.textContent = 'copy';
-    icon.style.display = '';
-  }, 1800);
-});
-</script>
-</body>
+        setTimeout(() => {
+          btn.classList.remove("copied");
+          label.textContent = "copy";
+          icon.style.display = "";
+        }, 1800);
+      });
+    </script>
+  </body>
 </html>

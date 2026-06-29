@@ -1,93 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>bit: typewriter</title>
-<!-- category: text | source: minimalist_2 -->
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: #0c0b09;
-  color: #f0ead6;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-}
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bit: typewriter</title>
+    <!-- category: text | source: minimalist_2 -->
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #0c0b09;
+        color: #f0ead6;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+      }
 
-/* === TYPEWRITER ===
+      /* === TYPEWRITER ===
    Types a word, pauses, deletes it, advances to next word, repeat.
    The ::after cursor blinks independently of the text state.
    #typewriter holds only the changing text; cursor is pure CSS. */
 
-.typewriter-wrap {
-  font-size: clamp(1.8rem, 5vw, 4rem);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 1.1;
-}
+      .typewriter-wrap {
+        font-size: clamp(1.8rem, 5vw, 4rem);
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        line-height: 1.1;
+      }
 
-/* Blinking cursor appended via CSS */
-.typewriter-wrap .cursor::after {
-  content: '▌';
-  color: #f59e0b;
-  animation: tw-blink 1s steps(1) infinite;
-  margin-left: 3px;
-  font-weight: 400;
-}
-@keyframes tw-blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
-}
+      /* Blinking cursor appended via CSS */
+      .typewriter-wrap .cursor::after {
+        content: "▌";
+        color: #f59e0b;
+        animation: tw-blink 1s steps(1) infinite;
+        margin-left: 3px;
+        font-weight: 400;
+      }
+      @keyframes tw-blink {
+        0%,
+        50% {
+          opacity: 1;
+        }
+        51%,
+        100% {
+          opacity: 0;
+        }
+      }
 
-.prefix { color: #6b6358; }
-</style>
-</head>
-<body>
+      .prefix {
+        color: #6b6358;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="typewriter-wrap">
+      <span class="prefix">$ </span><span id="typewriter" class="cursor"></span>
+    </div>
 
-<div class="typewriter-wrap">
-  <span class="prefix">$ </span><span id="typewriter" class="cursor"></span>
-</div>
+    <script>
+      const words = [
+        "hello, traveler.",
+        "you found /dev/log.",
+        "i write bugs so you don't have to.",
+        "console.log('welcome back.');",
+        "0x72656164657220313a20666f756e642e",
+      ];
 
-<script>
-const words = [
-  'hello, traveler.',
-  'you found /dev/log.',
-  "i write bugs so you don't have to.",
-  "console.log('welcome back.');",
-  '0x72656164657220313a20666f756e642e',
-];
+      const el = document.getElementById("typewriter");
+      let wIdx = 0,
+        cIdx = 0,
+        deleting = false;
 
-const el = document.getElementById('typewriter');
-let wIdx = 0, cIdx = 0, deleting = false;
-
-function tick() {
-  const word = words[wIdx];
-  if (deleting) {
-    cIdx--;
-    el.textContent = word.slice(0, cIdx);
-    if (cIdx === 0) {
-      deleting = false;
-      wIdx = (wIdx + 1) % words.length;
-      setTimeout(tick, 400);
-      return;
-    }
-    setTimeout(tick, 35);
-  } else {
-    cIdx++;
-    el.textContent = word.slice(0, cIdx);
-    if (cIdx === word.length) {
-      deleting = true;
-      setTimeout(tick, 2200);
-      return;
-    }
-    setTimeout(tick, 75 + Math.random() * 50);
-  }
-}
-tick();
-</script>
-</body>
+      function tick() {
+        const word = words[wIdx];
+        if (deleting) {
+          cIdx--;
+          el.textContent = word.slice(0, cIdx);
+          if (cIdx === 0) {
+            deleting = false;
+            wIdx = (wIdx + 1) % words.length;
+            setTimeout(tick, 400);
+            return;
+          }
+          setTimeout(tick, 35);
+        } else {
+          cIdx++;
+          el.textContent = word.slice(0, cIdx);
+          if (cIdx === word.length) {
+            deleting = true;
+            setTimeout(tick, 2200);
+            return;
+          }
+          setTimeout(tick, 75 + Math.random() * 50);
+        }
+      }
+      tick();
+    </script>
+  </body>
 </html>

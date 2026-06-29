@@ -1,78 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>bit: progress-bar</title>
-<!-- category: components | source: minimalist_2 -->
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: #0c0b09;
-  color: #f0ead6;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 13px;
-  line-height: 1.7;
-}
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bit: progress-bar</title>
+    <!-- category: components | source: minimalist_2 -->
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #0c0b09;
+        color: #f0ead6;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 13px;
+        line-height: 1.7;
+      }
 
-/* === READING PROGRESS BAR ===
+      /* === READING PROGRESS BAR ===
    Fixed at top of viewport. Width is driven by JS scroll position.
    Gradient runs accent → accent-2 for a two-tone look.
    The box-shadow creates a soft glow matching the leading color. */
 
-.progress-bar {
-  position: fixed;
-  top: 0; left: 0;
-  height: 3px;
-  width: 0%;
-  background: linear-gradient(90deg, #f59e0b, #06b6d4);
-  z-index: 9999;
-  box-shadow: 0 0 12px #f59e0b, 0 0 4px #f59e0b;
-  transition: width 0.1s linear;
-}
+      .progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        width: 0%;
+        background: linear-gradient(90deg, #f59e0b, #06b6d4);
+        z-index: 9999;
+        box-shadow:
+          0 0 12px #f59e0b,
+          0 0 4px #f59e0b;
+        transition: width 0.1s linear;
+      }
 
-/* demo content to enable scrolling */
-.content {
-  max-width: 640px;
-  margin: 60px auto;
-  padding: 0 24px 200px;
-  color: #c9c1ad;
-}
-.content p { margin-bottom: 20px; }
-.content h2 { color: #f59e0b; margin: 40px 0 16px; font-size: 1.3em; }
-</style>
-</head>
-<body>
+      /* demo content to enable scrolling */
+      .content {
+        max-width: 640px;
+        margin: 60px auto;
+        padding: 0 24px 200px;
+        color: #c9c1ad;
+      }
+      .content p {
+        margin-bottom: 20px;
+      }
+      .content h2 {
+        color: #f59e0b;
+        margin: 40px 0 16px;
+        font-size: 1.3em;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Progress bar — place at very top of <body> -->
+    <div class="progress-bar" id="progressBar"></div>
 
-<!-- Progress bar — place at very top of <body> -->
-<div class="progress-bar" id="progressBar"></div>
+    <div class="content">
+      <h2>Reading Progress Bar</h2>
+      <p>
+        Scroll down to see the amber → cyan bar grow at the top of the viewport.
+        It reaches 100% when you hit the bottom of the page.
+      </p>
+      <p>
+        The bar is driven by a single scroll event listener comparing
+        <code>window.scrollY</code>
+        to
+        <code>document.documentElement.scrollHeight - window.innerHeight</code>.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam.
+      </p>
+      <h2>Keep scrolling</h2>
+      <p>
+        Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate.
+      </p>
+      <p>
+        Velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum.
+      </p>
+      <h2>Almost there</h2>
+      <p>
+        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+        accusantium doloremque laudantium, totam rem aperiam.
+      </p>
+      <p>
+        Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae
+        vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+        aspernatur.
+      </p>
+      <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
+    </div>
 
-<div class="content">
-  <h2>Reading Progress Bar</h2>
-  <p>Scroll down to see the amber → cyan bar grow at the top of the viewport. It reaches 100% when you hit the bottom of the page.</p>
-  <p>The bar is driven by a single scroll event listener comparing <code>window.scrollY</code> to <code>document.documentElement.scrollHeight - window.innerHeight</code>.</p>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-  <h2>Keep scrolling</h2>
-  <p>Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate.</p>
-  <p>Velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-  <h2>Almost there</h2>
-  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-  <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur.</p>
-  <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
-</div>
+    <script>
+      const bar = document.getElementById("progressBar");
 
-<script>
-const bar = document.getElementById('progressBar');
+      function updateProgress() {
+        const scrollTop = window.scrollY;
+        const docHeight =
+          document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        bar.style.width = progress + "%";
+      }
 
-function updateProgress() {
-  const scrollTop  = window.scrollY;
-  const docHeight  = document.documentElement.scrollHeight - window.innerHeight;
-  const progress   = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-  bar.style.width  = progress + '%';
-}
-
-window.addEventListener('scroll', updateProgress, { passive: true });
-updateProgress();
-</script>
-</body>
+      window.addEventListener("scroll", updateProgress, { passive: true });
+      updateProgress();
+    </script>
+  </body>
 </html>

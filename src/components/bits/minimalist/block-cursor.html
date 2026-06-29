@@ -1,136 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>bit: block-cursor</title>
-<!-- category: text | source: minimalist_1 -->
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: #0a0d11;
-  color: #d8d4ce;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 14px;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
-}
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bit: block-cursor</title>
+    <!-- category: text | source: minimalist_1 -->
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #0a0d11;
+        color: #d8d4ce;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 14px;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+      }
 
-/* === BLOCK CURSOR ===
+      /* === BLOCK CURSOR ===
    Inline-block amber rectangle that blinks at 1.06s.
    Place immediately after typed text, before ghost/autocomplete text.
    The hidden <input> sits absolutely over .input-area and drives the
    display; typedText + blockCursor + ghostText form the visible layer. */
 
-.prompt-line {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-}
+      .prompt-line {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+      }
 
-.prompt {
-  color: #4ade80;
-  text-shadow: 0 0 8px rgba(74, 222, 128, 0.45);
-  font-weight: 500;
-  user-select: none;
-  white-space: nowrap;
-}
-.prompt .path { color: #67e8f9; text-shadow: 0 0 6px rgba(103,232,249,0.4); }
+      .prompt {
+        color: #4ade80;
+        text-shadow: 0 0 8px rgba(74, 222, 128, 0.45);
+        font-weight: 500;
+        user-select: none;
+        white-space: nowrap;
+      }
+      .prompt .path {
+        color: #67e8f9;
+        text-shadow: 0 0 6px rgba(103, 232, 249, 0.4);
+      }
 
-.input-area { position: relative; }
+      .input-area {
+        position: relative;
+      }
 
-/* visible text layer */
-.input-display { pointer-events: none; color: #d8d4ce; display: flex; align-items: baseline; }
+      /* visible text layer */
+      .input-display {
+        pointer-events: none;
+        color: #d8d4ce;
+        display: flex;
+        align-items: baseline;
+      }
 
-.ghost-text { color: #6b7585; opacity: 0.55; }
+      .ghost-text {
+        color: #6b7585;
+        opacity: 0.55;
+      }
 
-.block-cursor {
-  display: inline-block;
-  width: 8px;
-  height: 17px;
-  background: #ffb86c;
-  vertical-align: text-bottom;
-  box-shadow: 0 0 8px #ffb86c;
-  animation: cursor-blink 1.06s steps(2, end) infinite;
-  margin-left: 1px;
-  margin-right: 1px;
-  flex-shrink: 0;
-}
-@keyframes cursor-blink {
-  0%, 49.999% { opacity: 1; }
-  50%, 100%   { opacity: 0; }
-}
+      .block-cursor {
+        display: inline-block;
+        width: 8px;
+        height: 17px;
+        background: #ffb86c;
+        vertical-align: text-bottom;
+        box-shadow: 0 0 8px #ffb86c;
+        animation: cursor-blink 1.06s steps(2, end) infinite;
+        margin-left: 1px;
+        margin-right: 1px;
+        flex-shrink: 0;
+      }
+      @keyframes cursor-blink {
+        0%,
+        49.999% {
+          opacity: 1;
+        }
+        50%,
+        100% {
+          opacity: 0;
+        }
+      }
 
-/* real input sits invisibly over the display */
-#cmdInput {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: transparent;
-  caret-color: transparent;
-  font: inherit;
-  z-index: 2;
-  cursor: text;
-  padding: 0;
-}
-</style>
-</head>
-<body>
-
-<div class="prompt-line">
-  <span class="prompt">user@blog<span class="path">:~</span>$</span>
-  <div class="input-area">
-    <div class="input-display">
-      <span id="typedText"></span>
-      <span class="block-cursor" id="blockCursor"></span>
-      <span class="ghost-text" id="ghostText"></span>
+      /* real input sits invisibly over the display */
+      #cmdInput {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: transparent;
+        caret-color: transparent;
+        font: inherit;
+        z-index: 2;
+        cursor: text;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="prompt-line">
+      <span class="prompt">user@blog<span class="path">:~</span>$</span>
+      <div class="input-area">
+        <div class="input-display">
+          <span id="typedText"></span>
+          <span class="block-cursor" id="blockCursor"></span>
+          <span class="ghost-text" id="ghostText"></span>
+        </div>
+        <input
+          type="text"
+          id="cmdInput"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+          autofocus
+        >
+      </div>
     </div>
-    <input
-      type="text"
-      id="cmdInput"
-      autocomplete="off"
-      autocapitalize="off"
-      spellcheck="false"
-      autofocus
-    />
-  </div>
-</div>
 
-<script>
-const cmdInput   = document.getElementById('cmdInput');
-const typedText  = document.getElementById('typedText');
-const ghostText  = document.getElementById('ghostText');
+    <script>
+      const cmdInput = document.getElementById("cmdInput");
+      const typedText = document.getElementById("typedText");
+      const ghostText = document.getElementById("ghostText");
 
-const suggestions = ['help', 'ls', 'cat', 'cd', 'pwd', 'clear'];
+      const suggestions = ["help", "ls", "cat", "cd", "pwd", "clear"];
 
-cmdInput.addEventListener('input', () => {
-  const val = cmdInput.value;
-  typedText.textContent = val;
-  const match = val ? suggestions.find(s => s.startsWith(val) && s !== val) : null;
-  ghostText.textContent = match ? match.slice(val.length) : '';
-});
+      cmdInput.addEventListener("input", () => {
+        const val = cmdInput.value;
+        typedText.textContent = val;
+        const match = val
+          ? suggestions.find(s => s.startsWith(val) && s !== val)
+          : null;
+        ghostText.textContent = match ? match.slice(val.length) : "";
+      });
 
-cmdInput.addEventListener('keydown', (e) => {
-  if ((e.key === 'ArrowRight' || e.key === 'Tab') && ghostText.textContent) {
-    e.preventDefault();
-    cmdInput.value += ghostText.textContent;
-    typedText.textContent = cmdInput.value;
-    ghostText.textContent = '';
-  }
-  if (e.key === 'Enter') {
-    typedText.textContent = '';
-    cmdInput.value = '';
-    ghostText.textContent = '';
-  }
-});
-</script>
-</body>
+      cmdInput.addEventListener("keydown", e => {
+        if (
+          (e.key === "ArrowRight" || e.key === "Tab") &&
+          ghostText.textContent
+        ) {
+          e.preventDefault();
+          cmdInput.value += ghostText.textContent;
+          typedText.textContent = cmdInput.value;
+          ghostText.textContent = "";
+        }
+        if (e.key === "Enter") {
+          typedText.textContent = "";
+          cmdInput.value = "";
+          ghostText.textContent = "";
+        }
+      });
+    </script>
+  </body>
 </html>
