@@ -8,9 +8,12 @@ import "@styles/pages/main.css";
 
 <MainLayout title="Oleksandr Marnov" description="Web Developer & Designer">
   <Hero />
-  <h2 class="title2-bold text-left pl-xl pb-md pt-lg m-0">Projects</h2>
+  <h2 class="section-heading reveal" style="--delay: 100ms">
+    <span class="section-heading__comment">// </span>Projects
+  </h2>
   <div
-    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-md px-md pb-md sm:px-lg lg:px-xl"
+    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-md px-md pb-md sm:px-lg lg:px-xl reveal"
+    style="--delay: 160ms"
   >
     <ProjectCard
       projectName="Quickshell"
@@ -24,8 +27,28 @@ import "@styles/pages/main.css";
       projectName="Bongopunk"
       projectLink="https://github.com/Xanazf/bongopunk"
     />
-    <!-- <ProjectCard projectName="NDA" projectLink=""/> -->
   </div>
-  <h2 class="title2-bold text-left pl-xl pb-md pt-lg m-0">Skills</h2>
-  <div class="px-md pb-xl sm:px-lg lg:px-xl"><SkillCard /></div>
+  <h2 class="section-heading reveal" style="--delay: 80ms">
+    <span class="section-heading__comment">// </span>Skills
+  </h2>
+  <div class="px-md pb-xl sm:px-lg lg:px-xl reveal" style="--delay: 120ms">
+    <SkillCard />
+  </div>
 </MainLayout>
+
+<style>
+  .section-heading {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #6b7585;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 2rem 0 8px;
+    margin: 0 0 20px;
+    padding-inline: var(--space-xl, 2rem);
+    font-weight: 400;
+  }
+  .section-heading__comment {
+    color: #2a303c;
+  }
+</style>

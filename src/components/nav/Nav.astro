@@ -23,18 +23,15 @@ const paths = [
       const curr_path = Astro.url.pathname
       if (curr_path === path) {
         return (
-          <li aria-key=`${index}` class="flex justify-center items-center">
-            <div
-              class="flex justify-center items-center"
-              style="width: max-content; font-size: 2.217rem;"
-            >
+          <li aria-key=`${index}` class="flex justify-center items-center nav-item-active">
+            <div class="nav-arrow flex justify-center items-center" style="width: max-content; font-size: 2.217rem;">
               <Icon name="menu-right" />
             </div>
-              <a href=`${path}`>{label}</a>
+            <a href=`${path}` class="nav-link nav-link--active" aria-current="page">{label}</a>
           </li>
         )
       }
-      return (<li aria-key=`${index}`><a href=`${path}`>{label}</a></li>)
+      return (<li aria-key=`${index}`><a href=`${path}` class="nav-link">{label}</a></li>)
     })}
   </ul>
 </nav>
@@ -53,5 +50,33 @@ const paths = [
       width: 21rem;
       justify-content: space-between;
     }
+  }
+
+  .nav-link {
+    color: #6b7585;
+    font-size: 0.875rem;
+    letter-spacing: 0.04em;
+    transition:
+      color 0.2s ease,
+      text-shadow 0.2s ease;
+    position: relative;
+    z-index: 1;
+  }
+  .nav-link:hover {
+    color: #67cdcc;
+    text-shadow: 0 0 8px rgba(103, 205, 204, 0.45);
+  }
+  .nav-link--active {
+    color: #ffb86c;
+    text-shadow: 0 0 10px rgba(255, 184, 108, 0.55);
+  }
+  .nav-link--active:hover {
+    color: #ffd09b;
+    text-shadow: 0 0 14px rgba(255, 184, 108, 0.7);
+  }
+  .nav-arrow {
+    color: #ffb86c;
+    opacity: 0.75;
+    filter: drop-shadow(0 0 6px rgba(255, 184, 108, 0.5));
   }
 </style>

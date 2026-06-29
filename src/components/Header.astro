@@ -10,7 +10,7 @@ import Console from "@components/nav/Console.astro";
     <Console />
   </div>
   <div class="right-section">
-    <div class="flex justify-center items-center">
+    <div class="flex justify-center items-center logo-wrap">
       <Icon name="xnzf-logo" />
     </div>
     <Nav />
@@ -31,25 +31,26 @@ import Console from "@components/nav/Console.astro";
     overflow: hidden;
     border-radius: 0;
     padding-inline: 1rem;
+    border-top: 1px solid rgba(255, 184, 108, 0.1);
+    background: rgba(17, 16, 26, 0.75);
+    backdrop-filter: blur(18px) saturate(130%);
   }
   .left-section {
     width: 50%;
+    position: relative;
+    z-index: 1;
   }
   .right-section {
     width: 50%;
     display: flex;
+    position: relative;
     z-index: 1;
-    &::before {
-      position: absolute;
-      inset: 0;
-      left: -1rem;
-      right: -1rem;
-      content: "";
-      background-color: hsla(0 3 6 / 0.45);
-      background-image: radial-gradient(transparent 20%, #000000f0);
-      backdrop-filter: blur(12px);
-      z-index: 0;
-      border-radius: 1rem 0 0 0;
+  }
+  .logo-wrap {
+    opacity: 0.7;
+    transition: opacity 0.25s ease;
+    &:hover {
+      opacity: 1;
     }
   }
   @media (min-width: 65rem) {

@@ -8,9 +8,13 @@ import PFP from "@public/pfp.png";
 <div class="flex flex-col-reverse lg:flex-row mt-xl">
   <div class="p-md px-xl flex-1">
     <section class="mb-sm">
-      <h1 class="display2-bold text-left m-0">Hi, I'm Xan</h1>
+      <h1 class="display2-bold text-left m-0 glow-amber-bold">Hi, I'm Xan</h1>
     </section>
-    <section class="body color-onsurfacevariant flex flex-col gap-sm">
+    <div class="status-row">
+      <span class="dot dot-green"></span>
+      <span class="status-text">available for work</span>
+    </div>
+    <section class="flex flex-col gap-sm hero-bio">
       <p>
         My name is Oleksandr, but I go by Xanazf online. I'm a full stack web
         developer and designer living in Kyiv, Ukraine.
@@ -31,8 +35,39 @@ import PFP from "@public/pfp.png";
       alt="main profile picture"
       width={300}
       height={300}
-      style="border-radius: 100vh; border: 6px solid var(--hl-surfacevariant);"
+      class="pfp"
+      style="border-radius: 100vh; border: 2px solid rgba(255, 184, 108, 0.2);"
     />
     <Contacts />
   </div>
 </div>
+
+<style>
+  .status-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 14px;
+  }
+  .status-text {
+    font-size: 12px;
+    color: #4ade80;
+    text-shadow: 0 0 8px rgba(74, 222, 128, 0.45);
+    letter-spacing: 0.04em;
+  }
+  .hero-bio p {
+    color: #8a8275;
+    line-height: 1.7;
+  }
+  .pfp {
+    filter: saturate(0.85);
+    transition:
+      filter 0.4s ease,
+      box-shadow 0.4s ease;
+    box-shadow: 0 0 0 0 rgba(255, 184, 108, 0);
+  }
+  .pfp:hover {
+    filter: saturate(1.05);
+    box-shadow: 0 0 32px rgba(255, 184, 108, 0.18);
+  }
+</style>

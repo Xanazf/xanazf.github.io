@@ -1,3 +1,4 @@
+/* Neon divider (kept for potential future use) */
 .hr-neon {
   width: 75%;
   margin: auto;
@@ -18,66 +19,6 @@
   }
 }
 
-.pc {
-  transition: filter 0.3s;
-
-  &::before {
-    transition: filter 0.3s;
-  }
-}
-
-.pc.quickshell::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    115deg,
-    hsla(var(--green) 20 15 / 0.7) 25%,
-    hsla(var(--green) 25 25 / 0.8) 50%,
-    hsla(var(--green) 60 60 / 0.6) 80%
-  );
-  filter: blur(1.5rem) saturate(150%);
-  z-index: -1;
-}
-
-.pc.heavylift::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    115deg,
-    hsla(var(--yellow) 20 15 / 0.7) 25%,
-    hsla(var(--yellow) 25 25 / 0.8) 50%,
-    hsla(var(--yellow) 60 60 / 0.6) 80%
-  );
-  filter: blur(1.5rem) saturate(150%);
-  z-index: -1;
-}
-
-.pc.bongopunk::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    115deg,
-    hsla(var(--primary-hue) 20 15 / 0.7) 25%,
-    hsla(var(--primary-hue) 25 25 / 0.8) 50%,
-    hsla(var(--primary-hue) 60 60 / 0.6) 80%
-  );
-  filter: blur(1.5rem) saturate(150%);
-  z-index: -1;
-}
-
-.pc.nda {
-  border: 3px solid hsl(var(--ua-top-hue) var(--ua-top-sl));
-}
-
-.pc:not(.nda) {
-  &:hover::before {
-    filter: blur(0.9rem) saturate(200%);
-  }
-}
-
 @media (min-width: 65rem) {
   .hr-neon {
     width: 100%;
@@ -85,22 +26,62 @@
   }
 }
 
-/* Project Card styling */
+.pc {
+  transition:
+    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.4s ease;
+}
+
 .project-card {
   position: relative;
   isolation: isolate;
   display: block;
   width: 100%;
   height: 4.5rem;
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--hl-surface) 60%, transparent);
-  /* border: 1px solid color-mix(in srgb, var(--hl-surface) 85%, transparent); */
-  color: var(--hl-onsurface);
-  text-decoration: none;
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.25),
-    inset 0 1px 0 hsla(0 0% 100% / 0.05);
-  backdrop-filter: blur(6px) saturate(120%);
+  border-radius: 4px;
+  background: rgba(24, 21, 31, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #d8d4ce;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+}
+
+.project-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 18px 36px -14px rgba(0, 0, 0, 0.6);
+}
+.project-card:hover::before {
+  transform: scaleX(1);
+}
+.project-card:hover::after {
+  opacity: 1;
 }
 
 .project-card a,
@@ -114,33 +95,67 @@
   color: inherit;
   justify-content: center;
   align-items: center;
-}
-
-.project-card:hover {
-  transform: translateY(-2px);
+  position: relative;
+  z-index: 3;
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s ease;
-  /* border-color: color-mix(in srgb, var(--hl-info) 60%, transparent); */
-  box-shadow:
-    0 12px 28px rgba(0, 0, 0, 0.3),
-    0 0 0 1px color-mix(in srgb, var(--hl-info) 15%, transparent) inset;
+    color 0.3s ease,
+    text-shadow 0.3s ease;
 }
 
-/* specific project tints using hue tokens */
-.pc.quickshell {
-  border-color: hsl(var(--green) 45 45 / 0.6);
+.pc.quickshell::before {
+  background: linear-gradient(90deg, #4ade80, #72f1b8);
+}
+.pc.quickshell::after {
+  background: radial-gradient(
+    circle at bottom right,
+    rgba(74, 222, 128, 0.18),
+    transparent 70%
+  );
+}
+.pc.quickshell:hover {
+  border-color: rgba(74, 222, 128, 0.2);
+}
+.pc.quickshell:hover a {
+  color: #4ade80;
+  text-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
 }
 
-.pc.heavylift {
-  border-color: var(--main-hsl-3);
+.pc.heavylift::before {
+  background: linear-gradient(90deg, #ffb86c, #f87c32);
+}
+.pc.heavylift::after {
+  background: radial-gradient(
+    circle at bottom right,
+    rgba(255, 184, 108, 0.18),
+    transparent 70%
+  );
+}
+.pc.heavylift:hover {
+  border-color: rgba(255, 184, 108, 0.2);
+}
+.pc.heavylift:hover a {
+  color: #ffb86c;
+  text-shadow: 0 0 10px rgba(255, 184, 108, 0.5);
 }
 
-.pc.bongopunk {
-  border-color: var(--main-hsl-2);
+.pc.bongopunk::before {
+  background: linear-gradient(90deg, #67cdcc, #f92aad);
+}
+.pc.bongopunk::after {
+  background: radial-gradient(
+    circle at bottom right,
+    rgba(103, 205, 204, 0.18),
+    transparent 70%
+  );
+}
+.pc.bongopunk:hover {
+  border-color: rgba(103, 205, 204, 0.2);
+}
+.pc.bongopunk:hover a {
+  color: #67cdcc;
+  text-shadow: 0 0 10px rgba(103, 205, 204, 0.5);
 }
 
 .pc.nda {
-  border-color: hsl(var(--ua-top-hue) var(--ua-top-sl));
+  border: 1px solid rgba(103, 205, 204, 0.25);
 }

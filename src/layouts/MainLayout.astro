@@ -15,6 +15,7 @@ const { title, description } = Astro.props;
   </head>
   <body class="bg-transparent color-onbackground">
     <div class="rim" id="rim" />
+    <div class="mouse-glow" id="mouseGlow" aria-hidden="true"></div>
     <div
       class="baselayout z-0 baselayout-responsive"
       style="margin: 0 auto; min-height: 100svh;"
@@ -23,7 +24,7 @@ const { title, description } = Astro.props;
         class="viewport relative z-1 bg-transparent"
         style="min-height: max-content;"
       >
-        <main class="z-2 h-full overflow-y-scroll"><slot /></main>
+        <main class="z-2" style="padding-bottom: 8rem;"><slot /></main>
       </div>
     </div>
     <Header />
@@ -36,4 +37,54 @@ const { title, description } = Astro.props;
       width: 60svw;
     }
   }
+
+  .mouse-glow {
+    position: fixed;
+    width: 560px;
+    height: 560px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(255, 184, 108, 0.07) 0%,
+      transparent 60%
+    );
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    filter: blur(40px);
+    z-index: 1;
+    top: 0;
+    left: 0;
+  }
 </style>
+
+<script>
+  const glow = document.getElementById("mouseGlow");
+  if (glow) {
+    document.addEventListener("mousemove", e => {
+      glow.style.left = e.clientX + "px";
+      glow.style.top = e.clientY + "px";
+      glow.style.opacity = "1";
+    });
+    document.addEventListener("mouseleave", () => {
+      glow.style.opacity = "0";
+    });
+  }
+
+  const revealObserver = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+  );
+
+  document
+    .querySelectorAll(".reveal")
+    .forEach(el => revealObserver.observe(el));
+</script>

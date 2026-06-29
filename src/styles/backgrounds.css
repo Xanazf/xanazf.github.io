@@ -1,11 +1,32 @@
-body.baselayout {
-  &::before {
-    position: fixed;
-    content: "";
-    inset: 0;
-    background-image: radial-gradient(transparent, #000000f0);
-    z-index: -1;
-  }
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.5'/></svg>");
+  mix-blend-mode: screen;
+  opacity: 0.11;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(114, 241, 184, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(114, 241, 184, 0.028) 1px, transparent 1px),
+    radial-gradient(
+      ellipse 110% 110% at center,
+      transparent 35%,
+      rgba(8, 7, 14, 0.88) 100%
+    );
+  background-size:
+    48px 48px,
+    48px 48px,
+    100% 100%;
 }
 
 .viewport {
@@ -16,7 +37,7 @@ body.baselayout {
     left: -2rem;
     right: -2rem;
     content: "";
-    background-image: radial-gradient(transparent, #000000f0);
+    background-image: radial-gradient(transparent 40%, rgba(10, 9, 18, 0.75));
     z-index: 0;
     pointer-events: none;
   }
