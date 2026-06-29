@@ -1,8 +1,8 @@
 body {
+  position: relative;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  position: relative;
   min-height: 100svh;
   width: 100%;
   max-width: 100svw;
@@ -42,13 +42,6 @@ main {
   position: relative;
   width: 100%;
   height: auto;
-}
-
-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  margin: auto;
 }
 
 footer {

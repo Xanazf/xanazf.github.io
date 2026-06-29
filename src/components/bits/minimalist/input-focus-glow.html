@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bit: input-focus-glow</title>
+<!-- category: components | source: minimalist_2 -->
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0c0b09;
+  color: #f0ead6;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  padding: 40px;
+}
+
+/* === INPUT WITH FOCUS GLOW ===
+   Border changes to accent color on focus.
+   box-shadow adds a soft glow ring using a semi-transparent accent.
+   Use CSS custom properties so the glow adapts to themes.
+   All transitions run at 0.3s ease for consistency with other elements. */
+
+.input-field {
+  background: #0c0b09;
+  border: 1px solid rgba(240,234,214,0.18);
+  color: #f0ead6;
+  padding: 12px 16px;
+  font-family: inherit;
+  font-size: 13px;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 340px;
+}
+.input-field:focus {
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245,158,11,0.15);
+}
+.input-field::placeholder { color: #6b6358; }
+
+/* Variant: error state */
+.input-field.error { border-color: #ef4444; }
+.input-field.error:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239,68,68,0.15);
+}
+
+/* Variant: success state */
+.input-field.success { border-color: #4ade80; }
+.input-field.success:focus {
+  border-color: #4ade80;
+  box-shadow: 0 0 0 3px rgba(74,222,128,0.15);
+}
+
+/* Inline form layout */
+.input-row {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  max-width: 340px;
+}
+.input-row .input-field { max-width: none; }
+
+.btn {
+  background: #f59e0b;
+  color: #0c0b09;
+  border: none;
+  padding: 12px 18px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
+}
+.btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+.label {
+  font-size: 10px;
+  color: #6b6358;
+  align-self: flex-start;
+  width: 100%;
+  max-width: 340px;
+}
+</style>
+</head>
+<body>
+
+<span class="label">default — click to focus</span>
+<input class="input-field" type="text" placeholder="you@somewhere.dev">
+
+<span class="label">error state</span>
+<input class="input-field error" type="text" placeholder="invalid input" value="bad@">
+
+<span class="label">success state</span>
+<input class="input-field success" type="text" placeholder="confirmed" value="you@somewhere.dev">
+
+<span class="label">inline form</span>
+<div class="input-row">
+  <input class="input-field" type="email" placeholder="subscribe...">
+  <button class="btn">go →</button>
+</div>
+
+</body>
+</html>

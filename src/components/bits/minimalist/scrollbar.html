@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bit: scrollbar</title>
+<!-- category: utility | source: minimalist_1 -->
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0d11;
+  color: #d8d4ce;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.55;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px;
+}
+
+/* === CUSTOM SCROLLBAR ===
+   Two approaches that cover all modern browsers:
+   - Thin variant: narrow track, subtle thumb
+   - Accent variant: same but thumb turns --accent on hover
+   Apply to any scrollable container. */
+
+/* Firefox */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: #1d2530 transparent;
+}
+
+/* Firefox accent variant */
+.scrollbar-accent {
+  scrollbar-width: thin;
+  scrollbar-color: #ffb86c transparent;
+}
+
+/* WebKit thin */
+.scrollbar-thin::-webkit-scrollbar         { width: 6px; height: 6px; }
+.scrollbar-thin::-webkit-scrollbar-track   { background: transparent; }
+.scrollbar-thin::-webkit-scrollbar-thumb   { background: #1d2530; border-radius: 3px; }
+.scrollbar-thin::-webkit-scrollbar-thumb:hover { background: #6b7585; }
+
+/* WebKit accent */
+.scrollbar-accent::-webkit-scrollbar         { width: 8px; }
+.scrollbar-accent::-webkit-scrollbar-track   { background: #0a0d11; border-radius: 4px; }
+.scrollbar-accent::-webkit-scrollbar-thumb   { background: #1d2530; border-radius: 4px; border: 2px solid #0a0d11; }
+.scrollbar-accent::-webkit-scrollbar-thumb:hover { background: #ffb86c; }
+
+/* demo containers */
+.demo-box {
+  width: 220px;
+  height: 180px;
+  border: 1px solid #1d2530;
+  padding: 10px 12px;
+  overflow-y: auto;
+  border-radius: 3px;
+}
+.demo-box p { margin-bottom: 8px; color: #6b7585; }
+.demo-label { font-size: 10px; color: #2a303c; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<div>
+  <p class="demo-label">.scrollbar-thin</p>
+  <div class="demo-box scrollbar-thin">
+    <p>line one — some content here</p>
+    <p>line two — more content below</p>
+    <p>line three — keep scrolling</p>
+    <p>line four — almost there</p>
+    <p>line five — scroll me</p>
+    <p>line six — bottom soon</p>
+    <p>line seven — there it is</p>
+    <p>line eight — the end</p>
+  </div>
+</div>
+
+<div>
+  <p class="demo-label">.scrollbar-accent</p>
+  <div class="demo-box scrollbar-accent">
+    <p>line one — some content here</p>
+    <p>line two — more content below</p>
+    <p>line three — keep scrolling</p>
+    <p>line four — almost there</p>
+    <p>line five — scroll me</p>
+    <p>line six — bottom soon</p>
+    <p>line seven — there it is</p>
+    <p>line eight — the end</p>
+  </div>
+</div>
+
+</body>
+</html>

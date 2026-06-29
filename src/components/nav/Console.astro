@@ -1,0 +1,98 @@
+---
+---
+
+<div class="demo-content">
+  <div>xnzf@blog:~$</div>
+  <!-- <div style="color:#d8d4ce">welcome to the terminal.</div> -->
+  <div style="color:#4ade80">[ OK ] all systems nominal</div>
+</div>
+
+<div class="crt-overlay" id="crtOverlay" aria-hidden="true">
+  <div class="crt-scanlines"></div>
+  <div class="crt-vignette"></div>
+  <div class="crt-flicker"></div>
+</div>
+
+<style>
+  /* === CRT OVERLAY ===
+   Three stacked layers: scanlines scroll, vignette darkens edges, flicker pulses.
+   Drop .crt-overlay as a fixed sibling at the top of <body>.
+   Toggle visibility via opacity on #crtOverlay to disable. */
+
+  .crt-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    transition: opacity 0.4s;
+  }
+
+  /* Horizontal scanlines that slowly scroll downward */
+  .crt-scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0px,
+      rgba(0, 0, 0, 0) 2px,
+      rgba(0, 0, 0, 0.32) 3px,
+      rgba(0, 0, 0, 0.32) 4px
+    );
+    opacity: 0.55;
+    animation: crt-scan 6s linear infinite;
+  }
+  @keyframes crt-scan {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(4px);
+    }
+  }
+
+  /* Radial dark vignette around the edges */
+  .crt-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 110% 100% at center,
+      transparent 45%,
+      rgba(0, 0, 0, 0.55) 100%
+    );
+  }
+
+  /* Subtle amber tint that occasionally flickers */
+  .crt-flicker {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 184, 108, 0.018);
+    animation: crt-flicker 7s infinite;
+  }
+  @keyframes crt-flicker {
+    0%,
+    94%,
+    100% {
+      opacity: 1;
+    }
+    95% {
+      opacity: 0.82;
+    }
+    96% {
+      opacity: 1;
+    }
+    97% {
+      opacity: 0.93;
+    }
+    98% {
+      opacity: 1;
+    }
+  }
+
+  /* demo */
+  .demo-content {
+    text-align: left;
+    line-height: 2;
+    color: #ffb86c;
+    text-shadow: 0 0 10px rgba(255, 184, 108, 0.5);
+  }
+</style>

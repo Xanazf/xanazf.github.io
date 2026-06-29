@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bit: live-dot-ring</title>
+<!-- category: components | source: cool_1 -->
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0d0e14;
+  color: #6b6d7a;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding: 40px;
+}
+
+/* === LIVE DOT WITH EXPANDING RING ===
+   A filled dot paired with an expanding-ring pulse drawn via ::after.
+   Differs from a simple scale-pulse: the ring starts tight and radiates outward,
+   giving a "broadcast" feel rather than a breathe.
+   Use `--dot-color` to theme; the ring border and glow inherit the same value.
+   Drop `.live-dot` + a text label inside `.status` for a compact status chip. */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.live-dot {
+  --dot-color: #d4ff3a;
+  width: 7px;
+  height: 7px;
+  background: var(--dot-color);
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  flex-shrink: 0;
+}
+.live-dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid var(--dot-color);
+  animation: ring-expand 2s ease-out infinite;
+}
+@keyframes ring-expand {
+  0%   { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+/* color variants */
+.dot-lime    { --dot-color: #d4ff3a; }
+.dot-mint    { --dot-color: #4dd4ac; }
+.dot-amber   { --dot-color: #ffb627; }
+.dot-coral   { --dot-color: #ff5e62; }
+.dot-violet  { --dot-color: #c4a5ff; }
+
+/* paused / offline — no ring, muted fill */
+.dot-off {
+  --dot-color: #2a303c;
+  background: #2a303c;
+}
+.dot-off::after { display: none; }
+
+/* chip wrapper variant */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px;
+  border: 1px solid rgba(240,235,225,0.12);
+  border-radius: 100px;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: #a8a496;
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+
+<!-- bare dot + label -->
+<span class="status"><span class="live-dot dot-lime"></span>live</span>
+<span class="status"><span class="live-dot dot-mint"></span>syncing</span>
+<span class="status"><span class="live-dot dot-amber"></span>pending</span>
+<span class="status"><span class="live-dot dot-coral"></span>error</span>
+<span class="status"><span class="live-dot dot-violet"></span>composing</span>
+<span class="status"><span class="live-dot dot-off"></span>offline</span>
+
+<!-- chip wrapper -->
+<span class="chip"><span class="live-dot dot-lime"></span>interactive · live</span>
+
+</body>
+</html>

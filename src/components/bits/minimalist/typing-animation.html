@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bit: typing-animation</title>
+<!-- category: text | source: minimalist_1 -->
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0d11;
+  color: #d8d4ce;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.55;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+/* === TYPING ANIMATION (man-page style) ===
+   Characters are revealed one-by-one with a small async delay.
+   Any keypress cancels the animation and instantly shows the full text.
+   Wrap target element in .type-box. No CSS required beyond the container;
+   all rendering happens inside <pre> tags set by JS. */
+
+.type-box {
+  border: 1px solid #1d2530;
+  background: linear-gradient(to bottom, rgba(255,184,108,0.025), rgba(255,184,108,0.005));
+  padding: 16px 20px;
+  max-width: 520px;
+  width: 100%;
+  border-radius: 2px;
+  box-shadow: inset 0 0 30px rgba(255, 184, 108, 0.03);
+}
+.type-box pre {
+  font: inherit;
+  white-space: pre-wrap;
+  color: #d8d4ce;
+}
+
+.hint {
+  margin-top: 12px;
+  font-size: 11px;
+  color: #2a303c;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+<div>
+  <div class="type-box" id="typeTarget"></div>
+  <p class="hint">press any key to skip</p>
+</div>
+
+<script>
+const text = `LS(1)
+
+NAME
+    ls - list directory contents
+
+SYNOPSIS
+    ls [directory]
+
+DESCRIPTION
+    List files and subdirectories. Without
+    arguments, lists the current working directory.
+
+    Output is color-coded:
+      cyan    directories
+      amber   markdown files
+      dim     hidden (dot) files
+
+EXAMPLES
+    ls
+    ls posts
+    ls ~/topics
+
+SEE ALSO
+    cd(1), cat(1), tree(1)`;
+
+const target = document.getElementById('typeTarget');
+let cancelled = false;
+
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;');
+}
+
+async function typeOut(str, el, delay = 4) {
+  cancelled = false;
+  el.innerHTML = '';
+  let buf = '';
+  for (let i = 0; i < str.length; i++) {
+    if (cancelled) {
+      el.innerHTML = '<pre>' + escapeHtml(str) + '</pre>';
+      return;
+    }
+    buf += str[i];
+    el.innerHTML = '<pre>' + escapeHtml(buf) + '</pre>';
+    if (str[i] !== ' ' && str[i] !== '\n' && i % 2 === 0) {
+      await new Promise(r => setTimeout(r, delay));
+    } else if (str[i] === '\n') {
+      await new Promise(r => setTimeout(r, delay * 2));
+    }
+  }
+}
+
+document.addEventListener('keydown', () => { cancelled = true; });
+typeOut(text, target, 3);
+</script>
+</body>
+</html>

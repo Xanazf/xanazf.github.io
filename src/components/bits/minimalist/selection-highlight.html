@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bit: selection-highlight</title>
+<!-- category: utility | source: minimalist_1 + minimalist_2 -->
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0d11;
+  color: #d8d4ce;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 14px;
+  line-height: 1.8;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+/* === CUSTOM TEXT SELECTION ===
+   ::selection applies to highlighted text.
+   Only color and background-color are reliably supported.
+   The amber variant gives an on-brand glow-like feel.
+   Scope to a class to use multiple variants on one page. */
+
+/* Default: amber */
+::selection {
+  background: rgba(255, 184, 108, 0.32);
+  color: #ffd09b;
+}
+
+/* Scoped variants */
+.select-green::selection {
+  background: rgba(74, 222, 128, 0.28);
+  color: #86efac;
+}
+.select-cyan::selection {
+  background: rgba(103, 232, 249, 0.28);
+  color: #a5f3fc;
+}
+.select-magenta::selection {
+  background: rgba(244, 114, 182, 0.28);
+  color: #f9a8d4;
+}
+/* minimalist_2 style: solid accent */
+.select-solid::selection {
+  background: #f59e0b;
+  color: #0c0b09;
+}
+
+/* demo */
+.demo { max-width: 480px; }
+.demo p { margin-bottom: 16px; }
+.demo strong { color: #ffb86c; }
+.note { font-size: 11px; color: #2a303c; margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="demo">
+  <p><strong>Try selecting text below:</strong></p>
+  <p>This text uses the default amber selection — <span style="color:#ffb86c">rgba amber background, bright amber text</span>.</p>
+  <p class="select-green">This paragraph uses the green selection variant. Drag to select.</p>
+  <p class="select-cyan">This paragraph uses the cyan selection variant. Drag to select.</p>
+  <p class="select-magenta">This paragraph uses the magenta selection variant. Drag to select.</p>
+  <p class="select-solid">This one uses a solid accent background (minimalist_2 style).</p>
+  <p class="note">::selection only reliably supports background and color. Text-shadow is ignored by most browsers.</p>
+</div>
+</body>
+</html>

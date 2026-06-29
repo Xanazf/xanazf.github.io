@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bit: pulse-dot</title>
+<!-- category: components | source: minimalist_1 -->
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0d11;
+  color: #6b7585;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+/* === PULSE DOT ===
+   Inline status indicator that breathes in opacity and scale.
+   Combine with a colored box-shadow for a soft glow effect.
+   Swap the color vars for different states. */
+
+.status-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  animation: dot-pulse 2s ease-in-out infinite;
+}
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1;   transform: scale(1);    }
+  50%       { opacity: 0.4; transform: scale(0.8);  }
+}
+
+/* color variants */
+.dot-green   { background: #4ade80; box-shadow: 0 0 7px #4ade80; }
+.dot-amber   { background: #ffb86c; box-shadow: 0 0 7px #ffb86c; }
+.dot-cyan    { background: #67e8f9; box-shadow: 0 0 7px #67e8f9; }
+.dot-red     { background: #ef4444; box-shadow: 0 0 7px #ef4444; }
+.dot-magenta { background: #f472b6; box-shadow: 0 0 7px #f472b6; }
+
+/* offline — no animation, muted */
+.dot-off {
+  background: #2a303c;
+  box-shadow: none;
+  animation: none;
+}
+</style>
+</head>
+<body>
+
+<span class="status-item"><span class="dot dot-green"></span>online</span>
+<span class="status-item"><span class="dot dot-amber"></span>publishing</span>
+<span class="status-item"><span class="dot dot-cyan"></span>syncing</span>
+<span class="status-item"><span class="dot dot-red"></span>error</span>
+<span class="status-item"><span class="dot dot-magenta"></span>composing</span>
+<span class="status-item"><span class="dot dot-off"></span>offline</span>
+
+</body>
+</html>

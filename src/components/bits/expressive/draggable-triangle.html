@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bit: draggable-triangle</title>
+<!-- category: interactive | source: cool_1 -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0d0e14;
+  color: #f0ebe1;
+  font-family: 'Space Grotesk', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+/* === DRAGGABLE TRIANGLE ===
+   SVG triangle with three grab handles on vertices.
+   Side lengths, interior angles, area, perimeter and centroid are
+   recomputed every pointer-move via Heron's formula.
+   Angle arcs drawn at each vertex. Side labels offset outward from centroid.
+   All math works in SVG-pixel space — scale by a known unit to convert. */
+
+.wrap {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 24px;
+  max-width: 900px;
+  width: 100%;
+}
+
+.canvas-card {
+  background: #1a1d28;
+  border: 1px solid rgba(240,235,225,0.08);
+  border-radius: 20px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.canvas-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d4ff3a, transparent);
+  opacity: 0.4;
+}
+
+.card-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #6b6d7a;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.live-dot {
+  width: 7px; height: 7px;
+  background: #d4ff3a;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  margin-right: 8px;
+}
+.live-dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid #d4ff3a;
+  animation: ring 2s infinite;
+}
+@keyframes ring {
+  0%   { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2);   opacity: 0; }
+}
+
+.tri-svg {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  display: block;
+  cursor: crosshair;
+  touch-action: none;
+}
+.vertex-handle { cursor: grab; }
+.vertex-handle:hover { filter: drop-shadow(0 0 12px #d4ff3a); }
+.vertex-handle.dragging { cursor: grabbing; }
+
+.readout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.readout {
+  background: #21242f;
+  border: 1px solid rgba(240,235,225,0.08);
+  border-radius: 10px;
+  padding: 12px 14px;
+  transition: border-color 0.2s;
+}
+.readout:hover { border-color: rgba(240,235,225,0.18); }
+.readout-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #6b6d7a;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.readout-value {
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.unit {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #a8a496;
+  margin-left: 4px;
+}
+
+.classification {
+  background: linear-gradient(135deg, rgba(212,255,58,0.08), rgba(255,182,39,0.04));
+  border: 1px solid rgba(212,255,58,0.2);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.classification-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #d4ff3a;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.classification-value {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 19px;
+}
+
+@media (max-width: 600px) {
+  .wrap { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="canvas-card">
+    <div class="card-label">
+      <span><span class="live-dot"></span>SVG · draggable</span>
+      <span>click + drag any vertex</span>
+    </div>
+    <svg class="tri-svg" id="triSVG" viewBox="0 0 600 450">
+      <defs>
+        <pattern id="triGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+          <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(240,235,225,0.04)" stroke-width="1"/>
+        </pattern>
+        <linearGradient id="triFill" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stop-color="#d4ff3a" stop-opacity="0.18"/>
+          <stop offset="100%" stop-color="#d4ff3a" stop-opacity="0.04"/>
+        </linearGradient>
+      </defs>
+      <rect width="600" height="450" fill="url(#triGrid)"/>
+      <path id="triPath" fill="url(#triFill)" stroke="#d4ff3a" stroke-width="2" stroke-linejoin="round"/>
+      <g id="sideLabels"></g>
+      <g id="angleArcs"></g>
+      <circle id="centroid" r="4" fill="#ff5e62"/>
+      <text id="centroidLbl" font-family="JetBrains Mono" font-size="10" fill="#ff5e62" text-anchor="middle">G</text>
+      <g id="verts"></g>
+    </svg>
+  </div>
+
+  <div>
+    <div class="card-label" style="margin-bottom:14px;">
+      <span><span class="live-dot"></span>live readouts</span>
+      <span>heron's formula</span>
+    </div>
+    <div class="readout-grid">
+      <div class="readout">
+        <div class="readout-label">side a</div>
+        <div class="readout-value"><span id="sideA">—</span><span class="unit">px</span></div>
+      </div>
+      <div class="readout">
+        <div class="readout-label">side b</div>
+        <div class="readout-value"><span id="sideB">—</span><span class="unit">px</span></div>
+      </div>
+      <div class="readout">
+        <div class="readout-label">side c</div>
+        <div class="readout-value"><span id="sideC">—</span><span class="unit">px</span></div>
+      </div>
+      <div class="readout">
+        <div class="readout-label">perimeter</div>
+        <div class="readout-value"><span id="perim">—</span><span class="unit">px</span></div>
+      </div>
+      <div class="readout">
+        <div class="readout-label">∠A</div>
+        <div class="readout-value"><span id="angA">—</span><span class="unit">°</span></div>
+      </div>
+      <div class="readout">
+        <div class="readout-label">∠B</div>
+        <div class="readout-value"><span id="angB">—</span><span class="unit">°</span></div>
+      </div>
+      <div class="readout">
+        <div class="readout-label">∠C</div>
+        <div class="readout-value"><span id="angC">—</span><span class="unit">°</span></div>
+      </div>
+      <div class="readout">
+        <div class="readout-label">area</div>
+        <div class="readout-value" style="color:#d4ff3a"><span id="area">—</span><span class="unit">px²</span></div>
+      </div>
+    </div>
+    <div class="classification">
+      <div class="classification-label">classification</div>
+      <div class="classification-value" id="cls">— waiting —</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const svg  = document.getElementById('triSVG');
+const path = document.getElementById('triPath');
+const vertsG = document.getElementById('verts');
+const sideLabG = document.getElementById('sideLabels');
+const arcsG  = document.getElementById('angleArcs');
+const centEl = document.getElementById('centroid');
+const centLbl= document.getElementById('centroidLbl');
+const W = 600, H = 450;
+
+const tri = {
+  A: { x: 100, y: 100 },
+  B: { x: 500, y: 130 },
+  C: { x: 300, y: 400 }
+};
+
+const handles = {};
+['A','B','C'].forEach(k => {
+  const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  g.className.baseVal = 'vertex-handle';
+
+  const ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  ring.setAttribute('r', 18);
+  ring.setAttribute('fill', 'rgba(212,255,58,0.08)');
+  ring.setAttribute('stroke', '#d4ff3a');
+  ring.setAttribute('stroke-width', '1.5');
+
+  const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  dot.setAttribute('r', 6);
+  dot.setAttribute('fill', '#d4ff3a');
+
+  const lbl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  lbl.setAttribute('font-family', 'Fraunces, serif');
+  lbl.setAttribute('font-style', 'italic');
+  lbl.setAttribute('font-size', '20');
+  lbl.setAttribute('font-weight', '600');
+  lbl.setAttribute('fill', '#0d0e14');
+  lbl.setAttribute('text-anchor', 'middle');
+  lbl.setAttribute('dominant-baseline', 'central');
+  lbl.setAttribute('y', '1');
+  lbl.textContent = k;
+
+  g.appendChild(ring); g.appendChild(dot); g.appendChild(lbl);
+  vertsG.appendChild(g);
+  handles[k] = g;
+
+  g.addEventListener('mousedown',  startDrag(k, g));
+  g.addEventListener('touchstart', startDrag(k, g), { passive: false });
+});
+
+function startDrag(k, g) {
+  return e => {
+    e.preventDefault();
+    g.classList.add('dragging');
+    const rect = svg.getBoundingClientRect();
+    const sx = W / rect.width, sy = H / rect.height;
+    const onMove = ev => {
+      const cx = ev.touches ? ev.touches[0].clientX : ev.clientX;
+      const cy = ev.touches ? ev.touches[0].clientY : ev.clientY;
+      tri[k].x = Math.max(30, Math.min(W-30, (cx - rect.left) * sx));
+      tri[k].y = Math.max(30, Math.min(H-30, (cy - rect.top)  * sy));
+      render();
+    };
+    const onUp = () => {
+      g.classList.remove('dragging');
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+      document.removeEventListener('touchmove', onMove);
+      document.removeEventListener('touchend', onUp);
+    };
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+    document.addEventListener('touchmove', onMove, { passive: false });
+    document.addEventListener('touchend', onUp);
+  };
+}
+
+const dist = (p, q) => Math.hypot(q.x-p.x, q.y-p.y);
+const mid  = (p, q) => ({ x: (p.x+q.x)/2, y: (p.y+q.y)/2 });
+const fmt  = (n, d=1) => n.toFixed(d);
+
+function angleDeg(p, q1, q2) {
+  const [v1x,v1y] = [q1.x-p.x, q1.y-p.y];
+  const [v2x,v2y] = [q2.x-p.x, q2.y-p.y];
+  const dot = v1x*v2x + v1y*v2y;
+  const m1 = Math.hypot(v1x,v1y), m2 = Math.hypot(v2x,v2y);
+  if (m1<0.001||m2<0.001) return 0;
+  return Math.acos(Math.max(-1, Math.min(1, dot/(m1*m2)))) * 180/Math.PI;
+}
+
+function render() {
+  const { A, B, C } = tri;
+  path.setAttribute('d', `M${A.x} ${A.y} L${B.x} ${B.y} L${C.x} ${C.y} Z`);
+  ['A','B','C'].forEach(k => handles[k].setAttribute('transform', `translate(${tri[k].x},${tri[k].y})`));
+
+  const a = dist(B,C), b = dist(A,C), c = dist(A,B);
+  const angA = angleDeg(A,B,C), angB = angleDeg(B,A,C), angC = angleDeg(C,A,B);
+  const s = (a+b+c)/2;
+  const area = Math.sqrt(Math.max(0, s*(s-a)*(s-b)*(s-c)));
+
+  const gx = (A.x+B.x+C.x)/3, gy = (A.y+B.y+C.y)/3;
+  centEl.setAttribute('cx', gx); centEl.setAttribute('cy', gy);
+  centLbl.setAttribute('x', gx+12); centLbl.setAttribute('y', gy+4);
+
+  // Side labels
+  sideLabG.innerHTML = '';
+  [{ p1:B,p2:C,lbl:'a',val:a },{ p1:A,p2:C,lbl:'b',val:b },{ p1:A,p2:B,lbl:'c',val:c }].forEach(sd => {
+    const m = mid(sd.p1, sd.p2);
+    const dx = sd.p2.x-sd.p1.x, dy = sd.p2.y-sd.p1.y;
+    const len = Math.hypot(dx,dy);
+    const nx = -dy/len, ny = dx/len;
+    const dir = ((m.x-gx)*nx + (m.y-gy)*ny) >= 0 ? 1 : -1;
+    const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    t.setAttribute('x', m.x + nx*22*dir); t.setAttribute('y', m.y + ny*22*dir);
+    t.setAttribute('font-family', 'JetBrains Mono, monospace');
+    t.setAttribute('font-size', '13');
+    t.setAttribute('fill', '#a8a496');
+    t.setAttribute('text-anchor', 'middle');
+    t.setAttribute('dominant-baseline', 'central');
+    t.textContent = `${sd.lbl} = ${fmt(sd.val)}`;
+    sideLabG.appendChild(t);
+  });
+
+  // Angle arcs
+  arcsG.innerHTML = '';
+  [{ v:A,p1:B,p2:C },{ v:B,p1:A,p2:C },{ v:C,p1:A,p2:B }].forEach(ag => {
+    const a1 = Math.atan2(ag.p1.y-ag.v.y, ag.p1.x-ag.v.x);
+    const a2 = Math.atan2(ag.p2.y-ag.v.y, ag.p2.x-ag.v.x);
+    const r = 28, lo = Math.min(a1,a2), hi = Math.max(a1,a2);
+    const s1 = { x: ag.v.x + r*Math.cos(lo), y: ag.v.y + r*Math.sin(lo) };
+    const s2 = { x: ag.v.x + r*Math.cos(hi), y: ag.v.y + r*Math.sin(hi) };
+    const el = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    const large = (hi-lo) > Math.PI ? 1 : 0;
+    el.setAttribute('d', `M${s1.x} ${s1.y} A${r} ${r} 0 ${large} 1 ${s2.x} ${s2.y}`);
+    el.setAttribute('fill', 'none');
+    el.setAttribute('stroke', '#ffb627');
+    el.setAttribute('stroke-width', '1.5');
+    el.setAttribute('opacity', '0.6');
+    arcsG.appendChild(el);
+  });
+
+  // Readouts
+  document.getElementById('sideA').textContent = fmt(a);
+  document.getElementById('sideB').textContent = fmt(b);
+  document.getElementById('sideC').textContent = fmt(c);
+  document.getElementById('perim').textContent = fmt(a+b+c);
+  document.getElementById('angA').textContent = fmt(angA);
+  document.getElementById('angB').textContent = fmt(angB);
+  document.getElementById('angC').textContent = fmt(angC);
+  document.getElementById('area').textContent = fmt(area);
+
+  const tol = (v1,v2) => Math.abs(v1-v2) < 1.5;
+  const maxAng = Math.max(angA,angB,angC);
+  const side = tol(a,b)&&tol(b,c) ? 'equilateral' : (tol(a,b)||tol(b,c)||tol(a,c) ? 'isosceles' : 'scalene');
+  const ang  = Math.abs(maxAng-90)<1.5 ? 'right' : maxAng>90 ? 'obtuse' : 'acute';
+  document.getElementById('cls').textContent = `${side} · ${ang} triangle`;
+}
+
+render();
+</script>
+</body>
+</html>

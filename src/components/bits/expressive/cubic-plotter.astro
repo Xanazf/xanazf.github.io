@@ -1,0 +1,514 @@
+---
+/**
+ * === CUBIC POLYNOMIAL PLOTTER ===
+ * SVG plot of f(x) = ax³ + bx² + cx + d over x ∈ [-5, 5].
+ * Four range sliders control the coefficients in real time.
+ * Colored points mark the y-intercept, real roots, and critical points.
+ * The area under the curve (above y=0) is shaded.
+ * Swap xMin/xMax/yMin/yMax to change the viewport domain.
+ */
+---
+
+<!-- category: interactive | source: cool_1 -->
+<body>
+  <div class="wrap">
+    <div class="canvas-card">
+      <div class="card-label">
+        <span><span class="live-dot"></span>f(x) = ax³ + bx² + cx + d</span>
+        <span>x ∈ [−5, 5]</span>
+      </div>
+      <svg class="plot-svg" id="plotSVG" viewBox="0 0 600 450">
+        <defs>
+          <linearGradient id="curveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#ff5e62" />
+            <stop offset="50%" stop-color="#ffb627" />
+            <stop offset="100%" stop-color="#d4ff3a" />
+          </linearGradient>
+          <filter id="cGlow">
+            <feGaussianBlur stdDeviation="2.5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        <g id="plotGrid"></g>
+        <g id="plotAxes"></g>
+        <path id="curveFill" fill="rgba(212,255,58,0.05)" />
+        <path
+          id="curvePath"
+          fill="none"
+          stroke="url(#curveGrad)"
+          stroke-width="2.5"
+          stroke-linejoin="round"
+          stroke-linecap="round"
+          filter="url(#cGlow)"
+        />
+        <g id="plotPts"></g>
+      </svg>
+    </div>
+
+    <div>
+      <div class="card-label" style="margin-bottom:14px;">
+        <span><span class="live-dot"></span>parameters</span>
+        <span>range [−2, 2]</span>
+      </div>
+      <div class="eq-display" id="eqDisplay">
+        <span class="n">0</span><span class="v">x</span>³
+        <span class="op">+</span><span class="n">0</span
+        ><span class="v">x</span>²
+        <span class="op">+</span><span class="n">0</span
+        ><span class="v">x</span>
+        <span class="op">+</span><span class="n">0</span>
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-header">
+          <span class="slider-label">cubic term <span class="v">a</span></span>
+          <span class="slider-val" id="vA">0.30</span>
+        </div>
+        <input type="range" id="sA" min="-1" max="1" step="0.05" value="0.3">
+      </div>
+      <div class="slider-row">
+        <div class="slider-header">
+          <span class="slider-label"
+            >quadratic term <span class="v">b</span></span
+          >
+          <span class="slider-val" id="vB">−0.50</span>
+        </div>
+        <input type="range" id="sB" min="-2" max="2" step="0.05" value="-0.5">
+      </div>
+      <div class="slider-row">
+        <div class="slider-header">
+          <span class="slider-label">linear term <span class="v">c</span></span>
+          <span class="slider-val" id="vC">−1.50</span>
+        </div>
+        <input type="range" id="sC" min="-3" max="3" step="0.05" value="-1.5">
+      </div>
+      <div class="slider-row">
+        <div class="slider-header">
+          <span class="slider-label">constant <span class="v">d</span></span>
+          <span class="slider-val" id="vD">1.00</span>
+        </div>
+        <input type="range" id="sD" min="-3" max="3" step="0.05" value="1">
+      </div>
+
+      <div class="feature-list">
+        <div class="fi">
+          <span class="lbl">y-intercept</span><span id="yInt">1.00</span>
+        </div>
+        <div class="fi">
+          <span class="lbl">discriminant</span><span id="disc">—</span>
+        </div>
+        <div class="fi">
+          <span class="lbl">real roots</span><span id="roots">—</span>
+        </div>
+        <div class="fi">
+          <span class="lbl">critical pts</span><span id="crits">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script>
+  const xMin = -5,
+    xMax = 5,
+    yMin = -5,
+    yMax = 5;
+  const PW = 600,
+    PH = 450,
+    pL = 40,
+    pR = 20,
+    pT = 20,
+    pB = 40;
+  const pw = PW - pL - pR,
+    ph = PH - pT - pB;
+  const sx = x => pL + ((x - xMin) / (xMax - xMin)) * pw;
+  const sy = y => pT + (1 - (y - yMin) / (yMax - yMin)) * ph;
+
+  const plotGrid = document.getElementById("plotGrid");
+  const plotAxes = document.getElementById("plotAxes");
+  const curvePath = document.getElementById("curvePath");
+  const curveFill = document.getElementById("curveFill");
+  const plotPts = document.getElementById("plotPts");
+
+  function mkLine(g, x1, y1, x2, y2, stroke, w = 1) {
+    const l = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    [
+      ["x1", x1],
+      ["y1", y1],
+      ["x2", x2],
+      ["y2", y2],
+      ["stroke", stroke],
+      ["stroke-width", w],
+    ].forEach(([k, v]) => l.setAttribute(k, v));
+    g.appendChild(l);
+    return l;
+  }
+  function mkText(g, x, y, txt, anchor = "middle") {
+    const t = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    t.setAttribute("x", x);
+    t.setAttribute("y", y);
+    t.setAttribute("font-family", "JetBrains Mono, monospace");
+    t.setAttribute("font-size", "10");
+    t.setAttribute("fill", "#6b6d7a");
+    t.setAttribute("text-anchor", anchor);
+    t.textContent = txt;
+    g.appendChild(t);
+  }
+
+  function buildGrid() {
+    plotGrid.innerHTML = "";
+    plotAxes.innerHTML = "";
+    for (let x = xMin; x <= xMax; x++) {
+      const lx = sx(x);
+      mkLine(
+        plotGrid,
+        lx,
+        pT,
+        lx,
+        pT + ph,
+        x === 0 ? "rgba(240,235,225,0.25)" : "rgba(240,235,225,0.06)",
+        x === 0 ? 1.5 : 1
+      );
+      if (x !== 0) mkText(plotAxes, lx, pT + ph + 16, x);
+    }
+    for (let y = yMin; y <= yMax; y++) {
+      const ly = sy(y);
+      mkLine(
+        plotGrid,
+        pL,
+        ly,
+        pL + pw,
+        ly,
+        y === 0 ? "rgba(240,235,225,0.25)" : "rgba(240,235,225,0.06)",
+        y === 0 ? 1.5 : 1
+      );
+      if (y !== 0) mkText(plotAxes, pL - 8, ly + 3, y, "end");
+    }
+    mkText(plotAxes, sx(0) - 8, sy(0) + 16, "0", "end");
+  }
+  buildGrid();
+
+  const C = { a: 0.3, b: -0.5, c: -1.5, d: 1 };
+  const f = x => C.a * x ** 3 + C.b * x ** 2 + C.c * x + C.d;
+
+  function fmtN(n) {
+    return (n >= 0 ? "+" : "−") + Math.abs(n).toFixed(2);
+  }
+
+  function mkCircle(g, cx, cy, r, fill) {
+    const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    [
+      ["cx", cx],
+      ["cy", cy],
+      ["r", r],
+      ["fill", fill],
+      ["stroke", "#0d0e14"],
+      ["stroke-width", "2"],
+    ].forEach(([k, v]) => c.setAttribute(k, v));
+    g.appendChild(c);
+  }
+
+  function draw() {
+    let path = "",
+      fillD = "";
+    const pts = [];
+    for (let px = 0; px <= pw; px++) {
+      const x = xMin + (px / pw) * (xMax - xMin);
+      const y = f(x),
+        py = sy(y),
+        pxx = sx(x);
+      pts.push({ x, y, px: pxx, py });
+      if (py >= pT - 50 && py <= pT + ph + 50) {
+        path += path
+          ? `L${pxx.toFixed(1)} ${py.toFixed(1)} `
+          : `M${pxx.toFixed(1)} ${py.toFixed(1)} `;
+      }
+    }
+    curvePath.setAttribute("d", path);
+
+    // Shade area above x-axis
+    let inFill = false;
+    pts.forEach((p, i) => {
+      if (p.y >= 0 && p.y <= yMax + 2) {
+        if (!inFill) {
+          fillD += `M${p.px.toFixed(1)} ${sy(0).toFixed(1)} L${p.px.toFixed(1)} ${p.py.toFixed(1)} `;
+          inFill = true;
+        } else fillD += `L${p.px.toFixed(1)} ${p.py.toFixed(1)} `;
+      } else if (inFill) {
+        fillD += `L${pts[i - 1].px.toFixed(1)} ${sy(0).toFixed(1)} Z `;
+        inFill = false;
+      }
+    });
+    if (inFill) fillD += `L${pts.at(-1).px.toFixed(1)} ${sy(0).toFixed(1)} Z`;
+    curveFill.setAttribute("d", fillD);
+
+    // Equation display
+    document.getElementById("eqDisplay").innerHTML =
+      `<span class="n">${C.a.toFixed(2)}</span><span class="v">x</span>³ ` +
+      `<span class="op">${fmtN(C.b)}</span><span class="v">x</span>² ` +
+      `<span class="op">${fmtN(C.c)}</span><span class="v">x</span> ` +
+      `<span class="op">${fmtN(C.d)}</span>`;
+
+    // Roots via sign change
+    const roots = [];
+    let py0 = f(xMin);
+    for (let i = 1; i <= 200; i++) {
+      const x = xMin + (i / 200) * (xMax - xMin),
+        y = f(x);
+      if (py0 * y < 0)
+        roots.push(x - ((x - (xMax - xMin) / 200) * y) / (y - py0));
+      py0 = y;
+    }
+
+    // Critical points (derivative = 3ax²+2bx+c)
+    const dA = 3 * C.a,
+      dB = 2 * C.b,
+      dC = C.c;
+    const disc2 = dB * dB - 4 * dA * dC;
+    let crits = [];
+    if (Math.abs(dA) < 0.001) {
+      if (Math.abs(dB) > 0.001) crits.push(-dC / dB);
+    } else if (disc2 > 0) {
+      const sq = Math.sqrt(disc2);
+      crits.push((-dB + sq) / (2 * dA), (-dB - sq) / (2 * dA));
+    }
+    crits = crits.filter(x => x >= xMin && x <= xMax);
+
+    plotPts.innerHTML = "";
+    mkCircle(plotPts, sx(0), sy(C.d), 5, "#ffb627");
+    roots.forEach(r => {
+      if (r >= xMin && r <= xMax) mkCircle(plotPts, sx(r), sy(0), 5, "#d4ff3a");
+    });
+    crits.forEach(cx => {
+      const cy = f(cx);
+      if (cy >= yMin && cy <= yMax)
+        mkCircle(plotPts, sx(cx), sy(cy), 5, "#ff5e62");
+    });
+
+    const qDisc = C.c * C.c - 4 * C.b * C.d;
+    document.getElementById("yInt").textContent = C.d.toFixed(2);
+    document.getElementById("disc").textContent =
+      qDisc.toFixed(2) + (qDisc < 0 ? "i" : "");
+    document.getElementById("roots").textContent = roots.length
+      ? roots.map(r => r.toFixed(2)).join(", ")
+      : "none in view";
+    document.getElementById("crits").textContent = crits.length
+      ? crits.map(c => c.toFixed(2)).join(", ")
+      : "none";
+  }
+
+  [
+    ["A", "sA", "vA"],
+    ["B", "sB", "vB"],
+    ["C", "sC", "vC"],
+    ["D", "sD", "vD"],
+  ].forEach(([k, sid, vid]) => {
+    document.getElementById(sid).addEventListener("input", function () {
+      C[k.toLowerCase()] = parseFloat(this.value);
+      const display =
+        this.value < 0
+          ? "−" + Math.abs(+this.value).toFixed(2)
+          : (+this.value).toFixed(2);
+      document.getElementById(vid).textContent = display;
+      draw();
+    });
+  });
+
+  draw();
+</script>
+<style>
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    background: #0d0e14;
+    color: #f0ebe1;
+    font-family: "Space Grotesk", sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .wrap {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 24px;
+    max-width: 900px;
+    width: 100%;
+  }
+  .canvas-card {
+    background: #1a1d28;
+    border: 1px solid rgba(240, 235, 225, 0.08);
+    border-radius: 20px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .canvas-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #d4ff3a, transparent);
+    opacity: 0.4;
+  }
+  .card-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: #6b6d7a;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .live-dot {
+    width: 7px;
+    height: 7px;
+    background: #d4ff3a;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    margin-right: 8px;
+  }
+  .live-dot::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1.5px solid #d4ff3a;
+    animation: ring 2s infinite;
+  }
+  @keyframes ring {
+    0% {
+      transform: scale(0.8);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+  .plot-svg {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    display: block;
+    background: #15171f;
+    border-radius: 12px;
+  }
+
+  .eq-display {
+    background: #21242f;
+    border: 1px solid rgba(240, 235, 225, 0.08);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: "Fraunces", serif;
+    font-size: 19px;
+  }
+  .eq-display .n {
+    color: #d4ff3a;
+    font-weight: 600;
+  }
+  .eq-display .op {
+    color: #a8a496;
+    margin: 0 3px;
+  }
+  .eq-display .v {
+    font-style: italic;
+  }
+
+  .slider-row {
+    margin-bottom: 18px;
+  }
+  .slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .slider-label {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 17px;
+  }
+  .slider-label .v {
+    color: #d4ff3a;
+    font-weight: 600;
+  }
+  .slider-val {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 14px;
+  }
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: #21242f;
+    border-radius: 2px;
+    outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #d4ff3a;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid #1a1d28;
+    box-shadow:
+      0 0 0 1px #d4ff3a,
+      0 0 14px rgba(212, 255, 58, 0.6);
+    transition: transform 0.15s;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    background: #d4ff3a;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid #1a1d28;
+  }
+
+  .feature-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+  }
+  .fi {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 10px;
+    background: #21242f;
+    border-radius: 6px;
+    border-left: 2px solid #d4ff3a;
+  }
+  .fi .lbl {
+    color: #6b6d7a;
+  }
+
+  @media (max-width: 640px) {
+    .wrap {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

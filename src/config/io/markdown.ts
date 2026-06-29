@@ -1,17 +1,26 @@
 import { remarkAlert } from "remark-github-blockquote-alert";
-import type { AstroMarkdownOptions } from "@astrojs/markdown-remark";
-import { rehypeShiki } from "@astrojs/markdown-remark";
+import type { AstroUserConfig } from "astro";
+import {
+  rehypeShiki,
+  unified,
+  rehypeHeadingIds,
+} from "@astrojs/markdown-remark";
 
-export const markdownConfig: AstroMarkdownOptions = {
+const markdownConfig: AstroUserConfig["markdown"] = {
   syntaxHighlight: false,
-  remarkPlugins: [[remarkAlert, { legacyTitle: true }]],
-  rehypePlugins: [
-    [
-      rehypeShiki,
-      {
-        theme: "synthwave-84",
-        wrap: true,
-      },
+  processor: unified({
+    remarkPlugins: [[remarkAlert, { legacyTitle: true }]],
+    rehypePlugins: [
+      rehypeHeadingIds,
+      [
+        rehypeShiki,
+        {
+          theme: "synthwave-84",
+          wrap: true,
+        },
+      ],
     ],
-  ],
+  }),
 };
+
+export { markdownConfig };

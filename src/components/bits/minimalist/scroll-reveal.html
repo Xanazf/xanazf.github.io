@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bit: scroll-reveal</title>
+<!-- category: animation | source: minimalist_2 -->
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0c0b09;
+  color: #f0ead6;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* === SCROLL REVEAL ===
+   Elements start invisible and 30px below their final position.
+   IntersectionObserver adds .visible once 12% of the element enters
+   the viewport (with an 80px bottom margin so it fires before the bottom edge).
+   The observer stops watching after the first trigger — one-shot reveal. */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity   0.9s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger children with --delay CSS custom property */
+.reveal[style*="--delay"] {
+  transition-delay: var(--delay, 0ms);
+}
+
+/* demo */
+.page { max-width: 600px; margin: 0 auto; padding: 40px 24px 200px; }
+.hero { min-height: 60vh; display: flex; align-items: center; }
+.hero h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.04em; }
+.hero p  { color: #6b6358; margin-top: 8px; font-size: 12px; }
+.card {
+  border: 1px solid rgba(240,234,214,0.08);
+  border-radius: 4px;
+  padding: 24px;
+  margin-bottom: 16px;
+  background: #14120e;
+}
+.card h2 { font-size: 1.1rem; color: #f59e0b; margin-bottom: 6px; }
+.card p  { color: #8a8275; }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="hero">
+    <div>
+      <h1>scroll down</h1>
+      <p>cards reveal as they enter the viewport</p>
+    </div>
+  </div>
+
+  <div class="card reveal">
+    <h2>first card</h2>
+    <p>This reveals as soon as it enters the viewport.</p>
+  </div>
+
+  <div class="card reveal" style="--delay: 100ms">
+    <h2>second card</h2>
+    <p>This one is delayed by 100ms via CSS custom property.</p>
+  </div>
+
+  <div class="card reveal" style="--delay: 200ms">
+    <h2>third card</h2>
+    <p>200ms delay — creates a stagger effect on grouped elements.</p>
+  </div>
+
+  <div class="card reveal" style="--delay: 300ms">
+    <h2>fourth card</h2>
+    <p>Reveal fires once. The observer unobserves after the first trigger.</p>
+  </div>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);  // one-shot
+    }
+  });
+}, {
+  threshold: 0.12,
+  rootMargin: '0px 0px -80px 0px',
+});
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

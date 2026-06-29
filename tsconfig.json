@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "paths": {
@@ -21,5 +20,6 @@
     ],
     "verbatimModuleSyntax": true
   },
+  "exclude": ["src/components/bits"],
   "extends": "astro/tsconfigs/strict"
 }

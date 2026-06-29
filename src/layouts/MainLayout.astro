@@ -1,6 +1,6 @@
 ---
 import Head from "@config/Head.astro";
-import Header from "@components/sections/header/Header.astro";
+import Header from "@components/Header.astro";
 import ThreeBackground from "@components/ThreeBackground.astro";
 import type { LayoutProps } from "@config/_types/ComponentTypes";
 import "@styles/global.css";
@@ -14,17 +14,19 @@ const { title, description } = Astro.props;
     <Head description={description} title={title} />
   </head>
   <body class="bg-transparent color-onbackground">
-    <ThreeBackground />
+    <div class="rim" id="rim" />
     <div
       class="baselayout z-0 baselayout-responsive"
       style="margin: 0 auto; min-height: 100svh;"
     >
-      <div class="viewport relative z-1 bg-transparent" style="min-height: max-content;">
-        <Header />
-        <div class="hr-neon" />
+      <div
+        class="viewport relative z-1 bg-transparent"
+        style="min-height: max-content;"
+      >
         <main class="z-2 h-full overflow-y-scroll"><slot /></main>
       </div>
     </div>
+    <Header />
   </body>
 </html>
 

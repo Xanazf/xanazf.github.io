@@ -20,17 +20,9 @@
   text-wrap: balanced;
 }
 
-.header {
-  &::before {
-    position: absolute;
-    inset: 0;
-    left: -1rem;
-    right: -1rem;
-    content: "";
-    background-color: hsla(0 3 6 / 0.45);
-    background-image: radial-gradient(transparent, #000000f0);
-    backdrop-filter: blur(12px);
-    border-radius: 1rem;
-    z-index: 0;
-  }
+.rim {
+  position: absolute;
+  inset: 0;
+  width: 3px;
+  background-color: hsla(0 3 6 / 0.45);
 }

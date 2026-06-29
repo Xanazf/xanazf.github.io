@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bit: step-reveal</title>
+<!-- category: interactive | source: cool_1 -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,400&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0d0e14;
+  color: #f0ebe1;
+  font-family: 'Space Grotesk', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  gap: 24px;
+}
+
+/* === STEP REVEAL ===
+   A "next step" button progressively unveils numbered steps with a slide-in
+   animation. A vertical rule with numbered circle markers connects the steps.
+   The final step's circle fills with the accent color.
+   Swap stepsData to reuse for any sequential walkthrough. */
+
+.problem-card {
+  width: 100%;
+  max-width: 700px;
+  background: linear-gradient(135deg, #1a1d28, #15171f);
+  border: 1px solid rgba(240,235,225,0.08);
+  border-radius: 20px;
+  padding: 36px;
+  position: relative;
+  overflow: hidden;
+}
+.problem-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #d4ff3a, #ffb627, #ff5e62);
+}
+.problem-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #d4ff3a;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.problem-text {
+  font-family: 'Fraunces', serif;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.problem-sub {
+  color: #a8a496;
+  font-size: 14px;
+}
+
+.steps-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  padding-left: 0;
+}
+.steps-wrap::before {
+  content: '';
+  position: absolute;
+  left: 19px; top: 20px; bottom: 20px;
+  width: 1px;
+  background: rgba(240,235,225,0.08);
+}
+
+.step {
+  position: relative;
+  padding-left: 56px;
+  padding-bottom: 24px;
+  opacity: 0;
+  transform: translateX(-12px);
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.6s ease, transform 0.6s ease, max-height 0.6s ease, padding 0.6s ease;
+}
+.step.revealed {
+  opacity: 1;
+  transform: translateX(0);
+  max-height: 300px;
+}
+
+.step-num {
+  position: absolute;
+  left: 0; top: 0;
+  width: 40px; height: 40px;
+  background: #1a1d28;
+  border: 2px solid #d4ff3a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: #d4ff3a;
+  z-index: 1;
+}
+.step.final .step-num {
+  background: #d4ff3a;
+  color: #0d0e14;
+}
+
+.step-title {
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #f0ebe1;
+}
+.step-expr {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  color: #d4ff3a;
+  background: #1a1d28;
+  padding: 10px 14px;
+  border-radius: 8px;
+  display: inline-block;
+  margin-bottom: 6px;
+  border: 1px solid rgba(240,235,225,0.08);
+}
+.step-note {
+  font-size: 13px;
+  color: #a8a496;
+  font-style: italic;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.reveal-btn {
+  background: #d4ff3a;
+  color: #0d0e14;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+.reveal-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -10px #d4ff3a; }
+.reveal-btn:disabled {
+  background: #21242f;
+  color: #6b6d7a;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.reset-btn {
+  background: transparent;
+  color: #a8a496;
+  border: 1px solid rgba(240,235,225,0.18);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.reset-btn:hover { color: #f0ebe1; border-color: #a8a496; }
+</style>
+</head>
+<body>
+
+<div class="problem-card">
+  <div class="problem-tag">Worked example · Quadratic Formula</div>
+  <div class="problem-text">Solve 2<em>x</em>² − 5<em>x</em> − 3 = 0</div>
+  <div class="problem-sub">Tap "next step" to walk through the derivation.</div>
+</div>
+
+<div class="steps-wrap" id="stepsList"></div>
+
+<div class="controls">
+  <button class="reveal-btn" id="revealBtn">
+    <span id="revealTxt">Reveal step 1</span>
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+      <path d="M6 1v10M1 6l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <button class="reset-btn" id="resetBtn">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="margin-right:6px">
+      <path d="M1 6a5 5 0 1 0 1.5-3.5L1 1v3h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Reset
+  </button>
+</div>
+
+<script>
+const steps = [
+  {
+    title: "Start with the equation in standard form",
+    expr:  "2x² − 5x − 3 = 0",
+    note:  "Already in ax² + bx + c = 0 form, so we can read off coefficients directly."
+  },
+  {
+    title: "Identify the coefficients",
+    expr:  "a = 2,  b = −5,  c = −3",
+    note:  "These three numbers are everything the quadratic formula needs."
+  },
+  {
+    title: "Recall the quadratic formula",
+    expr:  "x = (−b ± √(b² − 4ac)) / 2a",
+    note:  "Derived by completing the square on the general form."
+  },
+  {
+    title: "Substitute the values",
+    expr:  "x = (5 ± √(25 + 24)) / 4",
+    note:  "−b = −(−5) = 5;  b² − 4ac = 25 − 4(2)(−3) = 25 + 24."
+  },
+  {
+    title: "Simplify under the radical",
+    expr:  "x = (5 ± √49) / 4",
+    note:  "Discriminant = 49 — a perfect square, so both roots are rational."
+  },
+  {
+    title: "Take the square root",
+    expr:  "x = (5 ± 7) / 4",
+    note:  "√49 = 7. The ± splits into two parallel calculations."
+  },
+  {
+    title: "Compute both solutions",
+    expr:  "x = 12/4 = 3   or   x = −2/4 = −½",
+    note:  "The parabola y = 2x² − 5x − 3 crosses the x-axis at x = 3 and x = −½.",
+    final: true
+  }
+];
+
+const list = document.getElementById('stepsList');
+const btn  = document.getElementById('revealBtn');
+const txt  = document.getElementById('revealTxt');
+const rst  = document.getElementById('resetBtn');
+
+steps.forEach((s, i) => {
+  const div = document.createElement('div');
+  div.className = 'step' + (s.final ? ' final' : '');
+  div.innerHTML = `
+    <div class="step-num">${i+1}</div>
+    <div class="step-title">${s.title}</div>
+    <div class="step-expr">${s.expr}</div>
+    ${s.note ? `<div class="step-note">${s.note}</div>` : ''}
+  `;
+  list.appendChild(div);
+});
+
+let revealed = 0;
+const stepEls = list.querySelectorAll('.step');
+
+function revealNext() {
+  if (revealed >= steps.length) return;
+  stepEls[revealed].classList.add('revealed');
+  revealed++;
+  setTimeout(() => stepEls[revealed-1].scrollIntoView({ behavior:'smooth', block:'center' }), 100);
+  if (revealed === steps.length) {
+    btn.disabled = true;
+    txt.textContent = 'Solution complete';
+  } else {
+    txt.textContent = `Reveal step ${revealed+1}`;
+  }
+}
+
+function reset() {
+  revealed = 0;
+  stepEls.forEach(s => s.classList.remove('revealed'));
+  btn.disabled = false;
+  txt.textContent = 'Reveal step 1';
+}
+
+btn.addEventListener('click', revealNext);
+rst.addEventListener('click', reset);
+</script>
+</body>
+</html>

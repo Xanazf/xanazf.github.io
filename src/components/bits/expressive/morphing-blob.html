@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bit: morphing-blob</title>
+<!-- category: animation | source: cool_1 -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0d0e14;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* === MORPHING BLOB ===
+   N vertices revolve at varying radii driven by layered sin/cos terms.
+   catmull-rom splines connect them for a smooth organic outline.
+   Three time-offset ghost paths give trailing depth.
+   Mouse position pushes the center, making the blob react to the cursor.
+   Swap strokeGrad stops and blobGrad color for different palettes. */
+
+.blob-wrap {
+  position: relative;
+  width: 500px;
+  height: 500px;
+}
+.blob-svg { width: 100%; height: 100%; display: block; }
+
+.float-sym {
+  position: absolute;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  opacity: 0.2;
+  pointer-events: none;
+  user-select: none;
+}
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-14px); }
+}
+</style>
+</head>
+<body>
+
+<div class="blob-wrap">
+  <svg class="blob-svg" viewBox="0 0 500 500" id="blobSvg">
+    <defs>
+      <radialGradient id="blobFill" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="#d4ff3a" stop-opacity="0.35"/>
+        <stop offset="60%"  stop-color="#d4ff3a" stop-opacity="0.08"/>
+        <stop offset="100%" stop-color="#d4ff3a" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="strokeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%"   stop-color="#d4ff3a"/>
+        <stop offset="50%"  stop-color="#ffb627"/>
+        <stop offset="100%" stop-color="#ff5e62"/>
+      </linearGradient>
+      <filter id="glow">
+        <feGaussianBlur stdDeviation="3" result="blur"/>
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+
+    <!-- crosshair -->
+    <line x1="250" y1="20"  x2="250" y2="480" stroke="rgba(240,235,225,0.06)" stroke-dasharray="2 6"/>
+    <line x1="20"  y1="250" x2="480" y2="250" stroke="rgba(240,235,225,0.06)" stroke-dasharray="2 6"/>
+
+    <!-- ghost trails (time-offset copies) -->
+    <path id="g3" fill="none" stroke="rgba(212,255,58,0.08)" stroke-width="1" stroke-dasharray="1 4"/>
+    <path id="g2" fill="none" stroke="rgba(212,255,58,0.12)" stroke-width="1"/>
+    <path id="g1" fill="none" stroke="rgba(212,255,58,0.2)"  stroke-width="1"/>
+
+    <!-- main shape -->
+    <path id="fill"   fill="url(#blobFill)"/>
+    <path id="stroke" fill="none" stroke="url(#strokeGrad)" stroke-width="2" filter="url(#glow)"/>
+
+    <!-- vertex dots -->
+    <g id="verts"></g>
+
+    <!-- center crosshair -->
+    <circle cx="250" cy="250" r="3"  fill="#d4ff3a"/>
+    <circle cx="250" cy="250" r="8"  fill="none" stroke="#d4ff3a" stroke-opacity="0.4"/>
+  </svg>
+
+  <span class="float-sym" style="top:10%;right:0;font-size:42px;color:#d4ff3a;animation:floatY 9s ease-in-out infinite;">∫</span>
+  <span class="float-sym" style="bottom:20%;left:-2%;font-size:36px;color:#ff5e62;animation:floatY 7s ease-in-out infinite reverse;">π</span>
+  <span class="float-sym" style="top:50%;right:-4%;font-size:28px;color:#ffb627;animation:floatY 11s ease-in-out infinite;">∑</span>
+</div>
+
+<script>
+const N = 12;
+const svg    = document.getElementById('blobSvg');
+const fill   = document.getElementById('fill');
+const stroke = document.getElementById('stroke');
+const g1 = document.getElementById('g1');
+const g2 = document.getElementById('g2');
+const g3 = document.getElementById('g3');
+const vertsG = document.getElementById('verts');
+
+const dots = Array.from({ length: N }, () => {
+  const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  c.setAttribute('fill', '#d4ff3a');
+  c.setAttribute('opacity', '0.9');
+  vertsG.appendChild(c);
+  return c;
+});
+
+function catmull(pts) {
+  const n = pts.length;
+  let d = '';
+  for (let i = 0; i < n; i++) {
+    const p0 = pts[(i-1+n)%n], p1 = pts[i], p2 = pts[(i+1)%n], p3 = pts[(i+2)%n];
+    if (i === 0) d += `M${p1[0].toFixed(1)},${p1[1].toFixed(1)} `;
+    d += `C${(p1[0]+(p2[0]-p0[0])/6).toFixed(1)},${(p1[1]+(p2[1]-p0[1])/6).toFixed(1)} `;
+    d += `${(p2[0]-(p3[0]-p1[0])/6).toFixed(1)},${(p2[1]-(p3[1]-p1[1])/6).toFixed(1)} `;
+    d += `${p2[0].toFixed(1)},${p2[1].toFixed(1)} `;
+  }
+  return d + 'Z';
+}
+
+let mx = 0, my = 0;
+svg.addEventListener('mousemove', e => {
+  const r = svg.getBoundingClientRect();
+  mx = ((e.clientX - r.left) / r.width  - 0.5) * 30;
+  my = ((e.clientY - r.top)  / r.height - 0.5) * 30;
+});
+svg.addEventListener('mouseleave', () => { mx = 0; my = 0; });
+
+const t0 = performance.now();
+(function frame() {
+  const t = (performance.now() - t0) / 1000;
+  const cx = 250 + mx, cy = 250 + my, R = 150;
+
+  function pts(dt) {
+    return Array.from({ length: N }, (_, i) => {
+      const a = (i / N) * Math.PI * 2;
+      const r = R
+        + Math.sin((t+dt)*0.7 + i*0.9) * 32
+        + Math.cos((t+dt)*0.5 + i*1.7) * 22
+        + Math.sin((t+dt)*1.1 + i*0.3) * 12;
+      return [cx + Math.cos(a)*r, cy + Math.sin(a)*r];
+    });
+  }
+
+  const main = pts(0);
+  const path = catmull(main);
+  fill.setAttribute('d', path);
+  stroke.setAttribute('d', path);
+  g1.setAttribute('d', catmull(pts(-0.3)));
+  g2.setAttribute('d', catmull(pts(-0.6)));
+  g3.setAttribute('d', catmull(pts(-0.9)));
+
+  main.forEach((p, i) => {
+    dots[i].setAttribute('cx', p[0]);
+    dots[i].setAttribute('cy', p[1]);
+    dots[i].setAttribute('r', Math.max(1.5, 2 + Math.sin(t*2+i)*1.5));
+  });
+
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

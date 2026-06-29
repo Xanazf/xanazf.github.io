@@ -1,0 +1,57 @@
+---
+import { Icon } from "astro-icon/components";
+
+import Nav from "@components/nav/Nav.astro";
+import Console from "@components/nav/Console.astro";
+---
+
+<header id="header" class="header flex mx-auto rounded-lg header-responsive">
+  <div class="left-section">
+    <Console />
+  </div>
+  <div class="right-section">
+    <div class="flex justify-center items-center">
+      <Icon name="xnzf-logo" />
+    </div>
+    <Nav />
+  </div>
+</header>
+
+<style>
+  .header-responsive {
+    height: max-content;
+    width: max-content;
+  }
+  header.header {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 0;
+    padding-inline: 1rem;
+  }
+  .left-section {
+    width: 50%;
+  }
+  .right-section {
+    width: 50%;
+    display: flex;
+    z-index: 1;
+    &::before {
+      position: absolute;
+      inset: 0;
+      left: -1rem;
+      right: -1rem;
+      content: "";
+      background-color: hsla(0 3 6 / 0.45);
+      background-image: radial-gradient(transparent 20%, #000000f0);
+      backdrop-filter: blur(12px);
+      z-index: 0;
+      border-radius: 1rem 0 0 0;
+    }
+  }
+  @media (min-width: 65rem) {
+  }
+</style>

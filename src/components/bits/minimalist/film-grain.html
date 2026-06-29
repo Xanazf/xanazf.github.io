@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bit: film-grain</title>
+<!-- category: overlays | source: minimalist_1 -->
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0d11;
+  color: #d8d4ce;
+  font-family: ui-monospace, monospace;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* === FILM GRAIN ===
+   SVG fractalNoise tiled as a fixed overlay.
+
+   Blend mode choice matters:
+   - Dark backgrounds  → mix-blend-mode: screen   (grain shows as bright speckles)
+   - Light backgrounds → mix-blend-mode: multiply  (grain shows as dark speckles)
+   - Colorful content  → mix-blend-mode: overlay   (grain lightens lights, darkens darks)
+
+   On a near-black background, overlay multiplies against ~0 and disappears.
+   Use screen on dark themes; opacity 0.15–0.35 for clearly visible grain. */
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.5'/></svg>");
+  mix-blend-mode: screen;
+  opacity: 0.18;
+}
+
+/* demo */
+.demo { text-align: center; }
+.swatch {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 40px 60px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+.swatch-dark  { background: #0a0d11; color: #ffb86c; }
+.swatch-mid   { background: #2a303c; color: #d8d4ce; }
+.swatch-label { font-size: 10px; opacity: 0.5; letter-spacing: 0.08em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<div class="demo" style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+  <div class="swatch swatch-dark">
+    <span>film grain</span>
+    <span class="swatch-label">dark bg · screen</span>
+  </div>
+  <div class="swatch swatch-mid">
+    <span>film grain</span>
+    <span class="swatch-label">mid bg · screen</span>
+  </div>
+</div>
+</body>
+</html>
